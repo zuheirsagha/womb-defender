@@ -14,10 +14,9 @@ enum SpermType {
 }
 
 // First red will be darker, second will be lighter, to show less damage
-enum SpermColor {
-    case WHITE
-    case RED1
-    case RED2
+enum SpermSize {
+    case Regular
+    case Mega
 }
 
 enum SpermDamage: Int {
@@ -27,17 +26,17 @@ enum SpermDamage: Int {
 
 class Sperm {
     
-    private var _color: SpermColor
+    private var _size: SpermSize
     private var _damage: Int
     private var _isDead: Bool
     
     init(type: SpermType) {
         switch (type) {
             case .Extra:
-                _color = SpermColor.RED1
+                _size = SpermSize.Mega
                 _damage = SpermDamage.Extra.rawValue
             default:
-                _color = SpermColor.WHITE
+                _size = SpermSize.Regular
                 _damage = SpermDamage.Regular.rawValue
         }
         _isDead = false
@@ -48,7 +47,7 @@ class Sperm {
         if (_damage <= 0) {
             _isDead = true
         } else {
-            _color = SpermColor.RED2
+            _size = SpermSize.Regular
         }
     }
     
@@ -56,8 +55,8 @@ class Sperm {
         return _isDead
     }
     
-    func color() -> SpermColor {
-        return _color;
+    func size() -> SpermSize {
+        return _size;
     }
     
 }
