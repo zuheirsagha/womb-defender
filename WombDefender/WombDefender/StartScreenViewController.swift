@@ -27,6 +27,16 @@ class StartScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+//        let startColor = UIColor.red.cgColor
+//        let endColor = UIColor.green.cgColor
+//        let colors = [startColor, endColor]
+//        UIGraphicsBeginImageContext(_backgroundView.frame.size)
+//        let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors as CFArray, locations: [0, 1])
+//        UIGraphicsGetCurrentContext()!.drawRadialGradient(gradient!, startCenter: _backgroundView.center, startRadius: 1, endCenter: _backgroundView.center, endRadius: 1, options: CGGradientDrawingOptions(rawValue: UInt32(0)))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +46,8 @@ class StartScreenViewController: UIViewController {
     //Do we need this?
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
     }
     
     /************************************************************************************
