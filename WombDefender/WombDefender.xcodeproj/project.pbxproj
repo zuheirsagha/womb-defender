@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */; };
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
 		A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A24B62011DA48B900012407A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				A24B62181DA5C8980012407A /* Settings.swift */,
 				A24B621A1DA5CEF90012407A /* LevelController.swift */,
+				277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */,
 				A24B62161DA5C4F40012407A /* MainGameViewController.swift */,
 				A24B61FC1DA48B900012407A /* AppDelegate.swift */,
 				A24B62151DA5C0AE0012407A /* Models */,
@@ -166,6 +169,7 @@
 				A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */,
 				A24B62121DA498230012407A /* SpermModel.swift in Sources */,
 				A24B62141DA4A0B10012407A /* EggModel.swift in Sources */,
+				277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
