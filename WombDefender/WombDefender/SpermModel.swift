@@ -10,7 +10,7 @@ import Foundation
 
 enum SpermType {
     case Regular
-    case Extra
+    case Mega
 }
 
 // First red will be darker, second will be lighter, to show less damage
@@ -21,42 +21,62 @@ enum SpermSize {
 
 enum SpermDamage: Int {
     case Regular = 1
-    case Extra = 2
+    case Mega = 2
+}
+
+protocol SpermDelegate {
+    func spermDeadAtIndex(index: Int)
 }
 
 class Sperm {
     
-    private var _size: SpermSize
-    private var _damage: Int
-    private var _isDead: Bool
-    
-    init(type: SpermType) {
+    fileprivate var _size: SpermSize!
+    fileprivate var _damage: Int!
+    fileprivate var _delegate: LevelController!
+    fileprivate var _index : Int!
+
+    public class func createNewSperm(type: SpermType, controller: LevelController, index: Int) -> Sperm {
         switch (type) {
-            case .Extra:
-                _size = SpermSize.Mega
-                _damage = SpermDamage.Extra.rawValue
+            case .Mega:
+                return MegaSperm(controller: controller, index: index)
             default:
-                _size = SpermSize.Regular
-                _damage = SpermDamage.Regular.rawValue
+                return RegularSperm(controller: controller, index: index)
         }
-        _isDead = false
     }
     
     func justHitBarrier() {
-        _damage -= 1;
+        _damage! -= 1;
         if (_damage <= 0) {
-            _isDead = true
+            _delegate.spermDeadAtIndex(index: self._index)
         } else {
             _size = SpermSize.Regular
         }
     }
     
-    func isDead() -> Bool {
-        return _isDead
-    }
     
     func size() -> SpermSize {
         return _size;
     }
+}
+
+class RegularSperm : Sperm {
     
+    init(controller: LevelController, index: Int) {
+        super.init()
+        self._index = index
+        self._size = SpermSize.Regular
+        self._damage = SpermDamage.Regular.rawValue
+        self._delegate = controller
+    }
+}
+
+class MegaSperm : Sperm {
+    
+    init(controller: LevelController, index: Int) {
+        super.init()
+        self._index = index
+        self._size = SpermSize.Mega
+        self._damage = SpermDamage.Mega.rawValue
+        self._delegate = controller
+    }
 }

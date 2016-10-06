@@ -8,19 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
-		A24B61FF1DA48B900012407A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FE1DA48B900012407A /* ViewController.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
 		A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */; };
 		A24B62071DA48B900012407A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A24B62061DA48B900012407A /* Assets.xcassets */; };
 		A24B620A1DA48B900012407A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62081DA48B900012407A /* LaunchScreen.storyboard */; };
 		A24B62121DA498230012407A /* SpermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62111DA498230012407A /* SpermModel.swift */; };
 		A24B62141DA4A0B10012407A /* EggModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62131DA4A0B10012407A /* EggModel.swift */; };
+		A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62161DA5C4F40012407A /* MainGameViewController.swift */; };
+		A24B62191DA5C8980012407A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62181DA5C8980012407A /* Settings.swift */; };
+		A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B621A1DA5CEF90012407A /* LevelController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A24B61FE1DA48B900012407A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A24B62011DA48B900012407A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A24B62041DA48B900012407A /* WombDefender.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WombDefender.xcdatamodel; sourceTree = "<group>"; };
 		A24B62061DA48B900012407A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -28,6 +29,9 @@
 		A24B620B1DA48B900012407A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A24B62111DA498230012407A /* SpermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermModel.swift; sourceTree = "<group>"; };
 		A24B62131DA4A0B10012407A /* EggModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EggModel.swift; sourceTree = "<group>"; };
+		A24B62161DA5C4F40012407A /* MainGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
+		A24B62181DA5C8980012407A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		A24B621A1DA5CEF90012407A /* LevelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +64,11 @@
 		A24B61FB1DA48B900012407A /* WombDefender */ = {
 			isa = PBXGroup;
 			children = (
+				A24B62181DA5C8980012407A /* Settings.swift */,
+				A24B621A1DA5CEF90012407A /* LevelController.swift */,
+				A24B62161DA5C4F40012407A /* MainGameViewController.swift */,
 				A24B61FC1DA48B900012407A /* AppDelegate.swift */,
-				A24B61FE1DA48B900012407A /* ViewController.swift */,
-				A24B62111DA498230012407A /* SpermModel.swift */,
-				A24B62131DA4A0B10012407A /* EggModel.swift */,
+				A24B62151DA5C0AE0012407A /* Models */,
 				A24B62001DA48B900012407A /* Main.storyboard */,
 				A24B62061DA48B900012407A /* Assets.xcassets */,
 				A24B62081DA48B900012407A /* LaunchScreen.storyboard */,
@@ -71,6 +76,15 @@
 				A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */,
 			);
 			path = WombDefender;
+			sourceTree = "<group>";
+		};
+		A24B62151DA5C0AE0012407A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A24B62111DA498230012407A /* SpermModel.swift */,
+				A24B62131DA4A0B10012407A /* EggModel.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,8 +159,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A24B61FF1DA48B900012407A /* ViewController.swift in Sources */,
+				A24B62191DA5C8980012407A /* Settings.swift in Sources */,
+				A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */,
 				A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */,
+				A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */,
 				A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */,
 				A24B62121DA498230012407A /* SpermModel.swift in Sources */,
 				A24B62141DA4A0B10012407A /* EggModel.swift in Sources */,
@@ -311,6 +327,7 @@
 				A24B62101DA48B900012407A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

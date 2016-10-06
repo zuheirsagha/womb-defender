@@ -8,9 +8,18 @@
 
 import Foundation
 
+protocol EggDelegate {
+    func eggHasBeenPenetrated()
+}
+
 class Egg {
     private var _layers = 3;
     private var _gameover = false;
+    private var _delegate: LevelController!
+    
+    init(controller: LevelController) {
+        _delegate = controller
+    }
     
     func justGotHitBySperm() {
         _layers -= 1;
