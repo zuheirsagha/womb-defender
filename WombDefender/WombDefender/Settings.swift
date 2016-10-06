@@ -40,6 +40,8 @@ enum Gravity : Int {
 }
 
 // TODO: How many will pass to beat a level - implement some scale
+// NOTE FROM ZUHEIR: Amount should be based on score, i.e. reached 100pts -> go to level 2, 200pts -> level 3 -> etc...
+//                      outlined functionality in spec doc
 enum Amount : Int {
     case Smallest
 }
