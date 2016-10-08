@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */; };
 		270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7751DA7312E006A5CE3 /* SpermView.swift */; };
+		270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD77C1DA99443006A5CE3 /* GradientView.swift */; };
 		277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */; };
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermBehaviour.swift; sourceTree = "<group>"; };
 		270AD7751DA7312E006A5CE3 /* SpermView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermView.swift; sourceTree = "<group>"; };
+		270AD77C1DA99443006A5CE3 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,15 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		270AD7801DA9A00B006A5CE3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				270AD77C1DA99443006A5CE3 /* GradientView.swift */,
+				270AD7751DA7312E006A5CE3 /* SpermView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		A24B61F01DA48B8F0012407A = {
 			isa = PBXGroup;
 			children = (
@@ -83,9 +94,9 @@
 				A24B61FC1DA48B900012407A /* AppDelegate.swift */,
 				A24B621A1DA5CEF90012407A /* LevelController.swift */,
 				A24B62151DA5C0AE0012407A /* Models */,
+				270AD7801DA9A00B006A5CE3 /* Views */,
 				270AD7771DA732CD006A5CE3 /* ViewControllers */,
 				270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */,
-				270AD7751DA7312E006A5CE3 /* SpermView.swift */,
 				A24B62001DA48B900012407A /* Main.storyboard */,
 				A24B62081DA48B900012407A /* LaunchScreen.storyboard */,
 				A24B62061DA48B900012407A /* Assets.xcassets */,
@@ -178,6 +189,7 @@
 			files = (
 				A24B62191DA5C8980012407A /* Settings.swift in Sources */,
 				A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */,
+				270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */,
 				A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */,
 				A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */,
 				A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */,

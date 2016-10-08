@@ -73,7 +73,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.64586034751037347" green="0.14668559392886038" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.64586034751037347" green="0.14668559392886038" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="2Ds-Qh-iIL" secondAttribute="trailing" constant="24" id="2bn-rc-b9w"/>
                                     <constraint firstAttribute="bottom" secondItem="2Ds-Qh-iIL" secondAttribute="bottom" constant="24" id="5bS-If-5ED"/>
@@ -97,7 +97,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.5759044346473029" green="0.0054448540177272891" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="bLD-PL-hGg" secondAttribute="trailing" id="0XS-fK-HH5"/>
                             <constraint firstItem="D1F-8K-lVN" firstAttribute="top" secondItem="bLD-PL-hGg" secondAttribute="bottom" id="8jr-pl-C7s"/>

@@ -27,20 +27,10 @@ class StartScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         UIApplication.shared.statusBarStyle = .lightContent
-
-        let colours = [UIColor.red, UIColor.blue] as CFArray
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let gradient = CGGradient(colorsSpace: colorSpace,
-                                  colors: colours ,
-                                  locations: nil)
-        UIGraphicsGetCurrentContext()?.drawRadialGradient(gradient!,
-                           startCenter: view.center,
-                           startRadius: view.bounds.width/5,
-                           endCenter: view.center,
-                           endRadius: view.bounds.width/2,
-                           options: .drawsBeforeStartLocation)
+        
+        let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        view.insertSubview(gradient, at: 0)
         _drawWomb()
         
     }
@@ -105,4 +95,5 @@ class StartScreenViewController: UIViewController {
         thirdLayer.opacity = 0.2
         view.layer.addSublayer(thirdLayer)
     }
+    
 }
