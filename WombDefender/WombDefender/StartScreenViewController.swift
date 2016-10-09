@@ -19,6 +19,8 @@ class StartScreenViewController: UIViewController {
     @IBOutlet weak var _tapToStartButton: UIButton!
     @IBOutlet weak var _backgroundView: UIView!
     
+    fileprivate var settingsPressed = false
+    
     /************************************************************************************
      *
      * LIFECYCLE METHODS
@@ -27,10 +29,10 @@ class StartScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.isStatusBarHidden = true
         
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
+       
         _drawWomb()
         
     }
@@ -53,8 +55,12 @@ class StartScreenViewController: UIViewController {
      ***********************************************************************************/
     
     @IBAction func onTapToStartButtonClicked(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "segueToMainGameViewController", sender: self)
     }
     @IBAction func onSettingsButtonClicked(_ sender: UIButton) {
+        
+        _drawWomb()
+        
     }
     @IBAction func onShoppingCartButtonClicked(_ sender: UIButton) {
     }
@@ -94,6 +100,10 @@ class StartScreenViewController: UIViewController {
         thirdLayer.lineWidth = 3.0
         thirdLayer.opacity = 0.2
         view.layer.addSublayer(thirdLayer)
+        
+        if settingsPressed {
+            // TODO: Animate the womb enlarging -> use this as settings menu
+        }
     }
     
 }

@@ -15,12 +15,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.isStatusBarHidden = true
 
         currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
         
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
+        
         _drawWomb()
     }
 
