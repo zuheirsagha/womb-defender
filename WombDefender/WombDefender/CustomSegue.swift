@@ -16,7 +16,7 @@ class CustomSegue: UIStoryboardSegue {
         let destinationVC = self.destination
         
         sourceVC.view.addSubview(destinationVC.view)
-        //CGAffineTransf
+
         
     }
 

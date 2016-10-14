@@ -115,7 +115,7 @@
                         <outlet property="_tapToStartButton" destination="6Z5-CX-cJ9" id="pog-TR-9f2"/>
                         <outlet property="_tapToStartLabel" destination="jbU-En-KAb" id="P1M-I9-wFc"/>
                         <outlet property="_titleImageView" destination="YTV-3y-8nM" id="7ZC-t5-l2D"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="segueToMainGameViewController" id="tcY-Qv-eds"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="segueToMainGameViewController" modalTransitionStyle="crossDissolve" id="tcY-Qv-eds"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C2z-Yr-8KN" userLabel="First Responder" sceneMemberID="firstResponder"/>
