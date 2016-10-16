@@ -10,7 +10,6 @@ import UIKit
 
 class SpermBehaviour: UIDynamicBehavior {
     
-    // TODO: figure out how to make gravity center of screen (may need to use SpriteKit)
     private var gravity: UIGravityBehavior!
     
     // Changed these to stack because it is only ever gravity that changes (direction)
@@ -25,7 +24,7 @@ class SpermBehaviour: UIDynamicBehavior {
        let dib = UIDynamicItemBehavior()
         // Used for megasperm -> experiment with elasticity so that it doesnt go too far
         // after bouncing off sheild
-        dib.elasticity = 0.5
+        dib.elasticity = 1
         return dib
     }()
     

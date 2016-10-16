@@ -95,7 +95,27 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
     }
 
     func startGame() {
-        let sperm = SpermView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        var x = 0.0
+        var y = 0.0
+        let xOrY = arc4random_uniform(2)
+        let leftOrRight = arc4random_uniform(2)
+        if xOrY == 1 {
+            if leftOrRight == 1 {
+                x = 0
+            } else {
+                x = Double(view.frame.width)-20
+            }
+            y = Double(arc4random_uniform(UInt32(view.frame.height)))
+        } else {
+            if leftOrRight == 1 {
+                y = 0
+            } else {
+                y = Double(view.frame.height)-20
+            }
+            x = Double(arc4random_uniform(UInt32(view.frame.width)))
+        }
+        
+        let sperm = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
         let swim = SpermBehaviour(x: sperm.frame.midX, y: sperm.frame.midY, centreX: self.view.frame.midX, centreY: self.view.frame.midY)
         swim.addItem(item: sperm)
         self.view.insertSubview(sperm, at: 1)
