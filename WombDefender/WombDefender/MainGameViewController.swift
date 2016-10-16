@@ -12,6 +12,16 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
     
     // Defaults to easy
     var currentLevelController: LevelController!
+    
+    var animator: UIDynamicAnimator!
+    
+    //Circles for egg and corresponding views (invisible but for collisiton)
+    var centerLayer: CAShapeLayer!
+    var centerLayerView: UIView!
+    var secondLayer: CAShapeLayer!
+    var secondLayerView: UIView!
+    var thirdLayer: CAShapeLayer!
+    var thirdLayerView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +31,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
         
+        animator = UIDynamicAnimator(referenceView: self.view)
         _drawWomb()
+        startGame()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,35 +49,58 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         // Do stuff
     }
     
+    // Will clean this up with instance variables or a file with constants or whatever.
+    // They stacked onto each other if added all 3 to uidynamicbehaviour so just added outside.
+    // Theoretically we only ever need the outermost one anyway.
     fileprivate func _drawWomb() {
         
         let centreCircle = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: CGFloat(0), endAngle:CGFloat(M_PI * 2), clockwise: true)
-        let centerLayer = CAShapeLayer()
+        centerLayer = CAShapeLayer()
         centerLayer.path = centreCircle.cgPath
         centerLayer.fillColor = UIColor.white.cgColor
         centerLayer.strokeColor = UIColor.clear.cgColor
         centerLayer.lineWidth = 3.0
         view.layer.addSublayer(centerLayer)
+//        centerLayerView = UIView(frame: CGRect(x: view.center.x - CGFloat(view.frame.width/6), y: view.center.y - CGFloat(view.frame.width/6), width: CGFloat(view.frame.width/6)*2, height: CGFloat(view.frame.width/6)*2))
+//        SpermBehaviour.collider.addItem(centerLayerView)
+//        centerLayerView.backgroundColor = UIColor.green
+//        self.view.addSubview(centerLayerView)
         
         let layer2Circle = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: CGFloat(0), endAngle:CGFloat(M_PI * 2), clockwise: true)
-        let secondLayer = CAShapeLayer()
+        secondLayer = CAShapeLayer()
         secondLayer.path = layer2Circle.cgPath
         secondLayer.fillColor = UIColor.white.cgColor
         secondLayer.strokeColor = UIColor.clear.cgColor
         secondLayer.lineWidth = 3.0
         secondLayer.opacity = 0.2
         view.layer.addSublayer(secondLayer)
+//        secondLayerView = UIView(frame: CGRect(x: view.center.x - CGFloat(view.frame.width/5), y: view.center.y - CGFloat(view.frame.width/5), width: CGFloat(view.frame.width/5)*2, height: CGFloat(view.frame.width/5)*2))
+//        SpermBehaviour.collider.addItem(secondLayerView)
+//        secondLayerView.backgroundColor = UIColor.green
+//        self.view.addSubview(secondLayerView)
         
         let layer3Circle = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: CGFloat(0), endAngle:CGFloat(M_PI * 2), clockwise: true)
-        let thirdLayer = CAShapeLayer()
+        thirdLayer = CAShapeLayer()
         thirdLayer.path = layer3Circle.cgPath
         thirdLayer.fillColor = UIColor.white.cgColor
         thirdLayer.strokeColor = UIColor.clear.cgColor
         thirdLayer.lineWidth = 3.0
         thirdLayer.opacity = 0.2
         view.layer.addSublayer(thirdLayer)
+        thirdLayerView = UIView(frame: CGRect(x: view.center.x - CGFloat(view.frame.width/4.25), y: view.center.y - CGFloat(view.frame.width/4.25), width: CGFloat(view.frame.width/4.25)*2, height: CGFloat(view.frame.width/4.25)*2))
+        SpermBehaviour.collider.addItem(thirdLayerView)
+        thirdLayerView.backgroundColor = UIColor.green
+        thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
+        self.view.addSubview(thirdLayerView)
     }
 
+    func startGame() {
+        let sperm = SpermView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let swim = SpermBehaviour(x: sperm.frame.midX, y: sperm.frame.midY, centreX: self.view.frame.midX, centreY: self.view.frame.midY)
+        swim.addItem(item: sperm)
+        self.view.insertSubview(sperm, at: 1)
+        animator.addBehavior(swim)
+    }
     
 
     /*

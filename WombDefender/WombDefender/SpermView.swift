@@ -10,17 +10,14 @@ import UIKit
 
 class SpermView : UIView {
     
-    private lazy var animator : UIDynamicAnimator = UIDynamicAnimator(referenceView: self)
-    private let swimBehaviour = SpermBehaviour()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.blue
+    }
     
-    var animating : Bool = false {
-        didSet {
-            if animating {
-                animator.addBehavior(swimBehaviour)
-            } else {
-                animator.removeBehavior(swimBehaviour)
-            }
-        }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     func addSperm() {

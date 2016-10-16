@@ -11,15 +11,17 @@ import UIKit
 class SpermBehaviour: UIDynamicBehavior {
     
     // TODO: figure out how to make gravity center of screen (may need to use SpriteKit)
-    private let gravity = UIGravityBehavior()
+    private var gravity: UIGravityBehavior!
     
-    private let collider: UICollisionBehavior = {
+    // Changed these to stack because it is only ever gravity that changes (direction)
+    // Therefore avoid creating a bunch of new objects for no reason
+    static let collider: UICollisionBehavior = {
         let collider = UICollisionBehavior()
         collider.translatesReferenceBoundsIntoBoundary = true
         return collider
     }()
     
-    private let elasticityBehaviour : UIDynamicItemBehavior = {
+    static let elasticityBehaviour : UIDynamicItemBehavior = {
        let dib = UIDynamicItemBehavior()
         // Used for megasperm -> experiment with elasticity so that it doesnt go too far
         // after bouncing off sheild
@@ -27,23 +29,31 @@ class SpermBehaviour: UIDynamicBehavior {
         return dib
     }()
     
-    override init() {
+    init(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {
         super.init()
+        createGravityBehavior(x: x, y: y, centreX: centreX, centreY: centreY)
         addChildBehavior(gravity)
-        addChildBehavior(collider)
-        addChildBehavior(elasticityBehaviour)
+        addChildBehavior(SpermBehaviour.collider)
+        addChildBehavior(SpermBehaviour.elasticityBehaviour)
     }
     
     func addItem(item : UIDynamicItem) {
         gravity.addItem(item)
-        collider.addItem(item)
-        elasticityBehaviour.addItem(item)
+        SpermBehaviour.collider.addItem(item)
+        SpermBehaviour.elasticityBehaviour.addItem(item)
     }
     
     func removeItem(item : UIDynamicItem) {
         gravity.removeItem(item)
-        collider.removeItem(item)
-        elasticityBehaviour.removeItem(item)
+        SpermBehaviour.collider.removeItem(item)
+        SpermBehaviour.elasticityBehaviour.removeItem(item)
     }
 
+    func createGravityBehavior(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {
+        gravity = UIGravityBehavior()
+        gravity.magnitude = 0.05
+        //Y is opposite because 0 at top in ios.
+        gravity.angle = atan((y-centreY)/(x-centreX))
+        print("GRAVITY ANGLE : \(gravity.angle)")
+    }
 }
