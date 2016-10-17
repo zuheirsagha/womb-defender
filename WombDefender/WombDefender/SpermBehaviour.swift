@@ -51,13 +51,21 @@ class SpermBehaviour: UIDynamicBehavior {
     func createGravityBehavior(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {
         gravity = UIGravityBehavior()
         gravity.magnitude = 0.05
-        //Y is opposite because 0 at top in ios.
-        //TODO: figure out angles -> currently only works for left half of screen
-        if y == 0 {
-            gravity.angle = acos((x-centreX)/(y-centreY))
+        let absX = abs(x-centreX)
+        let absY = abs(y-centreY)
+        
+        if (x >= centreX) {
+            if (y >= centreY) {
+                gravity.angle = CGFloat(M_PI) + atan(absY/absX)
+            } else {
+                gravity.angle = CGFloat(M_PI) - atan(absY/absX)
+            }
         } else {
-            gravity.angle = atan((y-centreY)/(x-centreX))
+            if (y >= centreY) {
+                gravity.angle = CGFloat(2*M_PI) - atan(absY/absX)
+            } else {
+                gravity.angle = atan(absY/absX)
+            }
         }
-        print("GRAVITY ANGLE : \(gravity.angle)")
     }
 }
