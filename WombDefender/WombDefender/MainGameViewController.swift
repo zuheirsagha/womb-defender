@@ -101,16 +101,16 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         let leftOrRight = arc4random_uniform(2)
         if xOrY == 1 {
             if leftOrRight == 1 {
-                x = 0
+                x = -10
             } else {
-                x = Double(view.frame.width)-20
+                x = Double(view.frame.width)-10
             }
             y = Double(arc4random_uniform(UInt32(view.frame.height)))
         } else {
             if leftOrRight == 1 {
-                y = 0
+                y = -10
             } else {
-                y = Double(view.frame.height)-20
+                y = Double(view.frame.height)-10
             }
             x = Double(arc4random_uniform(UInt32(view.frame.width)))
         }
