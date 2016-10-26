@@ -10,6 +10,7 @@
 		270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */; };
 		270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7751DA7312E006A5CE3 /* SpermView.swift */; };
 		270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD77C1DA99443006A5CE3 /* GradientView.swift */; };
+		275087401DBB0A3700741CC7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2750873F1DBB0A3700741CC7 /* Constant.swift */; };
 		277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */; };
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermBehaviour.swift; sourceTree = "<group>"; };
 		270AD7751DA7312E006A5CE3 /* SpermView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermView.swift; sourceTree = "<group>"; };
 		270AD77C1DA99443006A5CE3 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		2750873F1DBB0A3700741CC7 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		A24B61FB1DA48B900012407A /* WombDefender */ = {
 			isa = PBXGroup;
 			children = (
+				2750873F1DBB0A3700741CC7 /* Constant.swift */,
 				A24B62181DA5C8980012407A /* Settings.swift */,
 				A24B61FC1DA48B900012407A /* AppDelegate.swift */,
 				A24B621A1DA5CEF90012407A /* LevelController.swift */,
@@ -196,6 +199,7 @@
 				A24B62121DA498230012407A /* SpermModel.swift in Sources */,
 				270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */,
 				A24B62141DA4A0B10012407A /* EggModel.swift in Sources */,
+				275087401DBB0A3700741CC7 /* Constant.swift in Sources */,
 				270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */,
 				277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */,
 			);

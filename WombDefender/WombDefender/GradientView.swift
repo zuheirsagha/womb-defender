@@ -22,9 +22,7 @@ class GradientView : UIView {
     override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         
-        let innerColor = UIColor(red: 1, green: 77/255, blue: 77/255, alpha: 1).cgColor
-        let outerColor = UIColor(red: 60/255, green: 5/255, blue: 5/255, alpha: 1).cgColor
-        let colours = [innerColor, outerColor] as CFArray
+        let colours = [Constant.Colors.innerColor, Constant.Colors.outerColor] as CFArray
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let myGradient = CGGradient(colorsSpace: colorSpace, colors: colours, locations: nil)
         
