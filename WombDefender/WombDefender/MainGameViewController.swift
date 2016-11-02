@@ -83,15 +83,20 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
         self.view.addSubview(thirdLayerView)
         
+        let ring = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
+
         if lives == 1{
-            SpermBehaviour.collider.addItem(centerLayerView)
-            SpermBehaviour.collider.removeItem(secondLayerView)
+            let transformOneLife = CGAffineTransform(scaleX: 0.8333, y: 0.8333)
+            ring.apply(transformOneLife)
         } else if lives == 2 {
-            SpermBehaviour.collider.addItem(secondLayerView)
-            SpermBehaviour.collider.removeItem(thirdLayerView)
+            let transformTwoLives = CGAffineTransform(scaleX: 0.85, y: 0.85)
+            ring.apply(transformTwoLives)
+        } else if lives == 3 {
+            SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: ring)
         } else {
-            SpermBehaviour.collider.addItem(thirdLayerView)
+            SpermBehaviour.collider.removeAllBoundaries()
         }
+        
     }
 
     func startGame() {
@@ -99,6 +104,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         var y = 0.0
         let xOrY = arc4random_uniform(2)
         let leftOrRight = arc4random_uniform(2)
+        
         if xOrY == 1 {
             if leftOrRight == 1 {
                 x = -10
