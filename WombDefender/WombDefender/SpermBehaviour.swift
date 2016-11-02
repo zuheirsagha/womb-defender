@@ -20,11 +20,12 @@ class SpermBehaviour: UIDynamicBehavior {
         return collider
     }()
     
-    static let elasticityBehaviour : UIDynamicItemBehavior = {
+    static let objectBehaviour : UIDynamicItemBehavior = {
        let dib = UIDynamicItemBehavior()
         // Used for megasperm -> experiment with elasticity so that it doesnt go too far
         // after bouncing off sheild
         dib.elasticity = 1
+        dib.allowsRotation = false
         return dib
     }()
     
@@ -33,19 +34,19 @@ class SpermBehaviour: UIDynamicBehavior {
         createGravityBehavior(x: x, y: y, centreX: centreX, centreY: centreY)
         addChildBehavior(gravity)
         addChildBehavior(SpermBehaviour.collider)
-        addChildBehavior(SpermBehaviour.elasticityBehaviour)
+        addChildBehavior(SpermBehaviour.objectBehaviour)
     }
     
     func addItem(item : UIDynamicItem) {
         gravity.addItem(item)
         SpermBehaviour.collider.addItem(item)
-        SpermBehaviour.elasticityBehaviour.addItem(item)
+        SpermBehaviour.objectBehaviour.addItem(item)
     }
     
     func removeItem(item : UIDynamicItem) {
         gravity.removeItem(item)
         SpermBehaviour.collider.removeItem(item)
-        SpermBehaviour.elasticityBehaviour.removeItem(item)
+        SpermBehaviour.objectBehaviour.removeItem(item)
     }
 
     func createGravityBehavior(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {

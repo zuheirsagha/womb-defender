@@ -18,7 +18,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
     }
     
-    let lives = 3
+    var lives = 3
     
     // Defaults to easy
     var currentLevelController: LevelController!
@@ -68,7 +68,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                                                 height: CGFloat(view.frame.width/6)*2))
         centerLayerView.backgroundColor = UIColor.white
         centerLayerView.layer.cornerRadius = centerLayerView.frame.size.width/2
-        self.view.addSubview(centerLayerView)
         
         secondLayerView = UIView(frame: CGRect(x: view.frame.size.width/2 - CGFloat(view.frame.width/5),
                                                y: view.frame.size.height/2 - CGFloat(view.frame.width/5),
@@ -78,7 +77,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         secondLayerView.backgroundColor = UIColor.white
         secondLayerView.alpha = 0.2
         secondLayerView.layer.cornerRadius = secondLayerView.frame.size.width/2
-        self.view.addSubview(secondLayerView)
         
         thirdLayerView = UIView(frame: CGRect(x: view.frame.width/2 - CGFloat(view.frame.width/4.25),
                                               y: view.frame.height/2 - CGFloat(view.frame.width/4.25),
@@ -88,7 +86,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         thirdLayerView.backgroundColor = UIColor.white
         thirdLayerView.alpha = 0.2
         thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
-        self.view.addSubview(thirdLayerView)
         
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
@@ -100,23 +97,33 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            
+            secondLayerView.removeFromSuperview()
         } else if lives == 2 {
             SpermBehaviour.collider.removeAllBoundaries()
             SpermBehaviour.collider.addBoundary(withIdentifier: "centerBarrier" as NSCopying, for: centerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            
+            thirdLayerView.removeFromSuperview()
         } else if lives == 3 {
             SpermBehaviour.collider.removeAllBoundaries()
             SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: outerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
+            
+            self.view.addSubview(centerLayerView)
+            self.view.addSubview(secondLayerView)
+            self.view.addSubview(thirdLayerView)
         } else {
             SpermBehaviour.collider.removeAllBoundaries()
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            
+            centerLayerView.removeFromSuperview()
         }
         
     }
@@ -150,11 +157,18 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         swim.addItem(item: sperm)
         self.view.insertSubview(sperm, at: 1)
         animator.addBehavior(swim)
+        
+        SpermBehaviour.collider.collisionDelegate = self
     }
     
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
-        if identifier as! String == "barrier" {
-            let lives = LevelController.getLives(currentLevelController)
+        
+        if (identifier != nil) {
+            let idAsString = identifier as! String
+            if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
+                lives = lives - 1
+                _drawWomb()
+            }
         }
     }
     
