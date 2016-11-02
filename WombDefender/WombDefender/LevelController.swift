@@ -54,6 +54,15 @@ class LevelController : SpermDelegate, EggDelegate {
         sperms.remove(at: index)
         _delegate.removeSpermViewAtIndex(index: index)
     }
+    
+    func getLives() -> Int {
+        return _livesLeft
+    }
+    
+    func setLives(lives : Int) {
+        _livesLeft = lives
+    }
+    
 }
 
 class EasyLevelController : LevelController {

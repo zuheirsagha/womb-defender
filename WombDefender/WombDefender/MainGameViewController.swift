@@ -9,7 +9,14 @@
 import UIKit
 import SpriteKit
 
-class MainGameViewController: UIViewController, LevelControllerDelegate {
+class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
+    @IBOutlet weak var _firstHeartImageView: UIImageView!
+    @IBOutlet weak var _secondHeartImageView: UIImageView!
+    @IBOutlet weak var _thirdHearImageView: UIImageView!
+    @IBOutlet weak var _scoreLabel: UILabel!
+    @IBOutlet weak var _settingsButton: UIButton!
+    @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
+    }
     
     let lives = 3
     
@@ -83,18 +90,33 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
         self.view.addSubview(thirdLayerView)
         
-        let ring = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
+        let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
+        let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
+        let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
 
         if lives == 1{
-            let transformOneLife = CGAffineTransform(scaleX: 0.8333, y: 0.8333)
-            ring.apply(transformOneLife)
+            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.addBoundary(withIdentifier: "innerBarrier" as NSCopying, for: innerRing)
+            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
         } else if lives == 2 {
-            let transformTwoLives = CGAffineTransform(scaleX: 0.85, y: 0.85)
-            ring.apply(transformTwoLives)
+            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.addBoundary(withIdentifier: "centerBarrier" as NSCopying, for: centerRing)
+            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
         } else if lives == 3 {
-            SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: ring)
+            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: outerRing)
+            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
         } else {
             SpermBehaviour.collider.removeAllBoundaries()
+            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
         }
         
     }
@@ -128,6 +150,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate {
         swim.addItem(item: sperm)
         self.view.insertSubview(sperm, at: 1)
         animator.addBehavior(swim)
+    }
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
+        if identifier as! String == "barrier" {
+            let lives = LevelController.getLives(currentLevelController)
+        }
     }
     
 

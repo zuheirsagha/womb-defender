@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -133,11 +134,71 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-na-LMx" userLabel="firstLife">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="6sx-vV-gUz"/>
+                                    <constraint firstAttribute="width" constant="32" id="Bo8-km-H9M"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C3C-rT-32i" userLabel="secondLife">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="3hS-Om-eC9"/>
+                                    <constraint firstAttribute="width" constant="32" id="P0d-aQ-HXY"/>
+                                    <constraint firstAttribute="width" constant="32" id="U2r-gQ-CqK"/>
+                                    <constraint firstAttribute="height" constant="32" id="kVe-wB-e6p"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-3R-Mwj" userLabel="thirdLife">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="1WF-3v-Lxu"/>
+                                    <constraint firstAttribute="width" constant="32" id="7RD-k0-PQT"/>
+                                    <constraint firstAttribute="height" constant="32" id="L56-IG-dsr"/>
+                                    <constraint firstAttribute="height" constant="32" id="WAx-ly-VYA"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Kp-Og-UAV">
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDY-v7-Gt5">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="Brw-h0-qB0"/>
+                                    <constraint firstAttribute="height" constant="32" id="GEf-dv-fV7"/>
+                                </constraints>
+                                <state key="normal" image="Button_Settings"/>
+                                <connections>
+                                    <action selector="onSettingsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3jV-Ml-n9i"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XpL-na-LMx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="19L-gr-z1w"/>
+                            <constraint firstItem="C3C-rT-32i" firstAttribute="leading" secondItem="XpL-na-LMx" secondAttribute="trailing" constant="5" id="7uq-DI-xEV"/>
+                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KQp-UG-HVO"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="XpL-na-LMx" secondAttribute="leading" id="Nzs-fr-qXK"/>
+                            <constraint firstItem="gDY-v7-Gt5" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="VHH-eR-dqi"/>
+                            <constraint firstItem="7pF-3R-Mwj" firstAttribute="leading" secondItem="C3C-rT-32i" secondAttribute="trailing" constant="5" id="cBt-1z-22g"/>
+                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="leading" relation="lessThanOrEqual" secondItem="7pF-3R-Mwj" secondAttribute="trailing" constant="5" id="d3h-tL-NpU"/>
+                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="iNf-0G-xUp"/>
+                            <constraint firstItem="C3C-rT-32i" firstAttribute="centerY" secondItem="XpL-na-LMx" secondAttribute="centerY" id="ilL-s0-zko"/>
+                            <constraint firstItem="7pF-3R-Mwj" firstAttribute="centerY" secondItem="C3C-rT-32i" secondAttribute="centerY" id="r4p-hR-FxR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gDY-v7-Gt5" secondAttribute="trailing" id="wHC-1s-vH1"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="_firstHeartImageView" destination="XpL-na-LMx" id="Hjs-Lh-V4d"/>
+                        <outlet property="_scoreLabel" destination="3Kp-Og-UAV" id="KOO-3V-rUY"/>
+                        <outlet property="_secondHeartImageView" destination="C3C-rT-32i" id="AVB-4v-6vL"/>
+                        <outlet property="_settingsButton" destination="gDY-v7-Gt5" id="jmc-f9-Dbk"/>
+                        <outlet property="_thirdHearImageView" destination="7pF-3R-Mwj" id="9No-Gv-WHf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="122.78860569715144"/>
         </scene>
     </scenes>
     <resources>
