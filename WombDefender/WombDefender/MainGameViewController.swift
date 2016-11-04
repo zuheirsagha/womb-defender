@@ -24,6 +24,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     var currentLevelController: LevelController!
     
     var animator: UIDynamicAnimator!
+    var swim: SpermBehaviour!
     
     //Circles for egg and corresponding views
     var centerLayerView: UIView!
@@ -34,6 +35,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         super.viewDidLoad()
 
         currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
+        
+        swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
         
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
@@ -128,34 +131,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
 
     func startGame() {
-        var x = 0.0
-        var y = 0.0
-        let xOrY = arc4random_uniform(2)
-        let leftOrRight = arc4random_uniform(2)
-        
-        if xOrY == 1 {
-            if leftOrRight == 1 {
-                x = -10
-            } else {
-                x = Double(view.frame.width)-10
-            }
-            y = Double(arc4random_uniform(UInt32(view.frame.height)))
-        } else {
-            if leftOrRight == 1 {
-                y = -10
-            } else {
-                y = Double(view.frame.height)-10
-            }
-            x = Double(arc4random_uniform(UInt32(view.frame.width)))
-        }
-        
-        let sperm = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
-        let swim = SpermBehaviour(x: sperm.frame.midX, y: sperm.frame.midY, centreX: self.view.frame.midX, centreY: self.view.frame.midY)
-        swim.addItem(item: sperm)
-        self.view.insertSubview(sperm, at: 1)
-        animator.addBehavior(swim)
-        
         SpermBehaviour.collider.collisionDelegate = self
+        
+        for i in 1...10 {
+            self._createSperm()
+        }
+
     }
     
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
@@ -167,6 +148,45 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 _drawWomb()
             }
         }
+    }
+    
+    func _createSperm() {
+        
+        let screenWidth = self.view.frame.width
+        let screenHeight = self.view.frame.height
+        
+        let randomX = arc4random_uniform(UInt32(screenWidth))
+        let randomY = arc4random_uniform(UInt32(screenWidth))
+        
+        var x = 0
+        var y = 0
+        
+        let randomDirection = arc4random_uniform(4)
+        switch randomDirection {
+        case 0:
+            x = Int(randomX)
+            y = -30
+        case 1:
+            x = Int(screenWidth) + 30
+            y = Int(randomY)
+        case 2:
+            x = Int(randomX)
+            y = Int(screenHeight)+30
+        case 3:
+            x = -30
+            y = Int(randomY)
+        default:
+            x = 0
+            y = 0
+        }
+        
+        let sperm = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
+
+        self.view.insertSubview(sperm, at: 1)
+
+        swim.addItem(item: sperm)
+
+        animator.addBehavior(swim)
     }
     
 

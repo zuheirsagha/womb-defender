@@ -16,7 +16,9 @@ class SpermBehaviour: UIDynamicBehavior {
     // Therefore avoid creating a bunch of new objects for no reason
     static let collider: UICollisionBehavior = {
         let collider = UICollisionBehavior()
-        collider.translatesReferenceBoundsIntoBoundary = true
+        let boundaryInsets = UIEdgeInsetsMake(-50, -50, -50, -50)
+        collider.setTranslatesReferenceBoundsIntoBoundary(with: boundaryInsets)
+        
         return collider
     }()
     
@@ -29,7 +31,7 @@ class SpermBehaviour: UIDynamicBehavior {
         return dib
     }()
     
-    init(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {
+    init(centreX: CGFloat, centreY: CGFloat) {
         super.init()
         gravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: centreX, y: centreY))
         gravity.falloff = 0.1
