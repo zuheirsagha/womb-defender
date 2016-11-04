@@ -10,7 +10,7 @@ import UIKit
 
 class SpermBehaviour: UIDynamicBehavior {
     
-    private var gravity: UIGravityBehavior!
+    private var gravity: UIFieldBehavior!
     
     // Changed these to stack because it is only ever gravity that changes (direction)
     // Therefore avoid creating a bunch of new objects for no reason
@@ -31,7 +31,9 @@ class SpermBehaviour: UIDynamicBehavior {
     
     init(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {
         super.init()
-        createGravityBehavior(x: x, y: y, centreX: centreX, centreY: centreY)
+        gravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: centreX, y: centreY))
+        gravity.falloff = 0.1
+        
         addChildBehavior(gravity)
         addChildBehavior(SpermBehaviour.collider)
         addChildBehavior(SpermBehaviour.objectBehaviour)
@@ -47,26 +49,5 @@ class SpermBehaviour: UIDynamicBehavior {
         gravity.removeItem(item)
         SpermBehaviour.collider.removeItem(item)
         SpermBehaviour.objectBehaviour.removeItem(item)
-    }
-
-    func createGravityBehavior(x: CGFloat, y: CGFloat, centreX: CGFloat, centreY: CGFloat) {
-        gravity = UIGravityBehavior()
-        gravity.magnitude = 0.05
-        let absX = abs(x-centreX)
-        let absY = abs(y-centreY)
-        
-        if (x >= centreX) {
-            if (y >= centreY) {
-                gravity.angle = CGFloat(M_PI) + atan(absY/absX)
-            } else {
-                gravity.angle = CGFloat(M_PI) - atan(absY/absX)
-            }
-        } else {
-            if (y >= centreY) {
-                gravity.angle = CGFloat(2*M_PI) - atan(absY/absX)
-            } else {
-                gravity.angle = atan(absY/absX)
-            }
-        }
     }
 }

@@ -137,28 +137,24 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-na-LMx" userLabel="firstLife">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="6sx-vV-gUz"/>
-                                    <constraint firstAttribute="width" constant="32" id="Bo8-km-H9M"/>
+                                    <constraint firstAttribute="height" constant="24" id="6sx-vV-gUz"/>
+                                    <constraint firstAttribute="width" constant="24" id="Bo8-km-H9M"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C3C-rT-32i" userLabel="secondLife">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="3hS-Om-eC9"/>
-                                    <constraint firstAttribute="width" constant="32" id="P0d-aQ-HXY"/>
-                                    <constraint firstAttribute="width" constant="32" id="U2r-gQ-CqK"/>
-                                    <constraint firstAttribute="height" constant="32" id="kVe-wB-e6p"/>
+                                    <constraint firstAttribute="height" constant="24" id="3hS-Om-eC9"/>
+                                    <constraint firstAttribute="width" constant="24" id="P0d-aQ-HXY"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-3R-Mwj" userLabel="thirdLife">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="1WF-3v-Lxu"/>
-                                    <constraint firstAttribute="width" constant="32" id="7RD-k0-PQT"/>
-                                    <constraint firstAttribute="height" constant="32" id="L56-IG-dsr"/>
-                                    <constraint firstAttribute="height" constant="32" id="WAx-ly-VYA"/>
+                                    <constraint firstAttribute="width" constant="24" id="7RD-k0-PQT"/>
+                                    <constraint firstAttribute="height" constant="24" id="L56-IG-dsr"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Kp-Og-UAV">
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Kp-Og-UAV">
+                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="40"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -173,16 +169,16 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.57647058823529407" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="XpL-na-LMx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="19L-gr-z1w"/>
-                            <constraint firstItem="C3C-rT-32i" firstAttribute="leading" secondItem="XpL-na-LMx" secondAttribute="trailing" constant="5" id="7uq-DI-xEV"/>
+                            <constraint firstItem="C3C-rT-32i" firstAttribute="leading" secondItem="XpL-na-LMx" secondAttribute="trailing" constant="8" id="7uq-DI-xEV"/>
+                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="centerY" secondItem="gDY-v7-Gt5" secondAttribute="centerY" id="AWh-Ik-Ugo"/>
                             <constraint firstItem="3Kp-Og-UAV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KQp-UG-HVO"/>
                             <constraint firstAttribute="leadingMargin" secondItem="XpL-na-LMx" secondAttribute="leading" id="Nzs-fr-qXK"/>
                             <constraint firstItem="gDY-v7-Gt5" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="VHH-eR-dqi"/>
-                            <constraint firstItem="7pF-3R-Mwj" firstAttribute="leading" secondItem="C3C-rT-32i" secondAttribute="trailing" constant="5" id="cBt-1z-22g"/>
-                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="leading" relation="lessThanOrEqual" secondItem="7pF-3R-Mwj" secondAttribute="trailing" constant="5" id="d3h-tL-NpU"/>
-                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="iNf-0G-xUp"/>
+                            <constraint firstItem="7pF-3R-Mwj" firstAttribute="centerY" secondItem="gDY-v7-Gt5" secondAttribute="centerY" id="aCL-57-KkD"/>
+                            <constraint firstItem="7pF-3R-Mwj" firstAttribute="leading" secondItem="C3C-rT-32i" secondAttribute="trailing" constant="8" id="cBt-1z-22g"/>
+                            <constraint firstItem="3Kp-Og-UAV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7pF-3R-Mwj" secondAttribute="trailing" constant="10" id="d3h-tL-NpU"/>
                             <constraint firstItem="C3C-rT-32i" firstAttribute="centerY" secondItem="XpL-na-LMx" secondAttribute="centerY" id="ilL-s0-zko"/>
                             <constraint firstItem="7pF-3R-Mwj" firstAttribute="centerY" secondItem="C3C-rT-32i" secondAttribute="centerY" id="r4p-hR-FxR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gDY-v7-Gt5" secondAttribute="trailing" id="wHC-1s-vH1"/>

@@ -25,7 +25,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     var animator: UIDynamicAnimator!
     
-    //Circles for egg and corresponding views (invisible but for collisiton)
+    //Circles for egg and corresponding views
     var centerLayerView: UIView!
     var secondLayerView: UIView!
     var thirdLayerView: UIView!
@@ -39,6 +39,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         view.insertSubview(gradient, at: 0)
         
         animator = UIDynamicAnimator(referenceView: self.view)
+        
         _drawWomb()
         startGame()
     }
@@ -56,9 +57,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Do stuff
     }
     
-    // Will clean this up with instance variables or a file with constants or whatever.
-    // They stacked onto each other if added all 3 to uidynamicbehaviour so just added outside.
-    // Theoretically we only ever need the outermost one anyway.
+    // TODO: clean this up with instance variables or a file with constants or whatever.
     fileprivate func _drawWomb() {
         
         centerLayerView = UIView(frame: CGRect(
@@ -91,7 +90,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
 
-        if lives == 1{
+        if lives == 1 {
             SpermBehaviour.collider.removeAllBoundaries()
             SpermBehaviour.collider.addBoundary(withIdentifier: "innerBarrier" as NSCopying, for: innerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
@@ -149,8 +148,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             }
             x = Double(arc4random_uniform(UInt32(view.frame.width)))
         }
-        x = Double(view.frame.midX+100)
-        y = -10
         
         let sperm = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
         let swim = SpermBehaviour(x: sperm.frame.midX, y: sperm.frame.midY, centreX: self.view.frame.midX, centreY: self.view.frame.midY)
