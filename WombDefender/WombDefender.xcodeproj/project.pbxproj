@@ -12,6 +12,8 @@
 		270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD77C1DA99443006A5CE3 /* GradientView.swift */; };
 		275087401DBB0A3700741CC7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2750873F1DBB0A3700741CC7 /* Constant.swift */; };
 		277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */; };
+		2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034C1DCC22EF006C7B7C /* ShopViewController.swift */; };
+		2776034F1DCC24EE006C7B7C /* StandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */; };
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
 		A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */; };
@@ -30,6 +32,8 @@
 		270AD77C1DA99443006A5CE3 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		2750873F1DBB0A3700741CC7 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
+		2776034C1DCC22EF006C7B7C /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandingsViewController.swift; sourceTree = "<group>"; };
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A24B62011DA48B900012407A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 			children = (
 				277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */,
 				A24B62161DA5C4F40012407A /* MainGameViewController.swift */,
+				2776034C1DCC22EF006C7B7C /* ShopViewController.swift */,
+				2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -194,6 +200,8 @@
 				A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */,
 				270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */,
 				A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */,
+				2776034F1DCC24EE006C7B7C /* StandingsViewController.swift in Sources */,
+				2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */,
 				A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */,
 				A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */,
 				A24B62121DA498230012407A /* SpermModel.swift in Sources */,

@@ -100,6 +100,7 @@ class StartScreenViewController: UIViewController {
     }
     
     @IBAction func onShoppingCartButtonClicked(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "segueToShopViewController", sender: self)
     }
     @IBAction func onStandingsButtonClicked(_ sender: UIButton) {
     }

@@ -133,7 +133,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     func startGame() {
         SpermBehaviour.collider.collisionDelegate = self
         
-        for i in 1...10 {
+        for _ in 1...10 {
             self._createSperm()
         }
 
