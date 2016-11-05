@@ -9,13 +9,15 @@
 import UIKit
 import SpriteKit
 
-class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
+class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var _firstHeartImageView: UIImageView!
     @IBOutlet weak var _secondHeartImageView: UIImageView!
     @IBOutlet weak var _thirdHearImageView: UIImageView!
     @IBOutlet weak var _scoreLabel: UILabel!
     @IBOutlet weak var _settingsButton: UIButton!
+    
     @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
+        _hideShowSettings()
     }
     
     var lives = 3
@@ -44,7 +46,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         animator = UIDynamicAnimator(referenceView: self.view)
         
         _drawWomb()
-        startGame()
+        _reloadViews()
+        _startGame()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,14 +64,14 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Do stuff
     }
     
-    // TODO: clean this up with instance variables or a file with constants or whatever.
+    
     fileprivate func _drawWomb() {
         
         centerLayerView = UIView(frame: CGRect(
-                                                x: view.frame.size.width/2 - CGFloat(view.frame.width/6),
-                                                y: view.frame.size.height/2 - CGFloat(view.frame.width/6),
-                                                width: CGFloat(view.frame.width/6)*2,
-                                                height: CGFloat(view.frame.width/6)*2))
+            x: view.frame.size.width/2 - CGFloat(view.frame.width/6),
+            y: view.frame.size.height/2 - CGFloat(view.frame.width/6),
+            width: CGFloat(view.frame.width/6)*2,
+            height: CGFloat(view.frame.width/6)*2))
         centerLayerView.backgroundColor = UIColor.white
         centerLayerView.layer.cornerRadius = centerLayerView.frame.size.width/2
         
@@ -89,27 +93,16 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         thirdLayerView.alpha = 0.2
         thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
         
+    }
+    
+    // TODO: clean this up with instance variables or a file with constants or whatever.
+    fileprivate func _reloadViews() {
+        
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
 
-        if lives == 1 {
-            SpermBehaviour.collider.removeAllBoundaries()
-            SpermBehaviour.collider.addBoundary(withIdentifier: "innerBarrier" as NSCopying, for: innerRing)
-            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
-            
-            secondLayerView.removeFromSuperview()
-        } else if lives == 2 {
-            SpermBehaviour.collider.removeAllBoundaries()
-            SpermBehaviour.collider.addBoundary(withIdentifier: "centerBarrier" as NSCopying, for: centerRing)
-            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
-            
-            thirdLayerView.removeFromSuperview()
-        } else if lives == 3 {
+        if lives == 3 {
             SpermBehaviour.collider.removeAllBoundaries()
             SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: outerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
@@ -119,6 +112,22 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             self.view.addSubview(centerLayerView)
             self.view.addSubview(secondLayerView)
             self.view.addSubview(thirdLayerView)
+        } else if lives == 2 {
+            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.addBoundary(withIdentifier: "centerBarrier" as NSCopying, for: centerRing)
+            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            
+            thirdLayerView.removeFromSuperview()
+        } else if lives == 1 {
+            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.addBoundary(withIdentifier: "innerBarrier" as NSCopying, for: innerRing)
+            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            
+            secondLayerView.removeFromSuperview()
         } else {
             SpermBehaviour.collider.removeAllBoundaries()
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
@@ -130,7 +139,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
     }
 
-    func startGame() {
+    func _startGame() {
         SpermBehaviour.collider.collisionDelegate = self
         
         for _ in 1...10 {
@@ -145,12 +154,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             let idAsString = identifier as! String
             if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
                 lives = lives - 1
-                _drawWomb()
+                _reloadViews()
             }
         }
     }
     
-    func _createSperm() {
+    fileprivate func _createSperm() {
         
         let screenWidth = self.view.frame.width
         let screenHeight = self.view.frame.height
@@ -187,8 +196,64 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         swim.addItem(item: sperm)
 
         animator.addBehavior(swim)
+    
     }
     
+    fileprivate func _hideShowSettings() {
+        
+        if animator.behaviors.count > 0 {
+            animator.removeAllBehaviors()
+            
+            if self.lives == 2 {
+                self.thirdLayerView.alpha = 0
+                self.view.addSubview(self.thirdLayerView)
+            } else if self.lives == 1 {
+                self.thirdLayerView.alpha = 0
+                self.secondLayerView.alpha = 0
+                self.view.addSubview(self.thirdLayerView)
+                self.view.addSubview(self.secondLayerView)
+            }
+            
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                
+                if self.lives == 2 {
+                    self.thirdLayerView.alpha = 0.2
+                } else if self.lives == 1 {
+                    self.thirdLayerView.alpha = 0.2
+                    self.secondLayerView.alpha = 0.2
+                }
+                
+                self.centerLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+                self.secondLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+            })
+        } else {
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                if self.lives == 2 {
+                    self.thirdLayerView.alpha = 0
+                } else if self.lives == 1 {
+                    self.thirdLayerView.alpha = 0
+                    self.secondLayerView.alpha = 0
+                }
+                
+                self.centerLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.secondLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+                }, completion: { (Bool) in
+                    if self.lives == 2 {
+                        self.thirdLayerView.removeFromSuperview()
+                    } else if self.lives == 1 {
+                        self.thirdLayerView.removeFromSuperview()
+                        self.secondLayerView.removeFromSuperview()
+                    }
+                    self.animator.addBehavior(self.swim)
+            })
+        }
+
+    }
 
     /*
     // MARK: - Navigation

@@ -23,7 +23,6 @@ class Egg {
     
     func justGotHitBySperm() {
         _layers -= 1;
-        
     }
     
     func keepPlaying() -> Bool {
