@@ -73,10 +73,8 @@ class StartScreenViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    //Do we need this?
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.shared.statusBarStyle = .default
     }
     
     /************************************************************************************
