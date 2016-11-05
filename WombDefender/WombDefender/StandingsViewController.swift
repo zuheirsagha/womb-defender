@@ -10,6 +10,13 @@ import UIKit
 
 class ShopViewController: UIViewController {
     
+    
+    /************************************************************************************
+     *
+     * LIFECYCLE METHODS
+     *
+     ***********************************************************************************/
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -9,29 +9,34 @@
 import UIKit
 import SpriteKit
 
-class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate, UIGestureRecognizerDelegate {
+class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
+    
     @IBOutlet weak var _firstHeartImageView: UIImageView!
     @IBOutlet weak var _secondHeartImageView: UIImageView!
     @IBOutlet weak var _thirdHearImageView: UIImageView!
     @IBOutlet weak var _scoreLabel: UILabel!
     @IBOutlet weak var _settingsButton: UIButton!
     
-    @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
-        _hideShowSettings()
-    }
-    
+    // TODO: remove
     var lives = 3
     
     // Defaults to easy
     var currentLevelController: LevelController!
     
+    // Animation variables
     var animator: UIDynamicAnimator!
     var swim: SpermBehaviour!
     
-    //Circles for egg and corresponding views
+    // Circles for egg and corresponding views
     var centerLayerView: UIView!
     var secondLayerView: UIView!
     var thirdLayerView: UIView!
+    
+    /************************************************************************************
+     *
+     * LIFECYCLE METHODS
+     *
+     ***********************************************************************************/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +55,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _startGame()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -64,44 +69,45 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Do stuff
     }
     
+    /************************************************************************************
+     *
+     * ACTIONS/SELECTORS
+     *
+     ***********************************************************************************/
     
-    fileprivate func _drawWomb() {
-        
-        centerLayerView = UIView(frame: CGRect(
-            x: view.frame.size.width/2 - CGFloat(view.frame.width/6),
-            y: view.frame.size.height/2 - CGFloat(view.frame.width/6),
-            width: CGFloat(view.frame.width/6)*2,
-            height: CGFloat(view.frame.width/6)*2))
-        centerLayerView.backgroundColor = UIColor.white
-        centerLayerView.layer.cornerRadius = centerLayerView.frame.size.width/2
-        
-        secondLayerView = UIView(frame: CGRect(x: view.frame.size.width/2 - CGFloat(view.frame.width/5),
-                                               y: view.frame.size.height/2 - CGFloat(view.frame.width/5),
-                                               width: CGFloat(view.frame.width/5)*2,
-                                               height: CGFloat(view.frame.width/5)*2))
-        secondLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
-        secondLayerView.backgroundColor = UIColor.white
-        secondLayerView.alpha = 0.2
-        secondLayerView.layer.cornerRadius = secondLayerView.frame.size.width/2
-        
-        thirdLayerView = UIView(frame: CGRect(x: view.frame.width/2 - CGFloat(view.frame.width/4.25),
-                                              y: view.frame.height/2 - CGFloat(view.frame.width/4.25),
-                                              width: CGFloat(view.frame.width/4.25)*2,
-                                              height: CGFloat(view.frame.width/4.25)*2))
-        thirdLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
-        thirdLayerView.backgroundColor = UIColor.white
-        thirdLayerView.alpha = 0.2
-        thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
-        
+    @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
+        _hideShowSettings()
     }
+    
+    /************************************************************************************
+     *
+     * COLLISIONBEHAVIOUR DELEGATE
+     *
+     ***********************************************************************************/
+
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
+        
+        if (identifier != nil) {
+            let idAsString = identifier as! String
+            if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
+                lives = lives - 1
+                _reloadViews()
+            }
+        }
+    }
+    
+    /************************************************************************************
+     *
+     * PRIVATE METHODS
+     *
+     ***********************************************************************************/
     
     // TODO: clean this up with instance variables or a file with constants or whatever.
     fileprivate func _reloadViews() {
-        
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
-
+        
         if lives == 3 {
             SpermBehaviour.collider.removeAllBoundaries()
             SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: outerRing)
@@ -136,26 +142,41 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             
             centerLayerView.removeFromSuperview()
         }
-        
     }
-
+    
+    fileprivate func _drawWomb() {
+        centerLayerView = UIView(frame: CGRect(
+            x: view.frame.size.width/2 - CGFloat(view.frame.width/6),
+            y: view.frame.size.height/2 - CGFloat(view.frame.width/6),
+            width: CGFloat(view.frame.width/6)*2,
+            height: CGFloat(view.frame.width/6)*2))
+        centerLayerView.backgroundColor = UIColor.white
+        centerLayerView.layer.cornerRadius = centerLayerView.frame.size.width/2
+        
+        secondLayerView = UIView(frame: CGRect(x: view.frame.size.width/2 - CGFloat(view.frame.width/5),
+                                               y: view.frame.size.height/2 - CGFloat(view.frame.width/5),
+                                               width: CGFloat(view.frame.width/5)*2,
+                                               height: CGFloat(view.frame.width/5)*2))
+        secondLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
+        secondLayerView.backgroundColor = UIColor.white
+        secondLayerView.alpha = 0.2
+        secondLayerView.layer.cornerRadius = secondLayerView.frame.size.width/2
+        
+        thirdLayerView = UIView(frame: CGRect(x: view.frame.width/2 - CGFloat(view.frame.width/4.25),
+                                              y: view.frame.height/2 - CGFloat(view.frame.width/4.25),
+                                              width: CGFloat(view.frame.width/4.25)*2,
+                                              height: CGFloat(view.frame.width/4.25)*2))
+        thirdLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
+        thirdLayerView.backgroundColor = UIColor.white
+        thirdLayerView.alpha = 0.2
+        thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
+    }
+    
     func _startGame() {
         SpermBehaviour.collider.collisionDelegate = self
         
         for _ in 1...10 {
             self._createSperm()
-        }
-
-    }
-    
-    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
-        
-        if (identifier != nil) {
-            let idAsString = identifier as! String
-            if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
-                lives = lives - 1
-                _reloadViews()
-            }
         }
     }
     
@@ -190,11 +211,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         }
         
         let sperm = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
-
         self.view.insertSubview(sperm, at: 1)
 
         swim.addItem(item: sperm)
-
         animator.addBehavior(swim)
     
     }
@@ -222,13 +241,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     self.thirdLayerView.alpha = 0.2
                     self.secondLayerView.alpha = 0.2
                 }
-                
                 self.centerLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
                 self.secondLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
                 self.thirdLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
             })
-        } else {
             
+        } else {
             UIView.animate(withDuration: 0.5, animations: {
                 
                 if self.lives == 2 {
@@ -237,11 +255,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     self.thirdLayerView.alpha = 0
                     self.secondLayerView.alpha = 0
                 }
-                
                 self.centerLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.secondLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.thirdLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                
                 }, completion: { (Bool) in
                     if self.lives == 2 {
                         self.thirdLayerView.removeFromSuperview()
@@ -252,7 +268,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     self.animator.addBehavior(self.swim)
             })
         }
-
     }
 
     /*
