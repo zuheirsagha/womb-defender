@@ -18,7 +18,6 @@ class GradientView : UIView {
         super.init(coder: aDecoder)!
     }
     
-    
     override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         

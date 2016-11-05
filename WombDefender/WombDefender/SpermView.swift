@@ -16,7 +16,6 @@ class SpermView : UIView {
         self.backgroundColor = UIColor.blue
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

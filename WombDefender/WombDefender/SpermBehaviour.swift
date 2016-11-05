@@ -12,6 +12,16 @@ class SpermBehaviour: UIDynamicBehavior {
     
     private var gravity: UIFieldBehavior!
     
+    init(centreX: CGFloat, centreY: CGFloat) {
+        super.init()
+        gravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: centreX, y: centreY))
+        gravity.falloff = 0.1
+        
+        addChildBehavior(gravity)
+        addChildBehavior(SpermBehaviour.collider)
+        addChildBehavior(SpermBehaviour.objectBehaviour)
+    }
+    
     // Changed these to stack because it is only ever gravity that changes (direction)
     // Therefore avoid creating a bunch of new objects for no reason
     static let collider: UICollisionBehavior = {
@@ -30,16 +40,6 @@ class SpermBehaviour: UIDynamicBehavior {
         dib.allowsRotation = false
         return dib
     }()
-    
-    init(centreX: CGFloat, centreY: CGFloat) {
-        super.init()
-        gravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: centreX, y: centreY))
-        gravity.falloff = 0.1
-        
-        addChildBehavior(gravity)
-        addChildBehavior(SpermBehaviour.collider)
-        addChildBehavior(SpermBehaviour.objectBehaviour)
-    }
     
     func addItem(item : UIDynamicItem) {
         gravity.addItem(item)
