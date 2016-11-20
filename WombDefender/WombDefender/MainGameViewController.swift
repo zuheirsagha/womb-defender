@@ -72,6 +72,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         total = 0
         interval = 0
         
+        animator.removeAllBehaviors()
+        
         // make options like play again or back to menu and stuff
         let alertController = UIAlertController(title: "Sorry You Lost..", message: "What do you want to do?", preferredStyle: .alert)
         
@@ -90,14 +92,21 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     func removeSpermViewAtIndex(index: Int) {
-        print("called")
-        
         // weird bug where this is still being called after all are dead.. my hack to fix it (put it off until later)
         // becuase I remove all sperm when game is over to otherwise it would be array out of bounds
         if (index < sperms.count) {
             sperms[index].removeFromSuperview()
         }
     }
+    
+    func demoteSpermViewAtIndex(index: Int) {
+        // weird bug where this is still being called after all are dead.. my hack to fix it (put it off until later)
+        // becuase I remove all sperm when game is over to otherwise it would be array out of bounds
+        if (index < sperms.count) {
+            sperms[index].resize()
+        }
+    }
+
     
     func reloadView() {
         _reloadViews()
@@ -124,17 +133,13 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         if (identifier != nil) {
             let idAsString = identifier as! String
             if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
-                print(idAsString)
                 if let item = item as? SpermView {
-                    print("Hit a sperm and died")
                     swim.removeItem(item: item)
                     if !item.isDead() {
                         item.spermJustHitBoundary()
                         currentLevelController.spermHitEgg()
                     }
                     
-                } else {
-                    print("didnt even hit a sperm")
                 }
             }
         }
@@ -216,6 +221,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         animator = UIDynamicAnimator(referenceView: self.view)
 
         currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
+        currentLevelController.restart()
         sperms = [SpermView]()
         
         swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
@@ -228,6 +234,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _drawWomb()
         _reloadViews()
         createSperm()
+        animator.addBehavior(swim)
     }
     
     private func createSperm() {
@@ -275,7 +282,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         sperms.insert(sperm, at: count)
 
         swim.addItem(item: sperm)
-        animator.addBehavior(swim)
     }
     
     fileprivate func _hideShowSettings() {

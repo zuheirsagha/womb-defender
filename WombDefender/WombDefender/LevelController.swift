@@ -15,7 +15,6 @@ protocol LevelControllerDelegate {
 
 class LevelController : SpermDelegate, EggDelegate {
     fileprivate var _score = 0
-    fileprivate var _livesLeft: Int!
     fileprivate var _delegate : MainGameViewController!
     fileprivate var _egg : Egg!
     /* time interval between when sperm is released (in milliseconds) */
@@ -30,7 +29,7 @@ class LevelController : SpermDelegate, EggDelegate {
     
     init(delegate: MainGameViewController) {
         _delegate = delegate
-        _egg = Egg(controller: self)
+        restart()
     }
     
     func nextLevel() {
@@ -38,7 +37,7 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func restart() {
-        
+        _egg = Egg(controller: self)
     }
     
     func killedSperm() {
@@ -91,9 +90,14 @@ class EasyLevelController : LevelController {
     override init(delegate: MainGameViewController) {
         super.init(delegate: delegate)
         // Set values specific to easylevelcontroller based on enums in settings.swift
-        _interval = 1000
+        restart()
+    }
+    
+    override func restart() {
+        super.restart()
+        _interval = 1500
         _number = 3
-        _strength = 0.1
+        _strength = 0.3
     }
     
 }

@@ -43,7 +43,6 @@ class Sperm {
     func justHitBarrier() {
         _damage! -= 1;
         if (_damage <= 0) {
-            print("called in sperm model")
             _isDead = true
             _delegate.spermDeadAtIndex(index: self._index)
         } else {

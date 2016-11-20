@@ -45,4 +45,18 @@ class SpermView : UIView {
     public func isDead() -> Bool {
         return _sperm.isDead()
     }
+    
+    
+    /** Attempts at rescaling from mega to normal are unsuccessful */
+    public func resize() {
+//        switch (_sperm.size()) {
+//        case .Regular:
+//            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20, height: 20)
+//            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20, height: 20)
+//            self.transform = .init(scaleX: 0.5, y: 0.5)
+//        case .Mega:
+//            return
+//        }
+//        setNeedsDisplay()
+    }
 }
