@@ -28,8 +28,6 @@ class LevelController : SpermDelegate, EggDelegate {
     // TODO: Values set based on levels and difficulty (ex. # of sperm, frequency, gravity)
     fileprivate var _scoreIncrementForKillingSperm: Int!
     
-    
-    
     init(delegate: MainGameViewController) {
         _delegate = delegate
         _egg = Egg(controller: self)

@@ -43,18 +43,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
-        sperms = [SpermView]()
-        
-        swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
-        
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
-        
-        animator = UIDynamicAnimator(referenceView: self.view)
-        
-        _drawWomb()
-        _reloadViews()
+    
         _startGame()
         
     }
@@ -66,17 +57,35 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     func gameIsOver() {
         SpermBehaviour.collider.removeAllBoundaries()
+        
         _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
         
         centerLayerView.removeFromSuperview()
+        
+        for sperm in sperms {
+            sperm.removeFromSuperview()
+        }
+        
         sperms.removeAll()
+        total = 0
+        interval = 0
         
         // make options like play again or back to menu and stuff
         let alertController = UIAlertController(title: "Sorry You Lost..", message: "What do you want to do?", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
+        
+        let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { (action:UIAlertAction!) in
+            self._startGame()
+        }
+        
+        let returnToMainAction = UIAlertAction(title: "Return to Main Menu", style: .default) { (action:UIAlertAction!) in
+            //CRASHES APP - NSEXCEPTION
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(playAgainAction)
+        alertController.addAction(returnToMainAction)
         present(alertController, animated: true, completion: nil)
     }
     
@@ -204,11 +213,20 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     func _startGame() {
+        animator = UIDynamicAnimator(referenceView: self.view)
+
+        currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
+        sperms = [SpermView]()
+        
+        swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
+        
         SpermBehaviour.collider.collisionDelegate = self
         total = currentLevelController.numberOfSperm()
         interval = currentLevelController.interval()
         swim.setFieldStrength(strength: currentLevelController.fieldStrength())
         
+        _drawWomb()
+        _reloadViews()
         createSperm()
     }
     
@@ -258,7 +276,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
 
         swim.addItem(item: sperm)
         animator.addBehavior(swim)
-    
     }
     
     fileprivate func _hideShowSettings() {
