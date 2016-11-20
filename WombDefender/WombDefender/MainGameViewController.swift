@@ -17,15 +17,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _scoreLabel: UILabel!
     @IBOutlet weak var _settingsButton: UIButton!
     
-    // TODO: remove
-    var lives = 3
-    
     // Defaults to easy
     var currentLevelController: LevelController!
     
     // Animation variables
     var animator: UIDynamicAnimator!
     var swim: SpermBehaviour!
+    
+    // Sperm Views Currently On Screen
+    var sperms: [SpermView]!
+    var total: Int = 0
+    var interval: Int = 0
     
     // Circles for egg and corresponding views
     var centerLayerView: UIView!
@@ -42,6 +44,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         super.viewDidLoad()
 
         currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
+        sperms = [SpermView]()
         
         swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
         
@@ -62,11 +65,33 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     func gameIsOver() {
-        // Do stuff
+        SpermBehaviour.collider.removeAllBoundaries()
+        _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
+        _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
+        _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+        
+        centerLayerView.removeFromSuperview()
+        sperms.removeAll()
+        
+        // make options like play again or back to menu and stuff
+        let alertController = UIAlertController(title: "Sorry You Lost..", message: "What do you want to do?", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     func removeSpermViewAtIndex(index: Int) {
-        // Do stuff
+        print("called")
+        
+        // weird bug where this is still being called after all are dead.. my hack to fix it (put it off until later)
+        // becuase I remove all sperm when game is over to otherwise it would be array out of bounds
+        if (index < sperms.count) {
+            sperms[index].removeFromSuperview()
+        }
+    }
+    
+    func reloadView() {
+        _reloadViews()
     }
     
     /************************************************************************************
@@ -90,11 +115,22 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         if (identifier != nil) {
             let idAsString = identifier as! String
             if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
-                lives = lives - 1
-                _reloadViews()
+                print(idAsString)
+                if let item = item as? SpermView {
+                    print("Hit a sperm and died")
+                    swim.removeItem(item: item)
+                    if !item.isDead() {
+                        item.spermJustHitBoundary()
+                        currentLevelController.spermHitEgg()
+                    }
+                    
+                } else {
+                    print("didnt even hit a sperm")
+                }
             }
         }
     }
+    
     
     /************************************************************************************
      *
@@ -107,6 +143,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
+        
+        let lives = currentLevelController.getLives()
         
         if lives == 3 {
             SpermBehaviour.collider.removeAllBoundaries()
@@ -134,13 +172,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
             
             secondLayerView.removeFromSuperview()
-        } else {
-            SpermBehaviour.collider.removeAllBoundaries()
-            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
-            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
-            
-            centerLayerView.removeFromSuperview()
         }
     }
     
@@ -174,9 +205,20 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     func _startGame() {
         SpermBehaviour.collider.collisionDelegate = self
+        total = currentLevelController.numberOfSperm()
+        interval = currentLevelController.interval()
+        swim.setFieldStrength(strength: currentLevelController.fieldStrength())
         
-        for _ in 1...10 {
+        createSperm()
+    }
+    
+    private func createSperm() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(interval)) {
             self._createSperm()
+            self.total -= 1
+            if (self.total > 0) {
+                self.createSperm()
+            }
         }
     }
     
@@ -209,9 +251,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             x = 0
             y = 0
         }
-        
-        let sperm = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
+        let count = sperms.count
+        let sperm = SpermView.createSpermViewAt(x: x, y: y, size: .Regular, controller: currentLevelController, index: count)
         self.view.insertSubview(sperm, at: 1)
+        sperms.insert(sperm, at: count)
 
         swim.addItem(item: sperm)
         animator.addBehavior(swim)
@@ -223,10 +266,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         if animator.behaviors.count > 0 {
             animator.removeAllBehaviors()
             
-            if self.lives == 2 {
+            if self.currentLevelController.getLives() == 2 {
                 self.thirdLayerView.alpha = 0
                 self.view.addSubview(self.thirdLayerView)
-            } else if self.lives == 1 {
+            } else if self.currentLevelController.getLives() == 1 {
                 self.thirdLayerView.alpha = 0
                 self.secondLayerView.alpha = 0
                 self.view.addSubview(self.thirdLayerView)
@@ -235,9 +278,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             
             UIView.animate(withDuration: 0.5, animations: { () -> Void in
                 
-                if self.lives == 2 {
+                if self.currentLevelController.getLives() == 2 {
                     self.thirdLayerView.alpha = 0.2
-                } else if self.lives == 1 {
+                } else if self.currentLevelController.getLives() == 1 {
                     self.thirdLayerView.alpha = 0.2
                     self.secondLayerView.alpha = 0.2
                 }
@@ -249,9 +292,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 
-                if self.lives == 2 {
+                if self.currentLevelController.getLives() == 2 {
                     self.thirdLayerView.alpha = 0
-                } else if self.lives == 1 {
+                } else if self.currentLevelController.getLives() == 1 {
                     self.thirdLayerView.alpha = 0
                     self.secondLayerView.alpha = 0
                 }
@@ -259,9 +302,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 self.secondLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.thirdLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }, completion: { (Bool) in
-                    if self.lives == 2 {
+                    if self.currentLevelController.getLives() == 2 {
                         self.thirdLayerView.removeFromSuperview()
-                    } else if self.lives == 1 {
+                    } else if self.currentLevelController.getLives() == 1 {
                         self.thirdLayerView.removeFromSuperview()
                         self.secondLayerView.removeFromSuperview()
                     }

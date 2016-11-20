@@ -23,10 +23,16 @@ class Egg {
     
     func justGotHitBySperm() {
         _layers -= 1;
+        if (_layers < 1) {
+            _gameover = true
+            _delegate.eggHasBeenPenetrated()
+        } else {
+            _delegate.somethingChanged()
+        }
     }
     
     func keepPlaying() -> Bool {
-        return !_gameover;
+        return !_gameover
     }
     
     func layers() -> Int {

@@ -18,9 +18,14 @@ class LevelController : SpermDelegate, EggDelegate {
     fileprivate var _livesLeft: Int!
     fileprivate var _delegate : MainGameViewController!
     fileprivate var _egg : Egg!
+    /* time interval between when sperm is released (in milliseconds) */
+    fileprivate var _interval: Int!
+    /* number of sperm to be released in this level. */
+    fileprivate var _number: Int!
+    /* strength of the field on this level. Max is 1.0 */
+    fileprivate var _strength: Double!
     
     // TODO: Values set based on levels and difficulty (ex. # of sperm, frequency, gravity)
-    fileprivate var sperms = [Sperm]()
     fileprivate var _scoreIncrementForKillingSperm: Int!
     
     
@@ -42,6 +47,18 @@ class LevelController : SpermDelegate, EggDelegate {
         
     }
     
+    func numberOfSperm() -> Int {
+        return _number
+    }
+    
+    func interval() -> Int {
+        return _interval
+    }
+    
+    func fieldStrength() -> Double {
+        return _strength
+    }
+    
     func spermHitEgg() {
         _egg.justGotHitBySperm()
     }
@@ -51,16 +68,23 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func spermDeadAtIndex(index: Int) {
-        sperms.remove(at: index)
         _delegate.removeSpermViewAtIndex(index: index)
     }
     
-    func getLives() -> Int {
-        return _livesLeft
+    func spermIsDemotedAtIndex(index: Int) {
+        // add method to decrease mega sperm to regular in main.
     }
     
+    func getLives() -> Int {
+        return _egg.layers()
+    }
+    
+    /** Can alter to increase eggs lives*/
     func setLives(lives : Int) {
-        _livesLeft = lives
+    }
+    
+    func somethingChanged() {
+        _delegate.reloadView()
     }
     
 }
@@ -69,6 +93,9 @@ class EasyLevelController : LevelController {
     override init(delegate: MainGameViewController) {
         super.init(delegate: delegate)
         // Set values specific to easylevelcontroller based on enums in settings.swift
+        _interval = 1000
+        _number = 3
+        _strength = 0.1
     }
     
 }

@@ -52,4 +52,8 @@ class SpermBehaviour: UIDynamicBehavior {
         SpermBehaviour.collider.removeItem(item)
         SpermBehaviour.objectBehaviour.removeItem(item)
     }
+    
+    func setFieldStrength(strength: Double) {
+        gravity.strength = CGFloat(strength)
+    }
 }

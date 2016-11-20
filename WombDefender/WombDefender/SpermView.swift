@@ -11,6 +11,20 @@ import Foundation
 
 class SpermView : UIView {
     
+    private var _sperm : Sperm!
+    
+    public class func createSpermViewAt(x: Int, y: Int, size: SpermType, controller: LevelController, index: Int) -> SpermView {
+        var view: SpermView!
+        switch (size) {
+        case .Regular:
+            view = SpermView(frame: CGRect(x: x, y: y, width: 20, height: 20))
+        case .Mega:
+            view = SpermView(frame: CGRect(x: x, y: y, width: 40, height: 40))
+        }
+        view.setModel(type: size, controller: controller, index: index)
+        return view
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.blue
@@ -20,8 +34,15 @@ class SpermView : UIView {
         super.init(coder: aDecoder)
     }
     
-    func addSperm() {
-        
+    private func setModel(type: SpermType, controller: LevelController, index: Int) {
+        self._sperm = Sperm.createNewSperm(type: type, controller: controller, index: index)
     }
     
+    public func spermJustHitBoundary() {
+        _sperm.justHitBarrier()
+    }
+    
+    public func isDead() -> Bool {
+        return _sperm.isDead()
+    }
 }
