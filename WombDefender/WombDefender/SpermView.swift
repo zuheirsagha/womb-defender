@@ -21,6 +21,7 @@ class SpermView : UIView {
         case .Mega:
             view = SpermView(frame: CGRect(x: x, y: y, width: 40, height: 40))
         }
+        view.layer.cornerRadius = 10
         view.setModel(type: size, controller: controller, index: index)
         return view
     }
@@ -49,14 +50,16 @@ class SpermView : UIView {
     
     /** Attempts at rescaling from mega to normal are unsuccessful */
     public func resize() {
-//        switch (_sperm.size()) {
-//        case .Regular:
-//            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20, height: 20)
-//            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20, height: 20)
+        switch (_sperm.size()) {
+        case .Regular:
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20, height: 20)
+//            self.bounds = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20, height: 20)
 //            self.transform = .init(scaleX: 0.5, y: 0.5)
-//        case .Mega:
-//            return
-//        }
-//        setNeedsDisplay()
+        case .Mega:
+            return;
+        }
+        setNeedsDisplay()
+//        self.superview!.bringSubview(toFront: self)
+//        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
     }
 }

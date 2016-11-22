@@ -66,6 +66,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         for sperm in sperms {
             sperm.removeFromSuperview()
+            swim.removeItem(item: sperm)
         }
         
         sperms.removeAll()
@@ -106,6 +107,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             sperms[index].resize()
         }
     }
+    
+    func removeSwimBehaviorAtIndex(index: Int) {
+        if (index < sperms.count) {
+            swim.removeItem(item: sperms[index])
+        }
+    }
 
     
     func reloadView() {
@@ -134,7 +141,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             let idAsString = identifier as! String
             if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
                 if let item = item as? SpermView {
-                    swim.removeItem(item: item)
                     if !item.isDead() {
                         item.spermJustHitBoundary()
                         currentLevelController.spermHitEgg()
@@ -277,7 +283,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             y = 0
         }
         let count = sperms.count
-        let sperm = SpermView.createSpermViewAt(x: x, y: y, size: .Regular, controller: currentLevelController, index: count)
+        let sperm = SpermView.createSpermViewAt(x: x, y: y, size: .Mega, controller: currentLevelController, index: count)
         self.view.insertSubview(sperm, at: 1)
         sperms.insert(sperm, at: count)
 

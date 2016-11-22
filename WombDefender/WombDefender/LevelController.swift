@@ -65,11 +65,12 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func spermDeadAtIndex(index: Int) {
+        _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
     }
     
     func spermIsDemotedAtIndex(index: Int) {
-        // add method to decrease mega sperm to regular in main.
+        _delegate.demoteSpermViewAtIndex(index: index)
     }
     
     func getLives() -> Int {
@@ -95,8 +96,8 @@ class EasyLevelController : LevelController {
     
     override func restart() {
         super.restart()
-        _interval = 1500
-        _number = 3
+        _interval = 500
+        _number = 2
         _strength = 0.3
     }
     
