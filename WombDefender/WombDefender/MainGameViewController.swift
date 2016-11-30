@@ -17,6 +17,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _scoreLabel: UILabel!
     @IBOutlet weak var _settingsButton: UIButton!
     
+    @IBOutlet var _swipeView: SwipeView!
+    
+    var KEY_SWIPE_IDENTIFIER = "swipe"
+    
     // Defaults to easy
     var currentLevelController: LevelController!
     
@@ -42,10 +46,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
-    
+        
         _startGame()
         
     }
@@ -57,6 +61,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     func gameIsOver() {
         SpermBehaviour.collider.removeAllBoundaries()
+        
+        _swipeView.swipePath.removeAllPoints()
+        _swipeView.setNeedsDisplay()
         
         _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
@@ -167,7 +174,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let lives = currentLevelController.getLives()
         
         if lives == 3 {
-            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.removeBoundary(withIdentifier: "outerBarrier" as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: outerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
@@ -177,7 +184,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             self.view.addSubview(secondLayerView)
             self.view.addSubview(thirdLayerView)
         } else if lives == 2 {
-            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.removeBoundary(withIdentifier: "outerBarrier" as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: "centerBarrier" as NSCopying, for: centerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
@@ -185,7 +192,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             
             thirdLayerView.removeFromSuperview()
         } else if lives == 1 {
-            SpermBehaviour.collider.removeAllBoundaries()
+            SpermBehaviour.collider.removeBoundary(withIdentifier: "centerBarrier" as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: "innerBarrier" as NSCopying, for: innerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")

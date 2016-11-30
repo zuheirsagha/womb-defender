@@ -17,9 +17,9 @@ enum Difficulty {
 
 // Int corresponds to length of barrier based on difficulty level. Not accurate, just arbitrary values.
 enum Length : Int {
-    case Easy = 20
-    case Medium = 15
-    case Hard = 10
+    case Easy = 10
+    case Medium = 6
+    case Hard = 3
 }
 
 // Int corresponds to the Rough

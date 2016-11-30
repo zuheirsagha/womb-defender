@@ -14,6 +14,7 @@
 		277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */; };
 		2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034C1DCC22EF006C7B7C /* ShopViewController.swift */; };
 		2776034F1DCC24EE006C7B7C /* StandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */; };
+		27D3063F1DEE7CF900F3F62C /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D3063E1DEE7CF900F3F62C /* SwipeView.swift */; };
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
 		A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */; };
@@ -34,6 +35,7 @@
 		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		2776034C1DCC22EF006C7B7C /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandingsViewController.swift; sourceTree = "<group>"; };
+		27D3063E1DEE7CF900F3F62C /* SwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A24B62011DA48B900012407A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				270AD77C1DA99443006A5CE3 /* GradientView.swift */,
 				270AD7751DA7312E006A5CE3 /* SpermView.swift */,
+				27D3063E1DEE7CF900F3F62C /* SwipeView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -151,7 +154,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Zoko;
 				TargetAttributes = {
 					A24B61F81DA48B8F0012407A = {
@@ -199,6 +202,7 @@
 				A24B62191DA5C8980012407A /* Settings.swift in Sources */,
 				A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */,
 				270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */,
+				27D3063F1DEE7CF900F3F62C /* SwipeView.swift in Sources */,
 				A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */,
 				2776034F1DCC24EE006C7B7C /* StandingsViewController.swift in Sources */,
 				2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */,
@@ -253,6 +257,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -303,6 +308,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
