@@ -11,9 +11,9 @@ import UIKit
 
 class SwipeView : UIView {
     
-    var swipeLength : Int = 10
+    var swipeLength : CGFloat = 100.0
     var swipePath : UIBezierPath!
-    var pointCount : Int = 0
+    var firstPoint : CGPoint!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,37 +34,31 @@ class SwipeView : UIView {
         swipePath.removeAllPoints()
         if let touch = touches.first {
             let p = touch.location(in: self)
+            firstPoint = p
             swipePath?.move(to: p)
-            pointCount = pointCount + 1
         }
         SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
-        if pointCount < swipeLength {
+        if sqrt(pow(swipePath.currentPoint.x-firstPoint.x,2) + pow(swipePath.currentPoint.y-firstPoint.y,2)) < swipeLength {
             if let touch = touches.first {
                 let p = touch.location(in: self)
                 swipePath?.addLine(to: p)
-                pointCount = pointCount + 1
                 setNeedsDisplay()
             }
         }
-        SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
         touchesMoved(touches, with: event)
-        pointCount = 0
         SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
-
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesEnded(touches, with: event)
-        pointCount = 0
         SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
     }
 

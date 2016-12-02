@@ -155,6 +155,13 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     
                 }
             }
+            else if (idAsString == "swipe") {
+                if let item = item as? SpermView {
+                    if !item.isDead() {
+                        item.spermJustHitBoundary()
+                    }
+                }
+            }
         }
     }
     
