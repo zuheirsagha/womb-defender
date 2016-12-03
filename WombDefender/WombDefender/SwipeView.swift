@@ -18,6 +18,7 @@ class SwipeView : UIView {
     
     var radius : Double!
     var startAngle : CGFloat!
+    var endAngle : CGFloat!
     var _firstTime : Bool = true
     var _direction : Bool = true
     
@@ -43,36 +44,29 @@ class SwipeView : UIView {
         }
         
         radius = sqrt(Double(pow(self.center.x-firstPoint.x,2) + pow(self.center.y-firstPoint.y,2)))
-        startAngle = atan2(firstPoint.y - self.center.y, self.center.x-firstPoint.y)
+        startAngle = atan2(firstPoint.y - self.center.y, firstPoint.x-self.center.x)
         
         SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
+
         if _firstTime || sqrt(pow(swipePath.currentPoint.x-firstPoint.x,2) + pow(swipePath.currentPoint.y-firstPoint.y,2)) < swipeLength {
             _firstTime = false
             if let touch = touches.first {
                 let p = touch.location(in: self)
                 currentPoint = p
                 
-                if currentPoint.y > self.center.y && currentPoint.x < self.center.x {
-                    _direction = true
-                } else if currentPoint.y > self.center.y && currentPoint.x > self.center.x {
-                    _direction = true
-                } else if currentPoint.y < self.center.y && currentPoint.x < self.center.x {
-                    _direction = true
-                } else if currentPoint.y < self.center.y && currentPoint.x > self.center.x {
-                    _direction = false
-                } else {
-                    _direction = false
-                }
+                endAngle = atan2(currentPoint.y - self.center.y, currentPoint.x-self.center.x)
                 
-                let endAngle = atan2(currentPoint.y - self.center.y, self.center.x-currentPoint.y)
+                _direction = _getDirection(startAngle, endAngle: endAngle)
+                
                 swipePath = UIBezierPath(arcCenter: self.center, radius: CGFloat(radius!), startAngle: startAngle, endAngle: endAngle, clockwise: _direction)
                 setNeedsDisplay()
             }
         }
+        SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -84,6 +78,63 @@ class SwipeView : UIView {
         touchesEnded(touches, with: event)
         SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
         _firstTime = true
+    }
+    
+    fileprivate func _getDirection(_ startAngle : CGFloat, endAngle : CGFloat) -> Bool {
+        
+        if isThirdQuadrant(startAngle) && isSecondQuadrant(endAngle) {
+            return true
+        } else if isThirdQuadrant(endAngle) && isSecondQuadrant(startAngle) {
+            return false
+        }
+        else if isFirstQuadrant(startAngle) && isFourthQuadrant(endAngle) {
+            return true
+        } else if isFirstQuadrant(endAngle) && isFourthQuadrant(startAngle) {
+            return false
+        }
+        else if startAngle < 0 {
+            if startAngle > endAngle {
+                return false
+            } else {
+                return true
+            }
+        } else if startAngle > 0 {
+            if startAngle < endAngle {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+    
+    fileprivate func isFirstQuadrant(_ angle : CGFloat) -> Bool {
+        if angle < 0 && angle > (0 - CGFloat.pi/2) {
+            return true
+        }
+        return false
+    }
+    
+    fileprivate func isSecondQuadrant(_ angle : CGFloat) -> Bool {
+        if angle < 0 && angle < (0 - CGFloat.pi/2) {
+            return true
+        }
+        return false
+    }
+    
+    fileprivate func isThirdQuadrant(_ angle : CGFloat) -> Bool {
+        if angle > 0 && angle > (CGFloat.pi/2) {
+            return true
+        }
+        return false
+    }
+    
+    fileprivate func isFourthQuadrant(_ angle : CGFloat) -> Bool {
+        if angle > 0 && angle < (CGFloat.pi/2) {
+            return true
+        }
+        return false
     }
 
 }
