@@ -80,6 +80,12 @@ class SwipeView : UIView {
         _firstTime = true
     }
     
+    /************************************************************************************
+     *
+     * PRIVATE METHODS
+     *
+     ***********************************************************************************/
+    
     fileprivate func _getDirection(_ startAngle : CGFloat, endAngle : CGFloat) -> Bool {
         
         if isThirdQuadrant(startAngle) && isSecondQuadrant(endAngle) {
