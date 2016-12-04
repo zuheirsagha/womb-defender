@@ -33,6 +33,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     var total: Int = 0
     var interval: Int = 0
     
+    fileprivate var _score : Int!
+    
     // Circles for egg and corresponding views
     var centerLayerView: UIView!
     var secondLayerView: UIView!
@@ -51,7 +53,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         view.insertSubview(gradient, at: 0)
         
         _startGame()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -163,7 +164,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 }
                 _swipeView.swipePath.removeAllPoints()
                 _swipeView.setNeedsDisplay()
+                currentLevelController.incrementScore(100)
                 SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
+                _reloadViews()
             }
         }
     }
@@ -182,6 +185,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         
         let lives = currentLevelController.getLives()
+        _score = currentLevelController.getScore()
+        
+        _scoreLabel.text = "\(_score!)"
         
         if lives == 3 {
             SpermBehaviour.collider.removeBoundary(withIdentifier: "outerBarrier" as NSCopying)

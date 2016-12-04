@@ -81,6 +81,13 @@ class LevelController : SpermDelegate, EggDelegate {
     func setLives(lives : Int) {
     }
     
+    func getScore() -> Int {
+        return _score
+    }
+    func incrementScore(_ score : Int) {
+        _score = _score + score
+    }
+    
     func somethingChanged() {
         _delegate.reloadView()
     }
