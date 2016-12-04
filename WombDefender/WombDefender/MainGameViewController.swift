@@ -164,7 +164,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 }
                 _swipeView.swipePath.removeAllPoints()
                 _swipeView.setNeedsDisplay()
-                currentLevelController.incrementScore(100)
                 SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
                 _reloadViews()
             }

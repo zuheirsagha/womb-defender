@@ -65,11 +65,13 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func spermDeadAtIndex(index: Int) {
+        _score += 100
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
     }
     
     func spermIsDemotedAtIndex(index: Int) {
+        _score += 50
         _delegate.demoteSpermViewAtIndex(index: index)
     }
     
@@ -84,9 +86,7 @@ class LevelController : SpermDelegate, EggDelegate {
     func getScore() -> Int {
         return _score
     }
-    func incrementScore(_ score : Int) {
-        _score = _score + score
-    }
+
     
     func somethingChanged() {
         _delegate.reloadView()
