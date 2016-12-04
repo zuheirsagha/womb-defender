@@ -161,6 +161,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                         item.spermJustHitBoundary()
                     }
                 }
+                _swipeView.swipePath.removeAllPoints()
+                _swipeView.setNeedsDisplay()
+                SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
             }
         }
     }

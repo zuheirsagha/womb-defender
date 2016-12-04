@@ -98,7 +98,7 @@ class EasyLevelController : LevelController {
         super.restart()
         _interval = 500
         _number = 2
-        _strength = 0.3
+        _strength = 0.5
     }
     
 }

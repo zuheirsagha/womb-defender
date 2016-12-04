@@ -21,12 +21,15 @@ class SwipeView : UIView {
     var endAngle : CGFloat!
     var _firstTime : Bool = true
     var _direction : Bool = true
+
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isMultipleTouchEnabled = false
         self.backgroundColor = UIColor.clear
+                
         swipePath = UIBezierPath()
+        swipePath.lineWidth = 3.0
     }
     
     override func draw(_ rect: CGRect) {
@@ -88,14 +91,14 @@ class SwipeView : UIView {
     
     fileprivate func _getDirection(_ startAngle : CGFloat, endAngle : CGFloat) -> Bool {
         
-        if isThirdQuadrant(startAngle) && isSecondQuadrant(endAngle) {
+        if _isThirdQuadrant(startAngle) && _isSecondQuadrant(endAngle) {
             return true
-        } else if isThirdQuadrant(endAngle) && isSecondQuadrant(startAngle) {
+        } else if _isThirdQuadrant(endAngle) && _isSecondQuadrant(startAngle) {
             return false
         }
-        else if isFirstQuadrant(startAngle) && isFourthQuadrant(endAngle) {
+        else if _isFirstQuadrant(startAngle) && _isFourthQuadrant(endAngle) {
             return true
-        } else if isFirstQuadrant(endAngle) && isFourthQuadrant(startAngle) {
+        } else if _isFirstQuadrant(endAngle) && _isFourthQuadrant(startAngle) {
             return false
         }
         else if startAngle < 0 {
@@ -115,28 +118,28 @@ class SwipeView : UIView {
         }
     }
     
-    fileprivate func isFirstQuadrant(_ angle : CGFloat) -> Bool {
+    fileprivate func _isFirstQuadrant(_ angle : CGFloat) -> Bool {
         if angle < 0 && angle > (0 - CGFloat.pi/2) {
             return true
         }
         return false
     }
     
-    fileprivate func isSecondQuadrant(_ angle : CGFloat) -> Bool {
+    fileprivate func _isSecondQuadrant(_ angle : CGFloat) -> Bool {
         if angle < 0 && angle < (0 - CGFloat.pi/2) {
             return true
         }
         return false
     }
     
-    fileprivate func isThirdQuadrant(_ angle : CGFloat) -> Bool {
+    fileprivate func _isThirdQuadrant(_ angle : CGFloat) -> Bool {
         if angle > 0 && angle > (CGFloat.pi/2) {
             return true
         }
         return false
     }
     
-    fileprivate func isFourthQuadrant(_ angle : CGFloat) -> Bool {
+    fileprivate func _isFourthQuadrant(_ angle : CGFloat) -> Bool {
         if angle > 0 && angle < (CGFloat.pi/2) {
             return true
         }

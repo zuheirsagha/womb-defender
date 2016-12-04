@@ -36,7 +36,10 @@ class SpermBehaviour: UIDynamicBehavior {
        let dib = UIDynamicItemBehavior()
         // Used for megasperm -> experiment with elasticity so that it doesnt go too far
         // after bouncing off sheild
-        dib.elasticity = 1
+        dib.elasticity = 1.0
+        dib.resistance = 0.0
+        dib.angularResistance = 0.0
+        dib.friction = 0.0
         dib.allowsRotation = false
         return dib
     }()
