@@ -29,11 +29,12 @@ class SwipeView : UIView {
         self.backgroundColor = UIColor.clear
                 
         swipePath = UIBezierPath()
-        swipePath.lineWidth = 3.0
     }
     
     override func draw(_ rect: CGRect) {
         UIColor.white.setStroke()
+        swipePath.lineWidth = 10
+        swipePath.lineCapStyle = CGLineCap.round
         swipePath.stroke()
     }
     
