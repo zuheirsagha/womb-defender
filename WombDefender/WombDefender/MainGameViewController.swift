@@ -17,7 +17,18 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _scoreLabel: UILabel!
     @IBOutlet weak var _settingsButton: UIButton!
     
+    @IBOutlet weak var _endGameView: UIView!
+    @IBOutlet weak var _endGameScoreLabel: UILabel!
+    @IBOutlet weak var _endGameBestScoreLabel: UILabel!
     @IBOutlet var _swipeView: SwipeView!
+    @IBOutlet weak var _endGameHomeButton: UIButton!
+    @IBAction func onEndGameHomeButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    @IBOutlet weak var _endGameRestartButton: UIButton!
+    @IBAction func onEndGameRestartButtonPressed(_ sender: UIButton) {
+        _startGame()
+    }
     
     var KEY_SWIPE_IDENTIFIER = "swipe"
     
@@ -83,21 +94,11 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         animator.removeAllBehaviors()
         
-        // make options like play again or back to menu and stuff
-        let alertController = UIAlertController(title: "Sorry You Lost..", message: "What do you want to do?", preferredStyle: .alert)
-        
-        let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { (action:UIAlertAction!) in
-            self._startGame()
-        }
-        
-        let returnToMainAction = UIAlertAction(title: "Return to Main Menu", style: .default) { (action:UIAlertAction!) in
-            //CRASHES APP - NSEXCEPTION
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        alertController.addAction(playAgainAction)
-        alertController.addAction(returnToMainAction)
-        present(alertController, animated: true, completion: nil)
+//        let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { (action:UIAlertAction!) in
+//            self._startGame()
+//        }
+
+        _endGameView.isHidden = false
     }
     
     func removeSpermViewAtIndex(index: Int) {
@@ -246,6 +247,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     func _startGame() {
+        _endGameView.isHidden = true
+
         animator = UIDynamicAnimator(referenceView: self.view)
 
         currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
@@ -335,9 +338,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     self.thirdLayerView.alpha = 0.2
                     self.secondLayerView.alpha = 0.2
                 }
-                self.centerLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-                self.secondLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+                self.centerLayerView.transform = CGAffineTransform(scaleX: 3.25, y: 3.25)
+                self.secondLayerView.transform = CGAffineTransform(scaleX: 3.25, y: 3.25)
+                self.thirdLayerView.transform = CGAffineTransform(scaleX: 3.25, y: 3.25)
             })
             
         } else {

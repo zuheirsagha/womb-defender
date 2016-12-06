@@ -186,7 +186,69 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLQ-CR-goZ" customClass="SwipeView" customModule="WombDefender" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wba-6V-kFz">
+                                        <rect key="frame" x="0.0" y="167" width="375" height="334"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKn-Le-rh9">
+                                                <rect key="frame" x="152" y="10" width="71" height="34"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxV-YS-ePF">
+                                                <rect key="frame" x="138" y="44" width="99" height="48"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                <color key="textColor" red="0.65056639909744263" green="0.088775046169757843" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="highlightedColor" red="0.65056639909744263" green="0.088775046169757843" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lm-5A-HvY">
+                                                <rect key="frame" x="0.0" y="93" width="375" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" red="0.43618184156378603" green="0.43618184156378603" blue="0.43618184156378603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJc-ju-eZQ">
+                                                <rect key="frame" x="102" y="137" width="170" height="87"/>
+                                                <color key="backgroundColor" red="0.57590443459999996" green="0.0054448540179999998" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="home_icon"/>
+                                                <connections>
+                                                    <action selector="onEndGameHomeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hUp-lj-8QJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POg-nE-gIk">
+                                                <rect key="frame" x="102" y="234" width="170" height="80"/>
+                                                <color key="backgroundColor" red="0.65098039215686276" green="0.090196078431372548" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="play_icon"/>
+                                                <connections>
+                                                    <action selector="onEndGameRestartButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BJv-Bd-d1V"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.57877604166666663" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="xJc-ju-eZQ" firstAttribute="top" secondItem="9Lm-5A-HvY" secondAttribute="bottom" constant="20" id="Acb-vM-eCo"/>
+                                            <constraint firstItem="yKn-Le-rh9" firstAttribute="centerX" secondItem="Wba-6V-kFz" secondAttribute="centerX" id="Akk-Lo-lJA"/>
+                                            <constraint firstItem="xJc-ju-eZQ" firstAttribute="centerX" secondItem="Wba-6V-kFz" secondAttribute="centerX" id="PyB-IE-KGo"/>
+                                            <constraint firstItem="POg-nE-gIk" firstAttribute="centerX" secondItem="Wba-6V-kFz" secondAttribute="centerX" id="SVX-l8-1ge"/>
+                                            <constraint firstItem="yKn-Le-rh9" firstAttribute="top" secondItem="Wba-6V-kFz" secondAttribute="top" constant="10" id="Vd7-O0-70v"/>
+                                            <constraint firstItem="9Lm-5A-HvY" firstAttribute="centerX" secondItem="Wba-6V-kFz" secondAttribute="centerX" id="XFs-Wk-97x"/>
+                                            <constraint firstItem="POg-nE-gIk" firstAttribute="top" secondItem="xJc-ju-eZQ" secondAttribute="bottom" constant="10" id="cSh-3W-JoN"/>
+                                            <constraint firstItem="zxV-YS-ePF" firstAttribute="centerX" secondItem="Wba-6V-kFz" secondAttribute="centerX" id="ft6-xI-Gwf"/>
+                                            <constraint firstAttribute="bottom" secondItem="POg-nE-gIk" secondAttribute="bottom" constant="20" id="seL-5Y-Kb2"/>
+                                            <constraint firstItem="zxV-YS-ePF" firstAttribute="top" secondItem="yKn-Le-rh9" secondAttribute="bottom" id="tn8-13-YIx"/>
+                                            <constraint firstItem="9Lm-5A-HvY" firstAttribute="top" secondItem="zxV-YS-ePF" secondAttribute="bottom" constant="0.5" id="xbl-Ks-za1"/>
+                                            <constraint firstItem="9Lm-5A-HvY" firstAttribute="width" secondItem="Wba-6V-kFz" secondAttribute="width" id="xt0-va-FGF"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.6505771279335022" green="0.084382526576519012" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Wba-6V-kFz" firstAttribute="centerY" secondItem="YLQ-CR-goZ" secondAttribute="centerY" id="1Rl-xX-qyF"/>
+                                    <constraint firstItem="Wba-6V-kFz" firstAttribute="centerX" secondItem="YLQ-CR-goZ" secondAttribute="centerX" id="8zb-EP-ZVm"/>
+                                    <constraint firstItem="Wba-6V-kFz" firstAttribute="height" secondItem="YLQ-CR-goZ" secondAttribute="height" multiplier="0.5" id="RFY-wX-L1r"/>
+                                    <constraint firstItem="Wba-6V-kFz" firstAttribute="width" secondItem="YLQ-CR-goZ" secondAttribute="width" id="THy-0z-iUp"/>
+                                </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-na-LMx" userLabel="firstLife">
                                 <rect key="frame" x="16" y="39" width="24" height="24"/>
@@ -210,7 +272,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Kp-Og-UAV">
-                                <rect key="frame" x="140" y="29" width="95" height="44.5"/>
+                                <rect key="frame" x="140" y="29" width="95" height="45"/>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="40"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -247,6 +309,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="_endGameBestScoreLabel" destination="9Lm-5A-HvY" id="S2b-5x-bYK"/>
+                        <outlet property="_endGameHomeButton" destination="xJc-ju-eZQ" id="HQ4-aN-NdB"/>
+                        <outlet property="_endGameRestartButton" destination="POg-nE-gIk" id="Anz-89-FFn"/>
+                        <outlet property="_endGameScoreLabel" destination="zxV-YS-ePF" id="J1m-bJ-mZf"/>
+                        <outlet property="_endGameView" destination="Wba-6V-kFz" id="5EM-Ht-JVX"/>
                         <outlet property="_firstHeartImageView" destination="XpL-na-LMx" id="Hjs-Lh-V4d"/>
                         <outlet property="_scoreLabel" destination="3Kp-Og-UAV" id="KOO-3V-rUY"/>
                         <outlet property="_secondHeartImageView" destination="C3C-rT-32i" id="AVB-4v-6vL"/>
@@ -265,5 +332,7 @@
         <image name="Button_Shopping_Cart" width="26" height="26"/>
         <image name="Button_Standings" width="26" height="26"/>
         <image name="Logo" width="926" height="95"/>
+        <image name="home_icon" width="170" height="80"/>
+        <image name="play_icon" width="170" height="80"/>
     </resources>
 </document>
