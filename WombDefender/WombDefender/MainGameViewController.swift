@@ -97,8 +97,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
 //        let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { (action:UIAlertAction!) in
 //            self._startGame()
 //        }
-
+        _endGameView.alpha = 0.0
         _endGameView.isHidden = false
+        UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
     }
     
     func removeSpermViewAtIndex(index: Int) {
