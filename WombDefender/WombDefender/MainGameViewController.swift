@@ -99,6 +99,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
 //        }
         _endGameView.alpha = 0.0
         _endGameView.isHidden = false
+        _endGameScoreLabel.text = "\(_score!)"
         UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
     }
     

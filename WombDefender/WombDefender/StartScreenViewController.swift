@@ -88,12 +88,21 @@ class StartScreenViewController: UIViewController {
     }
     
     @IBAction func onSettingsButtonClicked(_ sender: UIButton) {
-        
-        UIView.animate(withDuration: 0.5, animations: { () -> Void in
-            self.centerLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-            self.secondLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-            self.thirdLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-        })
+        if !settingsPressed {
+            settingsPressed = !settingsPressed
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                self.centerLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+                self.secondLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+            })
+        } else {
+            settingsPressed = !settingsPressed
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                self.centerLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.secondLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+        }
         
     }
     
