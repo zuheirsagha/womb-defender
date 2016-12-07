@@ -89,21 +89,14 @@ class StartScreenViewController: UIViewController {
     
     @IBAction func onSettingsButtonClicked(_ sender: UIButton) {
         if !settingsPressed {
+            _tapToStartButton.isEnabled = false
             settingsPressed = !settingsPressed
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                self.centerLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-                self.secondLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-            })
+            UIHelper.resizeEgg(true, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         } else {
+            _tapToStartButton.isEnabled = true
             settingsPressed = !settingsPressed
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                self.centerLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.secondLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            })
+            UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         }
-        
     }
     
     @IBAction func onShoppingCartButtonClicked(_ sender: UIButton) {

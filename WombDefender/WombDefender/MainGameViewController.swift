@@ -332,31 +332,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 self.view.addSubview(self.secondLayerView)
             }
             
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                
-                if self.currentLevelController.getLives() == 2 {
-                    self.thirdLayerView.alpha = 0.2
-                } else if self.currentLevelController.getLives() == 1 {
-                    self.thirdLayerView.alpha = 0.2
-                    self.secondLayerView.alpha = 0.2
-                }
-                self.centerLayerView.transform = CGAffineTransform(scaleX: 3.25, y: 3.25)
-                self.secondLayerView.transform = CGAffineTransform(scaleX: 3.25, y: 3.25)
-                self.thirdLayerView.transform = CGAffineTransform(scaleX: 3.25, y: 3.25)
-            })
-            
+            UIHelper.resizeEgg(true, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         } else {
             UIView.animate(withDuration: 0.5, animations: {
-                
-                if self.currentLevelController.getLives() == 2 {
-                    self.thirdLayerView.alpha = 0
-                } else if self.currentLevelController.getLives() == 1 {
-                    self.thirdLayerView.alpha = 0
-                    self.secondLayerView.alpha = 0
-                }
-                self.centerLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.secondLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.thirdLayerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+
                 }, completion: { (Bool) in
                     if self.currentLevelController.getLives() == 2 {
                         self.thirdLayerView.removeFromSuperview()
@@ -366,6 +345,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     }
                     self.animator.addBehavior(self.swim)
             })
+            UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         }
     }
 
