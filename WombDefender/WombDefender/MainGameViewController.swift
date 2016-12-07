@@ -30,6 +30,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _startGame()
     }
     
+    @IBOutlet weak var _levelBanner: UIView!
+    @IBOutlet weak var _levelBannerLabel: UILabel!
     var KEY_SWIPE_IDENTIFIER = "swipe"
     var KEY_OUTER_BARRIER = "outerBarrier"
     var KEY_CENTER_BARRIER = "centerBarrier"
@@ -66,6 +68,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
         
+        _levelBanner.isHidden = true
+        
         _startGame()
     }
     
@@ -101,6 +105,28 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _endGameView.isHidden = false
         _endGameScoreLabel.text = "\(_score!)"
         UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
+    }
+    
+    func nextLevel() {
+        print("next level")
+        currentLevelController.level = currentLevelController.level! + 1
+        total = currentLevelController.numberOfSperm()
+        currentLevelController.aliveSperm = currentLevelController.numberOfSperm()
+        _levelBannerLabel.text = "Level \(currentLevelController.level!)"
+        _levelBanner.alpha = 0
+        self._levelBanner.isHidden = false
+        UIView.animate(withDuration: 0.5, animations: {
+            self._levelBanner.alpha = 1
+        }, completion: { (Bool) in
+            UIView.animate(withDuration: 0.5, animations: {
+                self._levelBanner.alpha = 0
+            }, completion: { (Bool) in
+                self._levelBanner.isHidden = true
+                self.createSperm()
+            })
+        })
+        
+        //TODO: Screws with lives when starting again / makes boundaries act weird
     }
     
     func removeSpermViewAtIndex(index: Int) {
@@ -152,18 +178,13 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             let idAsString = identifier as! String
             if (idAsString == KEY_OUTER_BARRIER || idAsString == KEY_CENTER_BARRIER || idAsString == KEY_INNER_BARRIER) {
                 if let item = item as? SpermView {
-                    if !item.isDead() {
-                        item.spermJustHitBoundary()
-                        currentLevelController.spermHitEgg()
-                    }
-                    
+                    item.spermJustHitBoundary()
+                    currentLevelController.spermHitEgg()
                 }
             }
             else if (idAsString == KEY_SWIPE_IDENTIFIER) {
                 if let item = item as? SpermView {
-                    if !item.isDead() {
-                        item.spermJustHitBoundary()
-                    }
+                    item.spermJustHitBoundary()
                 }
                 _swipeView.swipePath.removeAllPoints()
                 _swipeView.setNeedsDisplay()
@@ -288,7 +309,18 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             y = 0
         }
         let count = sperms.count
-        let sperm = SpermView.createSpermViewAt(x: x, y: y, size: .Mega, controller: currentLevelController, index: count)
+        
+        let spermType : SpermType!
+        let rand = arc4random_uniform(100)
+        print("\(UInt32(currentLevelController.probabilityOfMega)) rand \(rand)")
+        if rand <= UInt32(currentLevelController.probabilityOfMega!) {
+            spermType = SpermType.Mega
+        }
+        else {
+            spermType = SpermType.Regular
+        }
+        
+        let sperm = SpermView.createSpermViewAt(x: x, y: y, size: spermType, controller: currentLevelController, index: count)
         self.view.insertSubview(sperm, at: 1)
         sperms.insert(sperm, at: count)
 
