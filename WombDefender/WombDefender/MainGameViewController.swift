@@ -114,18 +114,19 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         currentLevelController.aliveSperm = currentLevelController.numberOfSperm()
         _levelBannerLabel.text = "Level \(currentLevelController.level!)"
         _levelBanner.alpha = 0
-        self._levelBanner.isHidden = false
-        UIView.animate(withDuration: 0.5, animations: {
-            self._levelBanner.alpha = 1
-        }, completion: { (Bool) in
+        if currentLevelController.getLives() != 0 {
+            self._levelBanner.isHidden = false
             UIView.animate(withDuration: 0.5, animations: {
-                self._levelBanner.alpha = 0
+                self._levelBanner.alpha = 1
             }, completion: { (Bool) in
-                self._levelBanner.isHidden = true
-                self.createSperm()
+                UIView.animate(withDuration: 0.5, animations: {
+                    self._levelBanner.alpha = 0
+                }, completion: { (Bool) in
+                    self._levelBanner.isHidden = true
+                    self.createSperm()
+                })
             })
-        })
-        
+        }
         //TODO: Screws with lives when starting again / makes boundaries act weird
     }
     
