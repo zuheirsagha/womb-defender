@@ -31,6 +31,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     var KEY_SWIPE_IDENTIFIER = "swipe"
+    var KEY_OUTER_BARRIER = "outerBarrier"
+    var KEY_CENTER_BARRIER = "centerBarrier"
+    var KEY_INNER_BARRIER = "innerBarrier"
     
     // Defaults to easy
     var currentLevelController: LevelController!
@@ -94,9 +97,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         animator.removeAllBehaviors()
         
-//        let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { (action:UIAlertAction!) in
-//            self._startGame()
-//        }
         _endGameView.alpha = 0.0
         _endGameView.isHidden = false
         _endGameScoreLabel.text = "\(_score!)"
@@ -150,7 +150,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         if (identifier != nil) {
             let idAsString = identifier as! String
-            if (idAsString == "outerBarrier" || idAsString == "centerBarrier" || idAsString == "innerBarrier") {
+            if (idAsString == KEY_OUTER_BARRIER || idAsString == KEY_CENTER_BARRIER || idAsString == KEY_INNER_BARRIER) {
                 if let item = item as? SpermView {
                     if !item.isDead() {
                         item.spermJustHitBoundary()
@@ -159,7 +159,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     
                 }
             }
-            else if (idAsString == "swipe") {
+            else if (idAsString == KEY_SWIPE_IDENTIFIER) {
                 if let item = item as? SpermView {
                     if !item.isDead() {
                         item.spermJustHitBoundary()
@@ -167,12 +167,11 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 }
                 _swipeView.swipePath.removeAllPoints()
                 _swipeView.setNeedsDisplay()
-                SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
+                SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_SWIPE_IDENTIFIER as NSCopying)
                 _reloadViews()
             }
         }
     }
-    
     
     /************************************************************************************
      *
@@ -180,7 +179,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
      *
      ***********************************************************************************/
     
-    // TODO: clean this up with instance variables or a file with constants or whatever.
     fileprivate func _reloadViews() {
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
@@ -192,8 +190,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _scoreLabel.text = "\(_score!)"
         
         if lives == 3 {
-            SpermBehaviour.collider.removeBoundary(withIdentifier: "outerBarrier" as NSCopying)
-            SpermBehaviour.collider.addBoundary(withIdentifier: "outerBarrier" as NSCopying, for: outerRing)
+            SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
+            SpermBehaviour.collider.addBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying, for: outerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
@@ -202,16 +200,16 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             self.view.addSubview(secondLayerView)
             self.view.addSubview(thirdLayerView)
         } else if lives == 2 {
-            SpermBehaviour.collider.removeBoundary(withIdentifier: "outerBarrier" as NSCopying)
-            SpermBehaviour.collider.addBoundary(withIdentifier: "centerBarrier" as NSCopying, for: centerRing)
+            SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
+            SpermBehaviour.collider.addBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying, for: centerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
             
             thirdLayerView.removeFromSuperview()
         } else if lives == 1 {
-            SpermBehaviour.collider.removeBoundary(withIdentifier: "centerBarrier" as NSCopying)
-            SpermBehaviour.collider.addBoundary(withIdentifier: "innerBarrier" as NSCopying, for: innerRing)
+            SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying)
+            SpermBehaviour.collider.addBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying, for: innerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
@@ -221,34 +219,14 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     fileprivate func _drawWomb() {
-        centerLayerView = UIView(frame: CGRect(
-            x: view.frame.size.width/2 - CGFloat(view.frame.width/6),
-            y: view.frame.size.height/2 - CGFloat(view.frame.width/6),
-            width: CGFloat(view.frame.width/6)*2,
-            height: CGFloat(view.frame.width/6)*2))
-        centerLayerView.backgroundColor = UIColor.white
-        centerLayerView.layer.cornerRadius = centerLayerView.frame.size.width/2
+        let views = UIHelper.drawWomb(view.frame.width, height: view.frame.height)
         
-        secondLayerView = UIView(frame: CGRect(x: view.frame.size.width/2 - CGFloat(view.frame.width/5),
-                                               y: view.frame.size.height/2 - CGFloat(view.frame.width/5),
-                                               width: CGFloat(view.frame.width/5)*2,
-                                               height: CGFloat(view.frame.width/5)*2))
-        secondLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
-        secondLayerView.backgroundColor = UIColor.white
-        secondLayerView.alpha = 0.2
-        secondLayerView.layer.cornerRadius = secondLayerView.frame.size.width/2
-        
-        thirdLayerView = UIView(frame: CGRect(x: view.frame.width/2 - CGFloat(view.frame.width/4.25),
-                                              y: view.frame.height/2 - CGFloat(view.frame.width/4.25),
-                                              width: CGFloat(view.frame.width/4.25)*2,
-                                              height: CGFloat(view.frame.width/4.25)*2))
-        thirdLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
-        thirdLayerView.backgroundColor = UIColor.white
-        thirdLayerView.alpha = 0.2
-        thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
+        centerLayerView = views[0]
+        secondLayerView = views[1]
+        thirdLayerView = views[2]
     }
     
-    func _startGame() {
+    fileprivate func _startGame() {
         _endGameView.isHidden = true
 
         animator = UIDynamicAnimator(referenceView: self.view)
@@ -348,15 +326,4 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

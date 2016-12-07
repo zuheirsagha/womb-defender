@@ -38,35 +38,15 @@ class StartScreenViewController: UIViewController {
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
        
-        centerLayerView = UIView(frame: CGRect(x: view.frame.size.width/2 - CGFloat(view.frame.width/6),
-                                               y: view.frame.size.height/2 - CGFloat(view.frame.width/6),
-                                               width: CGFloat(view.frame.width/6)*2,
-                                               height: CGFloat(view.frame.width/6)*2))
-        centerLayerView.backgroundColor = UIColor.white
-        centerLayerView.layer.cornerRadius = centerLayerView.frame.size.width/2
+        let views = UIHelper.drawWomb(view.frame.width, height: view.frame.height)
         
-        secondLayerView = UIView(frame: CGRect(x: view.frame.size.width/2 - CGFloat(view.frame.width/5),
-                                               y: view.frame.size.height/2 - CGFloat(view.frame.width/5),
-                                               width: CGFloat(view.frame.width/5)*2,
-                                               height: CGFloat(view.frame.width/5)*2))
-        secondLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
-        secondLayerView.backgroundColor = UIColor.white
-        secondLayerView.alpha = 0.2
-        secondLayerView.layer.cornerRadius = secondLayerView.frame.size.width/2
-        
-        thirdLayerView = UIView(frame: CGRect(x: view.frame.width/2 - CGFloat(view.frame.width/4.25),
-                                              y: view.frame.height/2 - CGFloat(view.frame.width/4.25),
-                                              width: CGFloat(view.frame.width/4.25)*2,
-                                              height: CGFloat(view.frame.width/4.25)*2))
-        thirdLayerView.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2)
-        thirdLayerView.backgroundColor = UIColor.white
-        thirdLayerView.alpha = 0.2
-        thirdLayerView.layer.cornerRadius = thirdLayerView.frame.size.width/2
+        centerLayerView = views[0]
+        secondLayerView = views[1]
+        thirdLayerView = views[2]
         
         view.insertSubview(centerLayerView, at: 1)
         view.insertSubview(secondLayerView, at: 1)
         view.insertSubview(thirdLayerView, at: 1)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
