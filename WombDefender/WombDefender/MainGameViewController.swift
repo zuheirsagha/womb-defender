@@ -265,9 +265,11 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     fileprivate func createSperm() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(interval)) {
-            for _ in 0..<self.total {
+            if self.total > 0 {
                 self._createSperm()
+                self.createSperm()
             }
+            self.total = self.total - 1
         }
     }
     
