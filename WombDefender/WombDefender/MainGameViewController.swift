@@ -194,6 +194,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 if let item = item as? SpermView {
                     item.spermJustHitBoundary()
                 }
+                _swipeView.isHit = true
                 _swipeView.swipePath.removeAllPoints()
                 _swipeView.setNeedsDisplay()
                 SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_SWIPE_IDENTIFIER as NSCopying)

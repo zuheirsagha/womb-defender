@@ -21,6 +21,17 @@ class SwipeView : UIView {
     var endAngle : CGFloat!
     var _firstTime : Bool = true
     var _direction : Bool = true
+    
+    var _isHit : Bool = false
+    
+    open var isHit : Bool {
+        get {
+            return _isHit
+        }
+        set {
+            _isHit = newValue
+        }
+    }
 
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,6 +51,7 @@ class SwipeView : UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        
+        isHit = false
         SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
         swipePath.removeAllPoints()
         if let touch = touches.first {
@@ -54,23 +66,25 @@ class SwipeView : UIView {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
-
-        if _firstTime || sqrt(pow(swipePath.currentPoint.x-firstPoint.x,2) + pow(swipePath.currentPoint.y-firstPoint.y,2)) < swipeLength {
-            _firstTime = false
-            if let touch = touches.first {
-                let p = touch.location(in: self)
-                currentPoint = p
-                
-                endAngle = atan2(currentPoint.y - self.center.y, currentPoint.x-self.center.x)
-                
-                _direction = _getDirection(startAngle, endAngle: endAngle)
-                
-                swipePath = UIBezierPath(arcCenter: self.center, radius: CGFloat(radius!), startAngle: startAngle, endAngle: endAngle, clockwise: _direction)
-                setNeedsDisplay()
+        if !isHit {
+            SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
+            
+            if _firstTime || sqrt(pow(swipePath.currentPoint.x-firstPoint.x,2) + pow(swipePath.currentPoint.y-firstPoint.y,2)) < swipeLength {
+                _firstTime = false
+                if let touch = touches.first {
+                    let p = touch.location(in: self)
+                    currentPoint = p
+                    
+                    endAngle = atan2(currentPoint.y - self.center.y, currentPoint.x-self.center.x)
+                    
+                    _direction = _getDirection(startAngle, endAngle: endAngle)
+                    
+                    swipePath = UIBezierPath(arcCenter: self.center, radius: CGFloat(radius!), startAngle: startAngle, endAngle: endAngle, clockwise: _direction)
+                    setNeedsDisplay()
+                }
             }
+            SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
         }
-        SpermBehaviour.collider.addBoundary(withIdentifier: "swipe" as NSCopying , for: swipePath)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,5 +160,4 @@ class SwipeView : UIView {
         }
         return false
     }
-
 }
