@@ -14,24 +14,21 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _firstHeartImageView: UIImageView!
     @IBOutlet weak var _secondHeartImageView: UIImageView!
     @IBOutlet weak var _thirdHearImageView: UIImageView!
+    
     @IBOutlet weak var _scoreLabel: UILabel!
     @IBOutlet weak var _settingsButton: UIButton!
     
     @IBOutlet weak var _endGameView: UIView!
     @IBOutlet weak var _endGameScoreLabel: UILabel!
     @IBOutlet weak var _endGameBestScoreLabel: UILabel!
-    @IBOutlet var _swipeView: SwipeView!
-    @IBOutlet weak var _endGameHomeButton: UIButton!
-    @IBAction func onEndGameHomeButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     @IBOutlet weak var _endGameRestartButton: UIButton!
-    @IBAction func onEndGameRestartButtonPressed(_ sender: UIButton) {
-        _startGame()
-    }
+    @IBOutlet weak var _endGameHomeButton: UIButton!
+
+    @IBOutlet var _swipeView: SwipeView!
     
     @IBOutlet weak var _levelBanner: UIView!
     @IBOutlet weak var _levelBannerLabel: UILabel!
+    
     var KEY_SWIPE_IDENTIFIER = "swipe"
     var KEY_OUTER_BARRIER = "outerBarrier"
     var KEY_CENTER_BARRIER = "centerBarrier"
@@ -78,6 +75,30 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Dispose of any resources that can be recreated.
     }
     
+    /************************************************************************************
+     *
+     * ACTIONS/SELECTORS
+     *
+     ***********************************************************************************/
+    
+    @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
+        _hideShowSettings()
+    }
+    
+    @IBAction func onEndGameHomeButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onEndGameRestartButtonPressed(_ sender: UIButton) {
+        _startGame()
+    }
+    
+    /************************************************************************************
+     *
+     * LEVEL CONTROLLER DELEGATE METHODS
+     *
+     ***********************************************************************************/
+
     func gameIsOver() {
         SpermBehaviour.collider.removeAllBoundaries()
         
@@ -108,10 +129,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     func nextLevel() {
-        print("next level")
-        currentLevelController.level = currentLevelController.level! + 1
-        total = currentLevelController.numberOfSperm()
-        currentLevelController.aliveSperm = currentLevelController.numberOfSperm()
+        total = currentLevelController.numberOfSperm
         _levelBannerLabel.text = "Level \(currentLevelController.level!)"
         _levelBanner.alpha = 0
         if currentLevelController.getLives() != 0 {
@@ -152,19 +170,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         }
     }
 
-    
     func reloadView() {
         _reloadViews()
-    }
-    
-    /************************************************************************************
-     *
-     * ACTIONS/SELECTORS
-     *
-     ***********************************************************************************/
-    
-    @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
-        _hideShowSettings()
     }
     
     /************************************************************************************
@@ -242,7 +249,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     fileprivate func _drawWomb() {
         let views = UIHelper.drawWomb(view.frame.width, height: view.frame.height)
-        
         centerLayerView = views[0]
         secondLayerView = views[1]
         thirdLayerView = views[2]
@@ -252,7 +258,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _endGameView.isHidden = true
 
         animator = UIDynamicAnimator(referenceView: self.view)
-
+        
         currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
         currentLevelController.restart()
         sperms = [SpermView]()
@@ -260,7 +266,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
         
         SpermBehaviour.collider.collisionDelegate = self
-        total = currentLevelController.numberOfSperm()
+        total = currentLevelController.numberOfSperm
         interval = currentLevelController.interval()
         swim.setFieldStrength(strength: currentLevelController.fieldStrength())
         
@@ -270,12 +276,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         animator.addBehavior(swim)
     }
     
-    private func createSperm() {
+    fileprivate func createSperm() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(interval)) {
-            self._createSperm()
-            self.total -= 1
-            if (self.total > 0) {
-                self.createSperm()
+            for _ in 0..<self.total {
+                self._createSperm()
             }
         }
     }
@@ -329,7 +333,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     fileprivate func _hideShowSettings() {
-        
         if animator.behaviors.count > 0 {
             animator.removeAllBehaviors()
             
@@ -345,17 +348,18 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             
             UIHelper.resizeEgg(true, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         } else {
-            UIView.animate(withDuration: 0.5, animations: {
-
-                }, completion: { (Bool) in
-                    if self.currentLevelController.getLives() == 2 {
-                        self.thirdLayerView.removeFromSuperview()
-                    } else if self.currentLevelController.getLives() == 1 {
-                        self.thirdLayerView.removeFromSuperview()
-                        self.secondLayerView.removeFromSuperview()
-                    }
-                    self.animator.addBehavior(self.swim)
+            
+            let delay = DispatchTime.now() + DispatchTimeInterval.milliseconds(500)
+            DispatchQueue.main.asyncAfter(deadline: delay, execute: {
+                if self.currentLevelController.getLives() == 2 {
+                    self.thirdLayerView.removeFromSuperview()
+                } else if self.currentLevelController.getLives() == 1 {
+                    self.thirdLayerView.removeFromSuperview()
+                    self.secondLayerView.removeFromSuperview()
+                }
+                self.animator.addBehavior(self.swim)
             })
+            
             UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
         }
     }

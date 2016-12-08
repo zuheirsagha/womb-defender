@@ -15,7 +15,7 @@ protocol LevelControllerDelegate {
 }
 
 class LevelController : SpermDelegate, EggDelegate {
-    fileprivate var _score = 0
+    fileprivate var _score : Int!
     fileprivate var _delegate : MainGameViewController!
     fileprivate var _egg : Egg!
     /* time interval between when sperm is released (in milliseconds) */
@@ -28,9 +28,17 @@ class LevelController : SpermDelegate, EggDelegate {
     // TODO: Values set based on levels and difficulty (ex. # of sperm, frequency, gravity)
     fileprivate var _scoreIncrementForKillingSperm: Int!
     
-    fileprivate var _level = 1
+    fileprivate var _level : Int!
     fileprivate var _probabilityOfMega : Int!
-    fileprivate var _aliveSperm = 0
+    
+    open var numberOfSperm : Int! {
+        get {
+            return _number
+        }
+        set {
+            _number = Int(floor(2.5*sqrt(Double(_level))))
+        }
+    }
     
     open var level : Int! {
         get {
@@ -38,15 +46,6 @@ class LevelController : SpermDelegate, EggDelegate {
         }
         set {
             _level = newValue
-        }
-    }
-    
-    open var aliveSperm : Int! {
-        get {
-            return _aliveSperm
-        }
-        set {
-            _aliveSperm = newValue
         }
     }
     
@@ -68,14 +67,6 @@ class LevelController : SpermDelegate, EggDelegate {
         _egg = Egg(controller: self)
     }
     
-    func killedSperm() {
-        
-    }
-    
-    func numberOfSperm() -> Int {
-        return Int(floor(2.5*sqrt(Double(_level))))
-    }
-    
     func interval() -> Int {
         return _interval
     }
@@ -92,22 +83,20 @@ class LevelController : SpermDelegate, EggDelegate {
         _delegate.gameIsOver()
     }
     
-    func allSpermKilled() {
-        _delegate.nextLevel()
-    }
-    
     func spermDeadAtIndex(index: Int) {
-        _score += 100
-        _aliveSperm -= 1
+        _score = _score + 100
+        _number = _number - 1
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
-        if _aliveSperm == 0 {
+        if _number == 0 {
+            level = level + 1
+            numberOfSperm = level
             _delegate.nextLevel()
         }
     }
     
     func spermIsDemotedAtIndex(index: Int) {
-        _score += 50
+        _score = _score + 50
         _delegate.demoteSpermViewAtIndex(index: index)
     }
     
@@ -117,6 +106,7 @@ class LevelController : SpermDelegate, EggDelegate {
     
     /** Can alter to increase eggs lives*/
     func setLives(lives : Int) {
+        
     }
     
     func getScore() -> Int {
@@ -137,10 +127,11 @@ class EasyLevelController : LevelController {
     
     override func restart() {
         super.restart()
+        _level = 1
+        _score = 0
         _interval = 500
         _number = Int(floor(2.5*sqrt(Double(_level))))
         _strength = 0.5
-        aliveSperm = _number
         probabilityOfMega = 2*_level
     }
     
