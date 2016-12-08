@@ -11,6 +11,7 @@ import SpriteKit
 
 class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
     
+    @IBOutlet var _mainGameView: UIView!
     @IBOutlet weak var _firstHeartImageView: UIImageView!
     @IBOutlet weak var _secondHeartImageView: UIImageView!
     @IBOutlet weak var _thirdHearImageView: UIImageView!
@@ -109,7 +110,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
         
-        centerLayerView.removeFromSuperview()
+        centerLayerView.isHidden = true
         
         for sperm in sperms {
             sperm.removeFromSuperview()
@@ -130,21 +131,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     func nextLevel() {
         total = currentLevelController.numberOfSperm
-        _levelBannerLabel.text = "Level \(currentLevelController.level!)"
-        _levelBanner.alpha = 0
-        if currentLevelController.getLives() != 0 {
-            self._levelBanner.isHidden = false
-            UIView.animate(withDuration: 0.5, animations: {
-                self._levelBanner.alpha = 1
-            }, completion: { (Bool) in
-                UIView.animate(withDuration: 0.5, animations: {
-                    self._levelBanner.alpha = 0
-                }, completion: { (Bool) in
-                    self._levelBanner.isHidden = true
-                    self.createSperm()
-                })
-            })
-        }
+        _showLevelBanner()
         //TODO: Screws with lives when starting again / makes boundaries act weird
     }
     
@@ -225,10 +212,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
-            
-            self.view.addSubview(centerLayerView)
-            self.view.addSubview(secondLayerView)
-            self.view.addSubview(thirdLayerView)
         } else if lives == 2 {
             SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying, for: centerRing)
@@ -236,7 +219,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
             
-            thirdLayerView.removeFromSuperview()
+            thirdLayerView.isHidden = true
         } else if lives == 1 {
             SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying, for: innerRing)
@@ -244,7 +227,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
             
-            secondLayerView.removeFromSuperview()
+            secondLayerView.isHidden = true
         }
     }
     
@@ -253,6 +236,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         centerLayerView = views[0]
         secondLayerView = views[1]
         thirdLayerView = views[2]
+        _mainGameView.addSubview(centerLayerView)
+        _mainGameView.addSubview(secondLayerView)
+        _mainGameView.addSubview(thirdLayerView)
     }
     
     fileprivate func _startGame() {
@@ -339,12 +325,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             
             if self.currentLevelController.getLives() == 2 {
                 self.thirdLayerView.alpha = 0
-                self.view.addSubview(self.thirdLayerView)
+                _mainGameView.addSubview(self.thirdLayerView)
             } else if self.currentLevelController.getLives() == 1 {
                 self.thirdLayerView.alpha = 0
                 self.secondLayerView.alpha = 0
-                self.view.addSubview(self.thirdLayerView)
-                self.view.addSubview(self.secondLayerView)
+                _mainGameView.addSubview(self.thirdLayerView)
+                _mainGameView.addSubview(self.secondLayerView)
             }
             
             UIHelper.resizeEgg(true, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
@@ -353,15 +339,34 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             let delay = DispatchTime.now() + DispatchTimeInterval.milliseconds(500)
             DispatchQueue.main.asyncAfter(deadline: delay, execute: {
                 if self.currentLevelController.getLives() == 2 {
-                    self.thirdLayerView.removeFromSuperview()
+                    self.thirdLayerView.isHidden = true
                 } else if self.currentLevelController.getLives() == 1 {
-                    self.thirdLayerView.removeFromSuperview()
-                    self.secondLayerView.removeFromSuperview()
+                    self.thirdLayerView.isHidden = true
+                    self.secondLayerView.isHidden = true
                 }
                 self.animator.addBehavior(self.swim)
             })
             
             UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
+        }
+    }
+    
+    fileprivate func _showLevelBanner() {
+        _levelBannerLabel.text = "Level \(currentLevelController.level!)"
+        _levelBanner.alpha = 0
+        _levelBanner.superview?.bringSubview(toFront: _levelBanner)
+        if currentLevelController.getLives() != 0 {
+            self._levelBanner.isHidden = false
+            UIView.animate(withDuration: 0.5, animations: {
+                self._levelBanner.alpha = 1
+            }, completion: { (Bool) in
+                UIView.animate(withDuration: 0.5, animations: {
+                    self._levelBanner.alpha = 0
+                }, completion: { (Bool) in
+                    self._levelBanner.isHidden = true
+                    self.createSperm()
+                })
+            })
         }
     }
 }
