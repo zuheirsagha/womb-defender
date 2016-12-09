@@ -47,8 +47,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     var total: Int = 0
     var interval: Int = 0
     
-    fileprivate var _score : Int!
-    
     // Circles for egg and corresponding views
     var centerLayerView: UIView!
     var secondLayerView: UIView!
@@ -125,7 +123,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         _endGameView.alpha = 0.0
         _endGameView.isHidden = false
-        _endGameScoreLabel.text = "\(_score!)"
+        _endGameScoreLabel.text = "\(currentLevelController.getScore())"
         UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
     }
     
@@ -197,36 +195,34 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
      ***********************************************************************************/
     
     fileprivate func _reloadViews() {
+        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying)
+        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
+        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying)
+
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let innerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/6), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         
         let lives = currentLevelController.getLives()
-        _score = currentLevelController.getScore()
         
-        _scoreLabel.text = "\(_score!)"
+        _scoreLabel.text = "\(currentLevelController.getScore())"
         
         if lives == 3 {
-            SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying, for: outerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
         } else if lives == 2 {
-            SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying, for: centerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
-            
             thirdLayerView.isHidden = true
         } else if lives == 1 {
-            SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying)
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying, for: innerRing)
             _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
             _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
-            
             secondLayerView.isHidden = true
         }
     }
@@ -357,7 +353,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _levelBannerLabel.text = "Level \(currentLevelController.level!)"
         _levelBanner.alpha = 0
         _levelBanner.superview?.bringSubview(toFront: _levelBanner)
-        if currentLevelController.getLives() != 0 {
+        if currentLevelController.numberOfSperm != 0 {
             self._levelBanner.isHidden = false
             UIView.animate(withDuration: 0.5, animations: {
                 self._levelBanner.alpha = 1
