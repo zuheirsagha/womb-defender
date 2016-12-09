@@ -87,18 +87,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
      ***********************************************************************************/
     
     @IBAction func onCancelSettingsPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self._settingsMenuView.alpha = 0
-        }, completion: {(Bool) in
-            self.animator.addBehavior(self.swim)
-            self._settingsMenuView.isHidden = true
-        })
     }
     
     @IBAction func onSettingsRestartGamePressed(_ sender: UIButton) {
     }
     
     @IBAction func onSettingsHomePressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onSettingsMutePressed(_ sender: UIButton) {
+    
     }
     
     @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
@@ -111,7 +110,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _settingsMenuView.isHidden = false
     }
     
-    @IBAction func onEndGameHomeButtonPressed(_ sender: Any) {
+    @IBAction func onEndGameHomeButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
