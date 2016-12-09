@@ -33,7 +33,6 @@ class SwipeView : UIView {
         }
     }
 
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isMultipleTouchEnabled = false

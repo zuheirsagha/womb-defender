@@ -11,6 +11,7 @@ import SpriteKit
 
 class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
     
+    @IBOutlet weak var _settingsMenuView: UIView!
     @IBOutlet var _mainGameView: UIView!
     @IBOutlet weak var _firstHeartImageView: UIImageView!
     @IBOutlet weak var _secondHeartImageView: UIImageView!
@@ -51,7 +52,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     var centerLayerView: UIView!
     var secondLayerView: UIView!
     var thirdLayerView: UIView!
-    
+
     /************************************************************************************
      *
      * LIFECYCLE METHODS
@@ -65,6 +66,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         view.insertSubview(gradient, at: 0)
         
         _levelBanner.isHidden = true
+        _settingsMenuView.isHidden = true
         
         _startGame()
     }
@@ -74,14 +76,39 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        animator.addBehavior(swim)
+    }
+    
     /************************************************************************************
      *
      * ACTIONS/SELECTORS
      *
      ***********************************************************************************/
     
+    @IBAction func onCancelSettingsPressed(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self._settingsMenuView.alpha = 0
+        }, completion: {(Bool) in
+            self.animator.addBehavior(self.swim)
+            self._settingsMenuView.isHidden = true
+        })
+    }
+    
+    @IBAction func onSettingsRestartGamePressed(_ sender: UIButton) {
+    }
+    
+    @IBAction func onSettingsHomePressed(_ sender: UIButton) {
+    }
+    
     @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
-        _hideShowSettings()
+        animator.removeAllBehaviors()
+        _settingsMenuView.alpha = 0
+        _settingsMenuView.superview?.bringSubview(toFront: _settingsMenuView)
+        UIView.animate(withDuration: 0.5, animations: {
+            self._settingsMenuView.alpha = 1
+        })
+        _settingsMenuView.isHidden = false
     }
     
     @IBAction func onEndGameHomeButtonPressed(_ sender: Any) {
@@ -315,38 +342,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         sperms.insert(sperm, at: count)
 
         swim.addItem(item: sperm)
-    }
-    
-    fileprivate func _hideShowSettings() {
-        if animator.behaviors.count > 0 {
-            animator.removeAllBehaviors()
-            
-            if self.currentLevelController.getLives() == 2 {
-                self.thirdLayerView.alpha = 0
-                _mainGameView.addSubview(self.thirdLayerView)
-            } else if self.currentLevelController.getLives() == 1 {
-                self.thirdLayerView.alpha = 0
-                self.secondLayerView.alpha = 0
-                _mainGameView.addSubview(self.thirdLayerView)
-                _mainGameView.addSubview(self.secondLayerView)
-            }
-            
-            UIHelper.resizeEgg(true, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
-        } else {
-            
-            let delay = DispatchTime.now() + DispatchTimeInterval.milliseconds(500)
-            DispatchQueue.main.asyncAfter(deadline: delay, execute: {
-                if self.currentLevelController.getLives() == 2 {
-                    self.thirdLayerView.isHidden = true
-                } else if self.currentLevelController.getLives() == 1 {
-                    self.thirdLayerView.isHidden = true
-                    self.secondLayerView.isHidden = true
-                }
-                self.animator.addBehavior(self.swim)
-            })
-            
-            UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
-        }
     }
     
     fileprivate func _showLevelBanner() {

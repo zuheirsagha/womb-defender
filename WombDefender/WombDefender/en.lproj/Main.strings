@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Score"; ObjectID = "3Kp-Og-UAV"; */
+"3Kp-Og-UAV.text" = "Score";
+
+/* Class = "UILabel"; text = "Best Score:"; ObjectID = "9Lm-5A-HvY"; */
+"9Lm-5A-HvY.text" = "Best Score:";
+
+/* Class = "UILabel"; text = "- TAP TO START -"; ObjectID = "jbU-En-KAb"; */
+"jbU-En-KAb.text" = "- TAP TO START -";
+
+/* Class = "UILabel"; text = "Level 1"; ObjectID = "qhw-5K-6it"; */
+"qhw-5K-6it.text" = "Level 1";
+
+/* Class = "UILabel"; text = "Score"; ObjectID = "yKn-Le-rh9"; */
+"yKn-Le-rh9.text" = "Score";
+
+/* Class = "UILabel"; text = "0000"; ObjectID = "zxV-YS-ePF"; */
+"zxV-YS-ePF.text" = "0000";

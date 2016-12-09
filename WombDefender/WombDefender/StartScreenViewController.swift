@@ -68,21 +68,15 @@ class StartScreenViewController: UIViewController {
     }
     
     @IBAction func onSettingsButtonClicked(_ sender: UIButton) {
-        if !settingsPressed {
-            _tapToStartButton.isEnabled = false
-            settingsPressed = !settingsPressed
-            UIHelper.resizeEgg(true, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
-        } else {
-            _tapToStartButton.isEnabled = true
-            settingsPressed = !settingsPressed
-            UIHelper.resizeEgg(false, centerLayer: centerLayerView, secondLayer: secondLayerView, thirdLayer: thirdLayerView)
-        }
+        
     }
     
     @IBAction func onShoppingCartButtonClicked(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueToShopViewController", sender: self)
     }
+    
     @IBAction func onStandingsButtonClicked(_ sender: UIButton) {
+        
     }
     
 }
