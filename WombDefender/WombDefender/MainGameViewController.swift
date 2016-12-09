@@ -76,10 +76,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        animator.addBehavior(swim)
-    }
-    
     /************************************************************************************
      *
      * ACTIONS/SELECTORS
@@ -87,17 +83,27 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
      ***********************************************************************************/
     
     @IBAction func onCancelSettingsPressed(_ sender: UIButton) {
+        self.animator.addBehavior(self.swim)
+        UIView.animate(withDuration: 0.5, animations: {
+            self._settingsMenuView.alpha = 0
+        }, completion: { (Bool) in
+            self._settingsMenuView.isHidden = true
+            self._settingsMenuView.alpha = 0
+        })
     }
     
     @IBAction func onSettingsRestartGamePressed(_ sender: UIButton) {
+        _resetGame()
+        _startGame()
     }
     
     @IBAction func onSettingsHomePressed(_ sender: UIButton) {
+        _resetGame()
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onSettingsMutePressed(_ sender: UIButton) {
-    
+        
     }
     
     @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
@@ -125,27 +131,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
      ***********************************************************************************/
 
     func gameIsOver() {
-        SpermBehaviour.collider.removeAllBoundaries()
-        
-        _swipeView.swipePath.removeAllPoints()
-        _swipeView.setNeedsDisplay()
-        
+        _resetGame()
         _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
         
         centerLayerView.isHidden = true
-        
-        for sperm in sperms {
-            sperm.removeFromSuperview()
-            swim.removeItem(item: sperm)
-        }
-        
-        sperms.removeAll()
-        total = 0
-        interval = 0
-        
-        animator.removeAllBehaviors()
         
         _endGameView.alpha = 0.0
         _endGameView.isHidden = false
@@ -265,6 +256,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     fileprivate func _startGame() {
         _endGameView.isHidden = true
+        _settingsMenuView.isHidden = true
 
         animator = UIDynamicAnimator(referenceView: self.view)
         
@@ -360,5 +352,25 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 })
             })
         }
+    }
+    
+    fileprivate func _resetGame() {
+        SpermBehaviour.collider.removeAllBoundaries()
+        _swipeView.swipePath.removeAllPoints()
+        _swipeView.setNeedsDisplay()
+        for sperm in sperms {
+            sperm.removeFromSuperview()
+            swim.removeItem(item: sperm)
+        }
+        
+        centerLayerView.removeFromSuperview()
+        secondLayerView.removeFromSuperview()
+        thirdLayerView.removeFromSuperview()
+        
+        sperms.removeAll()
+        total = 0
+        interval = 0
+        
+        animator.removeAllBehaviors()
     }
 }
