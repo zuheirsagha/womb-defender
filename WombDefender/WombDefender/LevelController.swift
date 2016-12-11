@@ -31,6 +31,20 @@ class LevelController : SpermDelegate, EggDelegate {
     fileprivate var _level : Int!
     fileprivate var _probabilityOfMega : Int!
     
+    fileprivate var _lengthOfBarrier : Int!
+
+    init(delegate: MainGameViewController) {
+        _delegate = delegate
+        _level = 1
+        _score = 0
+        _interval = 500
+        _number = Int(floor(2.5*sqrt(Double(_level))))
+        _strength = 0.5
+        probabilityOfMega = 2*_level
+        
+        restart()
+    }
+    
     open var numberOfSperm : Int! {
         get {
             return _number
@@ -56,11 +70,6 @@ class LevelController : SpermDelegate, EggDelegate {
         set {
             _probabilityOfMega = newValue
         }
-    }
-
-    init(delegate: MainGameViewController) {
-        _delegate = delegate
-        restart()
     }
     
     func restart() {
@@ -127,12 +136,7 @@ class EasyLevelController : LevelController {
     
     override func restart() {
         super.restart()
-        _level = 1
-        _score = 0
-        _interval = 500
-        _number = Int(floor(2.5*sqrt(Double(_level))))
-        _strength = 0.5
-        probabilityOfMega = 2*_level
+        _lengthOfBarrier = 10
     }
     
 }
@@ -143,6 +147,11 @@ class MediumLevelController : LevelController {
         // Set values specific to easylevelcontroller based on enums in settings.swift
     }
     
+    override func restart() {
+        super.restart()
+        _lengthOfBarrier = 8
+    }
+    
 }
 
 class HardLevelController : LevelController {
@@ -151,4 +160,8 @@ class HardLevelController : LevelController {
         // Set values specific to easylevelcontroller based on enums in settings.swift
     }
     
+    override func restart() {
+        super.restart()
+        _lengthOfBarrier = 5
+    }
 }
