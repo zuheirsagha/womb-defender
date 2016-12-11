@@ -11,6 +11,7 @@ import SpriteKit
 
 class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
     
+    @IBOutlet weak var _settingsScreenMuteButton: UIButton!
     @IBOutlet weak var _settingsMenuView: UIView!
     @IBOutlet var _mainGameView: UIView!
     @IBOutlet weak var _firstHeartImageView: UIImageView!
@@ -68,6 +69,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _levelBanner.isHidden = true
         _settingsMenuView.isHidden = true
         
+        
+        
         _startGame()
     }
     
@@ -103,13 +106,15 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     @IBAction func onSettingsMutePressed(_ sender: UIButton) {
-        
+        appDelegate.appIsMute = !appDelegate.appIsMute
+        _reloadViews()
     }
     
     @IBAction func onSettingsButtonPressed(_ sender: UIButton) {
         animator.removeAllBehaviors()
         _settingsMenuView.alpha = 0
         _settingsMenuView.superview?.bringSubview(toFront: _settingsMenuView)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self._settingsMenuView.alpha = 1
         })
@@ -136,31 +141,34 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
         _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
         
+        let endGameScore = currentLevelController.getScore()
+        _scoreLabel.text = "\(endGameScore)"
+        
+        if endGameScore > appDelegate.highestScore {
+            appDelegate.highestScore = endGameScore
+        }
+        
         centerLayerView.isHidden = true
         
         _endGameView.alpha = 0.0
         _endGameView.isHidden = false
         _endGameScoreLabel.text = "\(currentLevelController.getScore())"
+        _endGameBestScoreLabel.text = "Best Score: \(appDelegate.highestScore)"
         UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
     }
     
     func nextLevel() {
         total = currentLevelController.numberOfSperm
         _showLevelBanner()
-        //TODO: Screws with lives when starting again / makes boundaries act weird
     }
     
     func removeSpermViewAtIndex(index: Int) {
-        // weird bug where this is still being called after all are dead.. my hack to fix it (put it off until later)
-        // becuase I remove all sperm when game is over to otherwise it would be array out of bounds
         if (index < sperms.count) {
             sperms[index].removeFromSuperview()
         }
     }
     
     func demoteSpermViewAtIndex(index: Int) {
-        // weird bug where this is still being called after all are dead.. my hack to fix it (put it off until later)
-        // becuase I remove all sperm when game is over to otherwise it would be array out of bounds
         if (index < sperms.count) {
             sperms[index].resize()
         }
@@ -187,12 +195,20 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         if (identifier != nil) {
             let idAsString = identifier as! String
             if (idAsString == KEY_OUTER_BARRIER || idAsString == KEY_CENTER_BARRIER || idAsString == KEY_INNER_BARRIER) {
+                if !appDelegate.appIsMute {
+                    AudioManager.sharedInstance.playSound(.spermDied)
+                }
                 if let item = item as? SpermView {
-                    item.spermJustHitBoundary()
+                    // keep in this order so that banner does not show
+                    // must update lives first to check if lives is zero
                     currentLevelController.spermHitEgg()
+                    item.spermJustHitBoundary()
                 }
             }
             else if (idAsString == KEY_SWIPE_IDENTIFIER) {
+                if !appDelegate.appIsMute {
+                    AudioManager.sharedInstance.playSound(.spermDied)
+                }
                 if let item = item as? SpermView {
                     item.spermJustHitBoundary()
                 }
@@ -242,6 +258,13 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
             secondLayerView.isHidden = true
         }
+        
+        if appDelegate.appIsMute {
+            _settingsScreenMuteButton.setImage(#imageLiteral(resourceName: "appIsMute"), for: .normal)
+        }
+        else {
+            _settingsScreenMuteButton.setImage(#imageLiteral(resourceName: "appIsNotMute"), for: .normal)
+        }
     }
     
     fileprivate func _drawWomb() {
@@ -258,9 +281,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _endGameView.isHidden = true
         _settingsMenuView.isHidden = true
 
-        animator = UIDynamicAnimator(referenceView: self.view)
-        
-        currentLevelController = Settings.getNewLevelControllerWithCurrentDifficulty(gameController: self)
+        animator = UIDynamicAnimator(referenceView: self.view)        
+        currentLevelController = getNewLevelControllerWithCurrentDifficulty(gameController: self, difficulty: appDelegate.difficulty)
         currentLevelController.restart()
         sperms = [SpermView]()
         
@@ -372,5 +394,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         interval = 0
         
         animator.removeAllBehaviors()
+    }
+    
+    fileprivate func getNewLevelControllerWithCurrentDifficulty(gameController: MainGameViewController, difficulty: Difficulty) -> LevelController {
+        switch (difficulty) {
+        case .Easy:
+            print("here")
+            return EasyLevelController(delegate: gameController)
+        case .Medium:
+            return MediumLevelController(delegate: gameController)
+        case .Hard:
+            return HardLevelController(delegate: gameController)
+        }
     }
 }

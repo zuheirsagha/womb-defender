@@ -10,8 +10,12 @@ import UIKit
 import CoreData
 import SpriteKit
 
+public protocol AppDelegateListener : NSObjectProtocol {
+    
+}
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
 
     var window: UIWindow?
     
@@ -21,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         application.isStatusBarHidden = true
+        SettingsManager.sharedInstance.initialize()
+        SettingsManager.sharedInstance.delegate = self
+        AudioManager.sharedInstance.initialize()
         return true
     }
 
@@ -92,6 +99,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    func onSettingsDidChange() {
+        // Does nothing
+    }
+    
+    open var appIsMute : Bool {
+        get {
+            return SettingsManager.sharedInstance.appIsMute
+        }
+        set {
+            SettingsManager.sharedInstance.appIsMute = newValue
+        }
+    }
+    
+    open var highestScore : Int {
+        get {
+            return SettingsManager.sharedInstance.highestScore
+        }
+        set {
+            SettingsManager.sharedInstance.highestScore = newValue
+        }
+    }
+    
+    open var difficulty : Difficulty {
+        get {
+            return SettingsManager.sharedInstance.difficulty
+        }
+        set {
+            SettingsManager.sharedInstance.difficulty = newValue
+        }
+    }
 }
 

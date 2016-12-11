@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Constant {
+struct UIConstants {
     
     struct Colors {
         static let innerColor = UIColor(red: 1, green: 77/255, blue: 77/255, alpha: 1).cgColor

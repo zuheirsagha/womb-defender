@@ -88,7 +88,7 @@ class LevelController : SpermDelegate, EggDelegate {
         _number = _number - 1
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
-        if _number == 0 {
+        if _number == 0 && getLives() != 0 {
             level = level + 1
             numberOfSperm = level
             _delegate.nextLevel()

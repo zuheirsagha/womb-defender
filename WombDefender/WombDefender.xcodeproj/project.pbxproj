@@ -10,9 +10,15 @@
 		270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */; };
 		270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7751DA7312E006A5CE3 /* SpermView.swift */; };
 		270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD77C1DA99443006A5CE3 /* GradientView.swift */; };
+		271D818A1DFCA76100E4311C /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D81891DFCA76100E4311C /* SettingsManager.swift */; };
+		271D818C1DFCADA300E4311C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */; };
+		271D818E1DFCB68600E4311C /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818D1DFCB68600E4311C /* AudioManager.swift */; };
+		271D81901DFCEF1900E4311C /* SoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818F1DFCEF1900E4311C /* SoundType.swift */; };
+		271D81951DFCFB5400E4311C /* sperm_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 271D81941DFCFB5400E4311C /* sperm_died.wav */; };
+		271D819B1DFD135200E4311C /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D819A1DFD135200E4311C /* Difficulty.swift */; };
 		274C78841DF78AA30000DBBB /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C78831DF78AA30000DBBB /* UIHelper.swift */; };
 		274C788B1DF7AC010000DBBB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 274C788D1DF7AC010000DBBB /* Localizable.strings */; };
-		275087401DBB0A3700741CC7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2750873F1DBB0A3700741CC7 /* Constant.swift */; };
+		275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2750873F1DBB0A3700741CC7 /* UIConstants.swift */; };
 		277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */; };
 		2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034C1DCC22EF006C7B7C /* ShopViewController.swift */; };
 		2776034F1DCC24EE006C7B7C /* StandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */; };
@@ -25,7 +31,6 @@
 		A24B62121DA498230012407A /* SpermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62111DA498230012407A /* SpermModel.swift */; };
 		A24B62141DA4A0B10012407A /* EggModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62131DA4A0B10012407A /* EggModel.swift */; };
 		A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62161DA5C4F40012407A /* MainGameViewController.swift */; };
-		A24B62191DA5C8980012407A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62181DA5C8980012407A /* Settings.swift */; };
 		A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B621A1DA5CEF90012407A /* LevelController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,11 +38,17 @@
 		270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermBehaviour.swift; sourceTree = "<group>"; };
 		270AD7751DA7312E006A5CE3 /* SpermView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermView.swift; sourceTree = "<group>"; };
 		270AD77C1DA99443006A5CE3 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		271D81891DFCA76100E4311C /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		271D818D1DFCB68600E4311C /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		271D818F1DFCEF1900E4311C /* SoundType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundType.swift; sourceTree = "<group>"; };
+		271D81941DFCFB5400E4311C /* sperm_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sperm_died.wav; path = ../../../../Downloads/sperm_died.wav; sourceTree = "<group>"; };
+		271D819A1DFD135200E4311C /* Difficulty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		274C78831DF78AA30000DBBB /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		274C78891DF7ABFB0000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		274C788A1DF7ABFB0000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		274C788C1DF7AC010000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2750873F1DBB0A3700741CC7 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		2750873F1DBB0A3700741CC7 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		2776034C1DCC22EF006C7B7C /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandingsViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +63,6 @@
 		A24B62111DA498230012407A /* SpermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermModel.swift; sourceTree = "<group>"; };
 		A24B62131DA4A0B10012407A /* EggModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EggModel.swift; sourceTree = "<group>"; };
 		A24B62161DA5C4F40012407A /* MainGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
-		A24B62181DA5C8980012407A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A24B621A1DA5CEF90012407A /* LevelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,9 +98,40 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		271D81911DFCF32000E4311C /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				271D81941DFCFB5400E4311C /* sperm_died.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		271D81981DFD130E00E4311C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				271D81991DFD134200E4311C /* Data */,
+				271D818D1DFCB68600E4311C /* AudioManager.swift */,
+				271D81891DFCA76100E4311C /* SettingsManager.swift */,
+				A24B62111DA498230012407A /* SpermModel.swift */,
+				A24B62131DA4A0B10012407A /* EggModel.swift */,
+				A24B621A1DA5CEF90012407A /* LevelController.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		271D81991DFD134200E4311C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				271D818F1DFCEF1900E4311C /* SoundType.swift */,
+				271D819A1DFD135200E4311C /* Difficulty.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		274C788E1DF7AE980000DBBB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				271D81911DFCF32000E4311C /* Sounds */,
 				274C788D1DF7AC010000DBBB /* Localizable.strings */,
 				A24B62001DA48B900012407A /* Main.storyboard */,
 				A24B62081DA48B900012407A /* LaunchScreen.storyboard */,
@@ -120,27 +161,17 @@
 		A24B61FB1DA48B900012407A /* WombDefender */ = {
 			isa = PBXGroup;
 			children = (
-				2750873F1DBB0A3700741CC7 /* Constant.swift */,
-				274C78831DF78AA30000DBBB /* UIHelper.swift */,
-				A24B62181DA5C8980012407A /* Settings.swift */,
 				A24B61FC1DA48B900012407A /* AppDelegate.swift */,
-				A24B621A1DA5CEF90012407A /* LevelController.swift */,
+				2750873F1DBB0A3700741CC7 /* UIConstants.swift */,
+				274C78831DF78AA30000DBBB /* UIHelper.swift */,
+				271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */,
 				270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */,
-				A24B62151DA5C0AE0012407A /* Models */,
+				271D81981DFD130E00E4311C /* Model */,
 				270AD7801DA9A00B006A5CE3 /* Views */,
 				270AD7771DA732CD006A5CE3 /* ViewControllers */,
 				274C788E1DF7AE980000DBBB /* Resources */,
 			);
 			path = WombDefender;
-			sourceTree = "<group>";
-		};
-		A24B62151DA5C0AE0012407A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				A24B62111DA498230012407A /* SpermModel.swift */,
-				A24B62131DA4A0B10012407A /* EggModel.swift */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A24B620A1DA48B900012407A /* LaunchScreen.storyboard in Resources */,
+				271D81951DFCFB5400E4311C /* sperm_died.wav in Resources */,
 				274C788B1DF7AC010000DBBB /* Localizable.strings in Resources */,
 				A24B62071DA48B900012407A /* Assets.xcassets in Resources */,
 				A24B62021DA48B900012407A /* Main.storyboard in Resources */,
@@ -217,8 +249,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A24B62191DA5C8980012407A /* Settings.swift in Sources */,
+				271D81901DFCEF1900E4311C /* SoundType.swift in Sources */,
 				A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */,
+				271D819B1DFD135200E4311C /* Difficulty.swift in Sources */,
+				271D818E1DFCB68600E4311C /* AudioManager.swift in Sources */,
+				271D818C1DFCADA300E4311C /* UIViewControllerExtension.swift in Sources */,
 				270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */,
 				27D3063F1DEE7CF900F3F62C /* SwipeView.swift in Sources */,
 				A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */,
@@ -226,11 +261,12 @@
 				2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */,
 				274C78841DF78AA30000DBBB /* UIHelper.swift in Sources */,
 				A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */,
+				271D818A1DFCA76100E4311C /* SettingsManager.swift in Sources */,
 				A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */,
 				A24B62121DA498230012407A /* SpermModel.swift in Sources */,
 				270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */,
 				A24B62141DA4A0B10012407A /* EggModel.swift in Sources */,
-				275087401DBB0A3700741CC7 /* Constant.swift in Sources */,
+				275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */,
 				270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */,
 				277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */,
 			);
