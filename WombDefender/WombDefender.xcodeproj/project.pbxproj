@@ -131,6 +131,23 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		271D81A81DFD1AC100E4311C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */,
+				271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		271D81A91DFD1AD100E4311C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				274C78831DF78AA30000DBBB /* UIHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		274C788E1DF7AE980000DBBB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,10 +183,9 @@
 			children = (
 				A24B61FC1DA48B900012407A /* AppDelegate.swift */,
 				2750873F1DBB0A3700741CC7 /* UIConstants.swift */,
-				274C78831DF78AA30000DBBB /* UIHelper.swift */,
-				271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */,
 				270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */,
-				271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */,
+				271D81A91DFD1AD100E4311C /* Helpers */,
+				271D81A81DFD1AC100E4311C /* Extensions */,
 				271D81981DFD130E00E4311C /* Model */,
 				270AD7801DA9A00B006A5CE3 /* Views */,
 				270AD7771DA732CD006A5CE3 /* ViewControllers */,
