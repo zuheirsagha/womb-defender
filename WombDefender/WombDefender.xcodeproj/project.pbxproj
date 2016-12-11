@@ -16,6 +16,7 @@
 		271D81901DFCEF1900E4311C /* SoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818F1DFCEF1900E4311C /* SoundType.swift */; };
 		271D81951DFCFB5400E4311C /* sperm_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 271D81941DFCFB5400E4311C /* sperm_died.wav */; };
 		271D819B1DFD135200E4311C /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D819A1DFD135200E4311C /* Difficulty.swift */; };
+		271D81A71DFD17A200E4311C /* NSLocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */; };
 		274C78841DF78AA30000DBBB /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C78831DF78AA30000DBBB /* UIHelper.swift */; };
 		274C788B1DF7AC010000DBBB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 274C788D1DF7AC010000DBBB /* Localizable.strings */; };
 		275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2750873F1DBB0A3700741CC7 /* UIConstants.swift */; };
@@ -44,10 +45,12 @@
 		271D818F1DFCEF1900E4311C /* SoundType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundType.swift; sourceTree = "<group>"; };
 		271D81941DFCFB5400E4311C /* sperm_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sperm_died.wav; path = ../../../../Downloads/sperm_died.wav; sourceTree = "<group>"; };
 		271D819A1DFD135200E4311C /* Difficulty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		271D81A41DFD167E00E4311C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		271D81A51DFD169200E4311C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSLocalizedStringExtension.swift; path = ../NSLocalizedStringExtension.swift; sourceTree = "<group>"; };
 		274C78831DF78AA30000DBBB /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		274C78891DF7ABFB0000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		274C788A1DF7ABFB0000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		274C788C1DF7AC010000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2750873F1DBB0A3700741CC7 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		277228931DA5EF2D0045D1E3 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		2776034C1DCC22EF006C7B7C /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 				274C78831DF78AA30000DBBB /* UIHelper.swift */,
 				271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */,
 				270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */,
+				271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */,
 				271D81981DFD130E00E4311C /* Model */,
 				270AD7801DA9A00B006A5CE3 /* Views */,
 				270AD7771DA732CD006A5CE3 /* ViewControllers */,
@@ -264,6 +268,7 @@
 				271D818A1DFCA76100E4311C /* SettingsManager.swift in Sources */,
 				A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */,
 				A24B62121DA498230012407A /* SpermModel.swift in Sources */,
+				271D81A71DFD17A200E4311C /* NSLocalizedStringExtension.swift in Sources */,
 				270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */,
 				A24B62141DA4A0B10012407A /* EggModel.swift in Sources */,
 				275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */,
@@ -278,7 +283,8 @@
 		274C788D1DF7AC010000DBBB /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				274C788C1DF7AC010000DBBB /* fr */,
+				271D81A41DFD167E00E4311C /* Base */,
+				271D81A51DFD169200E4311C /* fr */,
 			);
 			name = Localizable.strings;
 			path = ..;

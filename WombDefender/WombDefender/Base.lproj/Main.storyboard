@@ -37,11 +37,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qIz-a6-bWo">
                                         <rect key="frame" x="0.0" y="20" width="375" height="134"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- TAP TO START -" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="jbU-En-KAb">
-                                                <rect key="frame" x="128" y="121" width="120" height="13"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="200"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- TAP TO START -" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbU-En-KAb">
+                                                <rect key="frame" x="123" y="121" width="130.5" height="13"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                </variation>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="YTV-3y-8nM">
                                                 <rect key="frame" x="38" y="68.5" width="300" height="42.5"/>
@@ -53,7 +56,6 @@
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="jbU-En-KAb" secondAttribute="bottom" id="2MM-dI-b0O"/>
-                                            <constraint firstItem="jbU-En-KAb" firstAttribute="width" secondItem="YTV-3y-8nM" secondAttribute="width" multiplier="0.4" id="CvL-4N-n2f"/>
                                             <constraint firstItem="jbU-En-KAb" firstAttribute="top" secondItem="YTV-3y-8nM" secondAttribute="bottom" constant="10" id="IRr-wo-q7l"/>
                                             <constraint firstItem="jbU-En-KAb" firstAttribute="height" secondItem="YTV-3y-8nM" secondAttribute="height" multiplier="0.3" id="W3e-QZ-vGJ"/>
                                             <constraint firstItem="YTV-3y-8nM" firstAttribute="width" secondItem="qIz-a6-bWo" secondAttribute="width" multiplier="0.8" id="g3w-KP-C1p"/>

@@ -153,7 +153,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _endGameView.alpha = 0.0
         _endGameView.isHidden = false
         _endGameScoreLabel.text = "\(currentLevelController.getScore())"
-        _endGameBestScoreLabel.text = "Best Score: \(appDelegate.highestScore)"
+        _endGameBestScoreLabel.text = NSLocalizedString("best_score", param1: appDelegate.highestScore)
         UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
     }
     
@@ -399,7 +399,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     fileprivate func getNewLevelControllerWithCurrentDifficulty(gameController: MainGameViewController, difficulty: Difficulty) -> LevelController {
         switch (difficulty) {
         case .Easy:
-            print("here")
             return EasyLevelController(delegate: gameController)
         case .Medium:
             return MediumLevelController(delegate: gameController)
