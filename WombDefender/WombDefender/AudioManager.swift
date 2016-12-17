@@ -12,6 +12,12 @@ import AVFoundation
 
 open class AudioManager : NSObject, AVAudioPlayerDelegate {
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Singleton Accessor
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     open class var sharedInstance : AudioManager {
         struct Static {
             static let instance : AudioManager = AudioManager()
@@ -19,7 +25,19 @@ open class AudioManager : NSObject, AVAudioPlayerDelegate {
         return Static.instance
     }
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     fileprivate var _spermDiedAudioPlayer : AVAudioPlayer?
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Constructors and Initializers
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     private override init() {
         super.init()
@@ -41,6 +59,7 @@ open class AudioManager : NSObject, AVAudioPlayerDelegate {
         _spermDiedAudioPlayer = _loadSound("sperm_died")
     }
     
+    
     open func playSound(_ soundType : SoundType) {
         var audioPlayer : AVAudioPlayer?
         
@@ -50,6 +69,12 @@ open class AudioManager : NSObject, AVAudioPlayerDelegate {
         
         _playSound(audioPlayer)
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Private Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     fileprivate func _loadSound(_ soundName : String) -> AVAudioPlayer? {
         let soundURL = URL(fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: "wav")!)

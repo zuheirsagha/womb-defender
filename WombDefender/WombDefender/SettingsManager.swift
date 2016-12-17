@@ -14,6 +14,12 @@ public protocol SettingsManagerDelegate : NSObjectProtocol {
 
 open class SettingsManager {
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Singleton Accessor
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     open class var sharedInstance : SettingsManager {
         struct Static {
             static let instance : SettingsManager = SettingsManager()
@@ -21,10 +27,26 @@ open class SettingsManager {
         return Static.instance
     }
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     fileprivate var _delegate : SettingsManagerDelegate?
     fileprivate var _appIsMute : Bool = false
     fileprivate var _highestScore : Int = 0
     fileprivate var _difficulty : Difficulty = .Easy
+    
+    fileprivate var _numberOfFirstPowerUps : Int = 0
+    fileprivate var _numberOfSecondPowerUps : Int = 0
+    fileprivate var _numberOfThirdPowerUps : Int = 0
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Constructor and Initializer
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     public init() {
     }
@@ -33,21 +55,33 @@ open class SettingsManager {
         _loadSettings()
     }
     
-    open var difficulty : Difficulty {
-        get {
-            return _difficulty
-        }
-        set {
-            _difficulty = newValue
-        }
-    }
-    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Delegate
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+
     open var delegate : SettingsManagerDelegate? {
         get {
             return _delegate
         }
         set {
             _delegate = newValue
+        }
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Getters/Setters
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
+    open var difficulty : Difficulty {
+        get {
+            return _difficulty
+        }
+        set {
+            _difficulty = newValue
         }
     }
     
@@ -71,14 +105,55 @@ open class SettingsManager {
         }
     }
     
+    open var numberOfFirstPowerUps : Int {
+        get {
+            return _numberOfFirstPowerUps
+        }
+        set {
+            _numberOfFirstPowerUps = newValue
+            _saveSettings()
+        }
+    }
+    
+    open var numberOfSecondPowerUps : Int {
+        get {
+            return _numberOfSecondPowerUps
+        }
+        set {
+            _numberOfSecondPowerUps = newValue
+            _saveSettings()
+        }
+    }
+    
+    open var numberOfThirdPowerUps : Int {
+        get {
+            return _numberOfThirdPowerUps
+        }
+        set {
+            _numberOfThirdPowerUps = newValue
+            _saveSettings()
+        }
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Private Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     fileprivate func _loadSettings() {
         
         let defaults = UserDefaults.standard
         
         _appIsMute = defaults.bool(forKey: "appIsMute")
         _highestScore = defaults.integer(forKey: "highestScore")
+        
         let difficulty = defaults.integer(forKey: "difficulty")
         _difficulty = Difficulty(rawValue: difficulty)!
+        
+        _numberOfFirstPowerUps = defaults.integer(forKey: "numberOfFirstPowerUps")
+        _numberOfSecondPowerUps = defaults.integer(forKey: "numberOfSecondPowerUps")
+        _numberOfThirdPowerUps = defaults.integer(forKey: "numberOfThirdPowerUps")
         
     }
     
@@ -88,8 +163,13 @@ open class SettingsManager {
         
         defaults.set(_appIsMute, forKey: "appIsMute")
         defaults.set(_highestScore, forKey: "highestScore")
+        
         let difficulty = _difficulty.rawValue
         defaults.set(difficulty, forKey: "difficulty")
+        
+        defaults.set(_numberOfFirstPowerUps, forKey: "numberOfFirstPowerUps")
+        defaults.set(_numberOfSecondPowerUps, forKey: "numberOfSecondPowerUps")
+        defaults.set(_numberOfThirdPowerUps, forKey: "numberOfThirdPowerUps")
         
         _delegate?.onSettingsDidChange()
     }

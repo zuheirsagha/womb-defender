@@ -19,6 +19,12 @@ class StartScreenViewController: UIViewController {
     @IBOutlet weak var _tapToStartButton: UIButton!
     @IBOutlet weak var _backgroundView: UIView!
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     fileprivate var settingsPressed = false
     
     //Circles for egg and corresponding views
@@ -26,11 +32,11 @@ class StartScreenViewController: UIViewController {
     fileprivate var secondLayerView: UIView!
     fileprivate var thirdLayerView: UIView!
     
-    /************************************************************************************
-     *
-     * LIFECYCLE METHODS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Lifecycle Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,11 +63,11 @@ class StartScreenViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    /************************************************************************************
-     *
-     * ACTIONS/SELECTORS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Actions/Selectors
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     @IBAction func onTapToStartButtonClicked(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueToMainGameViewController", sender: self)

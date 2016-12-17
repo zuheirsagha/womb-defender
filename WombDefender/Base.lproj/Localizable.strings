@@ -6,4 +6,5 @@
   Copyright © 2016 Zoko. All rights reserved.
 */
 
+// Main Game Ending Banner
 "best_score" = "Best Score: %i";

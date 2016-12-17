@@ -13,7 +13,6 @@ enum SpermType {
     case Mega
 }
 
-
 enum SpermDamage: Int {
     case Regular = 1
     case Mega = 2
@@ -24,6 +23,12 @@ protocol SpermDelegate {
 }
 
 class Sperm {
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     fileprivate var _size: SpermType!
     fileprivate var _damage: Int!
@@ -42,6 +47,7 @@ class Sperm {
     
     func justHitBarrier() {
         _damage! -= 1;
+        
         if (_damage <= 0) {
             _isDead = true
             _delegate.spermDeadAtIndex(index: self._index)
@@ -51,6 +57,9 @@ class Sperm {
         }
     }
     
+    func killSperm(index : Int) {
+        _delegate.spermDeadAtIndex(index: index)
+    }
     
     func size() -> SpermType {
         return _size;

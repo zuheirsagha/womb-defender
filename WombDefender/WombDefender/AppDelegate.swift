@@ -130,5 +130,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
             SettingsManager.sharedInstance.difficulty = newValue
         }
     }
+    
+    open var numberOfFirstPowerUps : Int {
+        get {
+            return SettingsManager.sharedInstance.numberOfFirstPowerUps
+        }
+        set {
+            SettingsManager.sharedInstance.numberOfFirstPowerUps = newValue
+        }
+    }
+    
+    open var numberOfSecondPowerUps : Int {
+        get {
+            return SettingsManager.sharedInstance.numberOfSecondPowerUps
+        }
+        set {
+            SettingsManager.sharedInstance.numberOfSecondPowerUps = newValue
+        }
+    }
+    
+    open var numberOfThirdPowerUps : Int {
+        get {
+            return SettingsManager.sharedInstance.numberOfThirdPowerUps
+        }
+        set {
+            SettingsManager.sharedInstance.numberOfThirdPowerUps = newValue
+        }
+    }
 }
 

@@ -11,6 +11,12 @@ import UIKit
 
 class SwipeView : UIView {
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     var swipeLength : CGFloat = 100.0
     var swipePath : UIBezierPath!
     var firstPoint : CGPoint!
@@ -19,10 +25,16 @@ class SwipeView : UIView {
     var radius : Double!
     var startAngle : CGFloat!
     var endAngle : CGFloat!
+    
     var _firstTime : Bool = true
     var _direction : Bool = true
-    
     var _isHit : Bool = false
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Getters/Setters
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     open var isHit : Bool {
         get {
@@ -33,6 +45,12 @@ class SwipeView : UIView {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Initializers and Constructors
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isMultipleTouchEnabled = false
@@ -40,6 +58,12 @@ class SwipeView : UIView {
                 
         swipePath = UIBezierPath()
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Drawing Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     override func draw(_ rect: CGRect) {
         UIColor.white.setStroke()
@@ -97,11 +121,11 @@ class SwipeView : UIView {
         _firstTime = true
     }
     
-    /************************************************************************************
-     *
-     * PRIVATE METHODS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Private Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     fileprivate func _getDirection(_ startAngle : CGFloat, endAngle : CGFloat) -> Bool {
         

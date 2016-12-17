@@ -13,9 +13,22 @@ protocol EggDelegate {
 }
 
 class Egg {
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     private var _layers = 3;
     private var _gameover = false;
     private var _delegate: LevelController!
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Initializer
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     init(controller: LevelController) {
         _delegate = controller
@@ -35,7 +48,12 @@ class Egg {
         return !_gameover
     }
     
-    func layers() -> Int {
-        return _layers
+    open var layers : Int {
+        get {
+            return _layers
+        }
+        set {
+            _layers = newValue
+        }
     }
 }

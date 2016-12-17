@@ -15,13 +15,23 @@ protocol LevelControllerDelegate {
 }
 
 class LevelController : SpermDelegate, EggDelegate {
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     fileprivate var _score : Int!
     fileprivate var _delegate : MainGameViewController!
     fileprivate var _egg : Egg!
+    
     /* time interval between when sperm is released (in milliseconds) */
     fileprivate var _interval: Int!
+    
     /* number of sperm to be released in this level. */
     fileprivate var _number: Int!
+    
     /* strength of the field on this level. There is no Max */
     fileprivate var _strength: Double!
     
@@ -32,7 +42,15 @@ class LevelController : SpermDelegate, EggDelegate {
     fileprivate var _probabilityOfMega : Int!
     
     fileprivate var _lengthOfBarrier : Int!
+    
+    fileprivate var _numberKilledInLevel : Int = 0
 
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Initializers
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     init(delegate: MainGameViewController) {
         _delegate = delegate
         _level = 1
@@ -45,12 +63,27 @@ class LevelController : SpermDelegate, EggDelegate {
         restart()
     }
     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Getters/Setters
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     open var numberOfSperm : Int! {
         get {
             return _number
         }
         set {
             _number = Int(floor(2.5*sqrt(Double(_level))))
+        }
+    }
+    
+    open var numberKilledInLevel : Int {
+        get {
+            return _numberKilledInLevel
+        }
+        set {
+            _numberKilledInLevel = newValue
         }
     }
     
@@ -93,11 +126,14 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func spermDeadAtIndex(index: Int) {
+        print("number: \(_number) --- killed: \(_numberKilledInLevel)")
         _score = _score + 100
-        _number = _number - 1
+        numberKilledInLevel = numberKilledInLevel + 1
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
-        if _number == 0 && getLives() != 0 {
+        if _number == _numberKilledInLevel && getLives() != 0 {
+            print("\(_number) == \(numberKilledInLevel)")
+            _numberKilledInLevel = 0
             level = level + 1
             numberOfSperm = level
             _delegate.nextLevel()
@@ -110,12 +146,12 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func getLives() -> Int {
-        return _egg.layers()
+        return _egg.layers
     }
     
     /** Can alter to increase eggs lives*/
     func setLives(lives : Int) {
-        
+        _egg.layers = lives
     }
     
     func getScore() -> Int {
@@ -126,6 +162,12 @@ class LevelController : SpermDelegate, EggDelegate {
         _delegate.reloadView()
     }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+// Constructors
+//
+/////////////////////////////////////////////////////////////////////////////////////
 
 class EasyLevelController : LevelController {
     override init(delegate: MainGameViewController) {

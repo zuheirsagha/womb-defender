@@ -11,6 +11,19 @@ import SpriteKit
 
 class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
     
+    @IBOutlet weak var _condomWrapperImageView: UIImageView!
+    @IBOutlet weak var _powerUpView: UIView!
+    @IBOutlet weak var _powerUpBackgroundImageView: UIImageView!
+    
+    @IBOutlet weak var _firstPowerUpLabel: UILabel!
+    @IBOutlet weak var _firstPowerUpButton: UIButton!
+    
+    @IBOutlet weak var _secondPowerUpLabel: UILabel!
+    @IBOutlet weak var _secondPowerUpButton: UIButton!
+
+    @IBOutlet weak var _thirdPowerUpLabel: UILabel!
+    @IBOutlet weak var _thirdPowerUpButton: UIButton!
+    
     @IBOutlet weak var _settingsScreenMuteButton: UIButton!
     @IBOutlet weak var _settingsMenuView: UIView!
     @IBOutlet var _mainGameView: UIView!
@@ -31,6 +44,12 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     @IBOutlet weak var _levelBanner: UIView!
     @IBOutlet weak var _levelBannerLabel: UILabel!
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Member Variables
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     var KEY_SWIPE_IDENTIFIER = "swipe"
     var KEY_OUTER_BARRIER = "outerBarrier"
@@ -54,11 +73,11 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     var secondLayerView: UIView!
     var thirdLayerView: UIView!
 
-    /************************************************************************************
-     *
-     * LIFECYCLE METHODS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Lifecycle Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,10 +85,16 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
         
-        _levelBanner.isHidden = true
+        _condomWrapperImageView.isHidden = true
+        
+        _levelBanner.isHidden = false
+        
+        let left = CGPoint(x: -2*_levelBanner.frame.width, y: view.center.y)
+        _levelBanner.center = left
+        
         _settingsMenuView.isHidden = true
         
-        
+        appDelegate.numberOfThirdPowerUps = 10
         
         _startGame()
     }
@@ -79,11 +104,57 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         // Dispose of any resources that can be recreated.
     }
     
-    /************************************************************************************
-     *
-     * ACTIONS/SELECTORS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Actions/Selectors
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
+    @IBAction func onFirstPowerUpPressed(_ sender: UIButton) {
+        if appDelegate.numberOfFirstPowerUps > 0 {
+            appDelegate.numberOfFirstPowerUps -= 1
+            _reloadViews()
+        }
+        else {
+            // do nothing
+        }
+        
+    }
+
+    @IBAction func onSecondPowerUpPressed(_ sender: UIButton) {
+        if appDelegate.numberOfSecondPowerUps > 0 {
+            if _condomWrapperImageView.isHidden == true {
+                appDelegate.numberOfSecondPowerUps -= 1
+                _condomWrapperImageView.superview?.bringSubview(toFront: _condomWrapperImageView)
+                _condomWrapperImageView.isHidden = false
+                currentLevelController.setLives(lives: currentLevelController.getLives()+1)
+                _reloadViews()
+            }
+        }
+        else {
+            // do nothing
+        }
+    }
+    
+    @IBAction func onThirdPowerUpPressed(_ sender: UIButton) {
+        if appDelegate.numberOfThirdPowerUps > 0 {
+            appDelegate.numberOfThirdPowerUps -= 1
+            var i = 0
+            for sperm in sperms {
+                if sperm.frame.origin.x > 0 && sperm.frame.origin.x+sperm.frame.width < self.view.frame.width && sperm.frame.origin.y > 0 && sperm.frame.origin.y+sperm.frame.height < self.view.frame.height {
+                    
+                }
+                sperm.killSperm(index: i)
+                i += 1
+                sperm.removeFromSuperview()
+                swim.removeItem(item: sperm)
+            }
+            _reloadViews()
+        }
+        else {
+            // do nothing
+        }
+    }
     
     @IBAction func onCancelSettingsPressed(_ sender: UIButton) {
         self.animator.addBehavior(self.swim)
@@ -129,17 +200,18 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _startGame()
     }
     
-    /************************************************************************************
-     *
-     * LEVEL CONTROLLER DELEGATE METHODS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // LevelControllerDelegate Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
 
     func gameIsOver() {
         _resetGame()
-        _firstHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
-        _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
-        _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+        
+        _firstHeartImageView.image = #imageLiteral(resourceName: "pacifier_full")
+        _secondHeartImageView.image = #imageLiteral(resourceName: "pacifier_full")
+        _thirdHearImageView.image = #imageLiteral(resourceName: "pacifier_full")
         
         let endGameScore = currentLevelController.getScore()
         _scoreLabel.text = "\(endGameScore)"
@@ -158,8 +230,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     func nextLevel() {
+        print("next level")
         total = currentLevelController.numberOfSperm
-        _showLevelBanner()
+        _showLevelBanner("Level \(currentLevelController.level!)")
     }
     
     func removeSpermViewAtIndex(index: Int) {
@@ -184,19 +257,24 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _reloadViews()
     }
     
-    /************************************************************************************
-     *
-     * COLLISIONBEHAVIOUR DELEGATE
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // CollisionBehaviourDelegate Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
 
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
         
         if (identifier != nil) {
             let idAsString = identifier as! String
+            
             if (idAsString == KEY_OUTER_BARRIER || idAsString == KEY_CENTER_BARRIER || idAsString == KEY_INNER_BARRIER) {
                 if !appDelegate.appIsMute {
                     AudioManager.sharedInstance.playSound(.spermDied)
+                }
+                if _condomWrapperImageView.isHidden == false {
+                    _condomWrapperImageView.isHidden = true
+                    _reloadViews()
                 }
                 if let item = item as? SpermView {
                     // keep in this order so that banner does not show
@@ -221,16 +299,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         }
     }
     
-    /************************************************************************************
-     *
-     * PRIVATE METHODS
-     *
-     ***********************************************************************************/
+    /////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Private Methods
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
     
     fileprivate func _reloadViews() {
-        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying)
-        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
-        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying)
+        
+        _scoreLabel.text = "\(currentLevelController.getScore())"
+        
+        _reloadPowerUps()
 
         let outerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/4.25), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
         let centerRing = UIBezierPath(arcCenter: view.center, radius: CGFloat(view.frame.width/5), startAngle: 0, endAngle: 2*3.14159, clockwise: true)
@@ -238,24 +317,26 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         let lives = currentLevelController.getLives()
         
-        _scoreLabel.text = "\(currentLevelController.getScore())"
+        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying)
+        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying)
+        SpermBehaviour.collider.removeBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying)
         
-        if lives == 3 {
+        if lives >= 3 {
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_OUTER_BARRIER as NSCopying, for: outerRing)
-            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_full")
+            _firstHeartImageView.image = #imageLiteral(resourceName: "pacifier_empty")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "pacifier_empty")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "pacifier_empty")
         } else if lives == 2 {
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_CENTER_BARRIER as NSCopying, for: centerRing)
-            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            _firstHeartImageView.image = #imageLiteral(resourceName: "pacifier_full")
+            _secondHeartImageView.image = #imageLiteral(resourceName: "pacifier_empty")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "pacifier_empty")
             thirdLayerView.isHidden = true
         } else if lives == 1 {
             SpermBehaviour.collider.addBoundary(withIdentifier: KEY_INNER_BARRIER as NSCopying, for: innerRing)
-            _firstHeartImageView.image = #imageLiteral(resourceName: "heart_full")
-            _secondHeartImageView.image = #imageLiteral(resourceName: "heart_empty")
-            _thirdHearImageView.image = #imageLiteral(resourceName: "heart_empty")
+            _firstHeartImageView.image = #imageLiteral(resourceName: "pacifier_full")
+            _secondHeartImageView.image =  #imageLiteral(resourceName: "pacifier_full")
+            _thirdHearImageView.image = #imageLiteral(resourceName: "pacifier_empty")
             secondLayerView.isHidden = true
         }
         
@@ -264,6 +345,33 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         }
         else {
             _settingsScreenMuteButton.setImage(#imageLiteral(resourceName: "appIsNotMute"), for: .normal)
+        }
+    }
+    
+    fileprivate func _reloadPowerUps() {
+        _firstPowerUpLabel.text = "\(appDelegate.numberOfFirstPowerUps)"
+        _secondPowerUpLabel.text = "\(appDelegate.numberOfSecondPowerUps)"
+        _thirdPowerUpLabel.text = "\(appDelegate.numberOfThirdPowerUps)"
+        
+        if appDelegate.numberOfFirstPowerUps == 0 {
+            _firstPowerUpButton.tintColor = UIColor.gray
+        }
+        else {
+            _firstPowerUpButton.tintColor = UIColor.white
+        }
+        
+        if appDelegate.numberOfSecondPowerUps == 0 {
+            _secondPowerUpButton.tintColor = UIColor.gray
+        }
+        else {
+            _secondPowerUpButton.tintColor = UIColor.white
+        }
+        
+        if appDelegate.numberOfThirdPowerUps == 0 {
+            _thirdPowerUpButton.tintColor = UIColor.gray
+        }
+        else {
+            _thirdPowerUpButton.tintColor = UIColor.white
         }
     }
     
@@ -307,6 +415,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             }
             self.total = self.total - 1
         }
+        print("\(total)")
     }
     
     fileprivate func _createSperm() {
@@ -342,7 +451,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         let spermType : SpermType!
         let rand = arc4random_uniform(100)
-        print("\(UInt32(currentLevelController.probabilityOfMega)) rand \(rand)")
         if rand <= UInt32(currentLevelController.probabilityOfMega!) {
             spermType = SpermType.Mega
         }
@@ -357,21 +465,22 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         swim.addItem(item: sperm)
     }
     
-    fileprivate func _showLevelBanner() {
-        _levelBannerLabel.text = "Level \(currentLevelController.level!)"
-        _levelBanner.alpha = 0
+    fileprivate func _showLevelBanner(_ text : String) {
+        print("showing level banner")
+        _levelBannerLabel.text = "\(text)"
         _levelBanner.superview?.bringSubview(toFront: _levelBanner)
-        if currentLevelController.numberOfSperm != 0 {
-            self._levelBanner.isHidden = false
-            UIView.animate(withDuration: 0.5, animations: {
-                self._levelBanner.alpha = 1
-            }, completion: { (Bool) in
-                UIView.animate(withDuration: 0.5, animations: {
-                    self._levelBanner.alpha = 0
-                }, completion: { (Bool) in
-                    self._levelBanner.isHidden = true
-                    self.createSperm()
-                })
+        let left = CGPoint(x: -2*_levelBanner.frame.width, y: view.center.y)
+        let right = CGPoint(x: 2*view.frame.width, y: view.center.y)
+        DispatchQueue.main.async {
+            self._levelBanner.center = left
+            self._moveView(self._levelBanner, toPoint: self.view.center, isShowing: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(1500), execute: {
+                self._moveView(self._levelBanner, toPoint: right, isShowing: false)
+            })
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(1500), execute: {
+                print("creating sperm")
+                self.createSperm()
             })
         }
     }
@@ -404,6 +513,23 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             return MediumLevelController(delegate: gameController)
         case .Hard:
             return HardLevelController(delegate: gameController)
+        }
+    }
+    
+    fileprivate func _moveView(_ view:UIView, toPoint destination:CGPoint, isShowing : Bool) {
+    //Always animate on main thread
+        view.isHidden = false
+        DispatchQueue.main.async {
+            UIView.animate(
+                withDuration: 1.0,
+                delay: 0.0,
+                usingSpringWithDamping: 0.6,
+                initialSpringVelocity: 0.3,
+                options: UIViewAnimationOptions.allowAnimatedContent,
+                animations: { () -> Void in
+                    //do actual move
+                    view.center = destination },
+                completion: nil)
         }
     }
 }
