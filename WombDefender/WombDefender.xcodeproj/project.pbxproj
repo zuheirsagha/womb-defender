@@ -14,9 +14,9 @@
 		271D818C1DFCADA300E4311C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */; };
 		271D818E1DFCB68600E4311C /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818D1DFCB68600E4311C /* AudioManager.swift */; };
 		271D81901DFCEF1900E4311C /* SoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818F1DFCEF1900E4311C /* SoundType.swift */; };
-		271D81951DFCFB5400E4311C /* sperm_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 271D81941DFCFB5400E4311C /* sperm_died.wav */; };
 		271D819B1DFD135200E4311C /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D819A1DFD135200E4311C /* Difficulty.swift */; };
 		271D81A71DFD17A200E4311C /* NSLocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */; };
+		271D81AD1E08807000E4311C /* sperm_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 271D81AC1E08807000E4311C /* sperm_died.wav */; };
 		274C78841DF78AA30000DBBB /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C78831DF78AA30000DBBB /* UIHelper.swift */; };
 		274C788B1DF7AC010000DBBB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 274C788D1DF7AC010000DBBB /* Localizable.strings */; };
 		275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2750873F1DBB0A3700741CC7 /* UIConstants.swift */; };
@@ -43,11 +43,11 @@
 		271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		271D818D1DFCB68600E4311C /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		271D818F1DFCEF1900E4311C /* SoundType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundType.swift; sourceTree = "<group>"; };
-		271D81941DFCFB5400E4311C /* sperm_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sperm_died.wav; path = ../../../../Downloads/sperm_died.wav; sourceTree = "<group>"; };
 		271D819A1DFD135200E4311C /* Difficulty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		271D81A41DFD167E00E4311C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		271D81A51DFD169200E4311C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		271D81A61DFD17A200E4311C /* NSLocalizedStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSLocalizedStringExtension.swift; path = ../NSLocalizedStringExtension.swift; sourceTree = "<group>"; };
+		271D81AC1E08807000E4311C /* sperm_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sperm_died.wav; sourceTree = "<group>"; };
 		274C78831DF78AA30000DBBB /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		274C78891DF7ABFB0000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		274C788A1DF7ABFB0000DBBB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 		271D81911DFCF32000E4311C /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				271D81941DFCFB5400E4311C /* sperm_died.wav */,
+				271D81AC1E08807000E4311C /* sperm_died.wav */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A24B620A1DA48B900012407A /* LaunchScreen.storyboard in Resources */,
-				271D81951DFCFB5400E4311C /* sperm_died.wav in Resources */,
+				271D81AD1E08807000E4311C /* sperm_died.wav in Resources */,
 				274C788B1DF7AC010000DBBB /* Localizable.strings in Resources */,
 				A24B62071DA48B900012407A /* Assets.xcassets in Resources */,
 				A24B62021DA48B900012407A /* Main.storyboard in Resources */,
