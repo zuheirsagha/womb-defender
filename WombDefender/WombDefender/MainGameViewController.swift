@@ -111,45 +111,50 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     /////////////////////////////////////////////////////////////////////////////////////
     
     @IBAction func onFirstPowerUpPressed(_ sender: UIButton) {
-        if appDelegate.numberOfFirstPowerUps > 0 {
-            appDelegate.numberOfFirstPowerUps -= 1
-            _reloadViews()
+        if currentLevelController.getLives() != 0 {
+            if appDelegate.numberOfFirstPowerUps > 0 {
+                appDelegate.numberOfFirstPowerUps -= 1
+                _reloadViews()
+            }
+            else {
+                // do nothing
+            }
         }
-        else {
-            // do nothing
-        }
-        
     }
 
     @IBAction func onSecondPowerUpPressed(_ sender: UIButton) {
-        if appDelegate.numberOfSecondPowerUps > 0 {
-            if _condomWrapperImageView.isHidden == true {
-                appDelegate.numberOfSecondPowerUps -= 1
-                _condomWrapperImageView.superview?.bringSubview(toFront: _condomWrapperImageView)
-                _condomWrapperImageView.isHidden = false
-                currentLevelController.setLives(lives: currentLevelController.getLives()+1)
-                _reloadViews()
+        if currentLevelController.getLives() != 0 {
+            if appDelegate.numberOfSecondPowerUps > 0 {
+                if _condomWrapperImageView.isHidden == true {
+                    appDelegate.numberOfSecondPowerUps -= 1
+                    _condomWrapperImageView.superview?.bringSubview(toFront: _condomWrapperImageView)
+                    _condomWrapperImageView.isHidden = false
+                    currentLevelController.setLives(lives: currentLevelController.getLives()+1)
+                    _reloadViews()
+                }
             }
-        }
-        else {
-            // do nothing
+            else {
+                // do nothing
+            }
         }
     }
     
     @IBAction func onThirdPowerUpPressed(_ sender: UIButton) {
-        if appDelegate.numberOfThirdPowerUps > 0 {
-            appDelegate.numberOfThirdPowerUps -= 1
-            for sperm in sperms {
-                if sperm.frame.origin.x > 0 && sperm.frame.origin.x+sperm.frame.width < self.view.frame.width && sperm.frame.origin.y > 0 && sperm.frame.origin.y+sperm.frame.height < self.view.frame.height {
-                    
-                }
-                if (!sperm.isDead()) {
-                    sperm.killSperm()
+        if currentLevelController.getLives() != 0 {
+            if appDelegate.numberOfThirdPowerUps > 0 {
+                appDelegate.numberOfThirdPowerUps -= 1
+                for sperm in sperms {
+                    if sperm.frame.origin.x > 0 && sperm.frame.origin.x+sperm.frame.width < self.view.frame.width && sperm.frame.origin.y > 0 && sperm.frame.origin.y+sperm.frame.height < self.view.frame.height {
+                        
+                    }
+                    if (!sperm.isDead()) {
+                        sperm.killSperm()
+                    }
                 }
             }
-        }
-        else {
-            // do nothing
+            else {
+                // do nothing
+            }
         }
     }
     
