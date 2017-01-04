@@ -74,7 +74,7 @@ class LevelController : SpermDelegate, EggDelegate {
             return _number
         }
         set {
-            _number = Int(floor(2.5*sqrt(Double(_level))))
+            _number = Int(floor(2.5*sqrt(Double(newValue))))
         }
     }
     
@@ -131,6 +131,7 @@ class LevelController : SpermDelegate, EggDelegate {
         numberKilledInLevel = numberKilledInLevel + 1
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
+        _delegate.reloadView()
         if _number == _numberKilledInLevel && getLives() != 0 {
             print("\(_number) == \(numberKilledInLevel)")
             _numberKilledInLevel = 0

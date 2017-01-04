@@ -57,8 +57,9 @@ class Sperm {
         }
     }
     
-    func killSperm(index : Int) {
-        _delegate.spermDeadAtIndex(index: index)
+    func killSperm() {
+        _isDead = true;
+        _delegate.spermDeadAtIndex(index: self._index)
     }
     
     func size() -> SpermType {

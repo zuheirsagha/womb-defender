@@ -139,17 +139,14 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBAction func onThirdPowerUpPressed(_ sender: UIButton) {
         if appDelegate.numberOfThirdPowerUps > 0 {
             appDelegate.numberOfThirdPowerUps -= 1
-            var i = 0
             for sperm in sperms {
                 if sperm.frame.origin.x > 0 && sperm.frame.origin.x+sperm.frame.width < self.view.frame.width && sperm.frame.origin.y > 0 && sperm.frame.origin.y+sperm.frame.height < self.view.frame.height {
                     
                 }
-                sperm.killSperm(index: i)
-                i += 1
-                sperm.removeFromSuperview()
-                swim.removeItem(item: sperm)
+                if (!sperm.isDead()) {
+                    sperm.killSperm()
+                }
             }
-            _reloadViews()
         }
         else {
             // do nothing
@@ -231,7 +228,6 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     func nextLevel() {
         print("next level")
-        total = currentLevelController.numberOfSperm
         _showLevelBanner("Level \(currentLevelController.level!)")
     }
     
@@ -403,19 +399,20 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         _drawWomb()
         _reloadViews()
-        createSperm()
         animator.addBehavior(swim)
+        createSperm()
+
     }
     
     fileprivate func createSperm() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(interval)) {
+            print("\(self.total)")
             if self.total > 0 {
                 self._createSperm()
                 self.createSperm()
             }
             self.total = self.total - 1
         }
-        print("\(total)")
     }
     
     fileprivate func _createSperm() {
@@ -470,19 +467,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _levelBannerLabel.text = "\(text)"
         _levelBanner.superview?.bringSubview(toFront: _levelBanner)
         let left = CGPoint(x: -2*_levelBanner.frame.width, y: view.center.y)
-        let right = CGPoint(x: 2*view.frame.width, y: view.center.y)
-        DispatchQueue.main.async {
-            self._levelBanner.center = left
-            self._moveView(self._levelBanner, toPoint: self.view.center, isShowing: true)
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(1500), execute: {
-                self._moveView(self._levelBanner, toPoint: right, isShowing: false)
-            })
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(1500), execute: {
-                print("creating sperm")
-                self.createSperm()
-            })
-        }
+        let right = CGPoint(x: 2*_levelBanner.frame.width, y: view.center.y)
+        self._levelBanner.center = left
+        self._moveView(self._levelBanner, toPoint: self.view.center, thenPoint: right, isShowing: true)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {
+//            self._moveView(self._levelBanner, toPoint: right, isShowing: false)
+//        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {
+//            print("creating sperm")
+//            self.total = self.currentLevelController.numberOfSperm
+//            self.createSperm()
+//        })
     }
     
     fileprivate func _resetGame() {
@@ -516,20 +511,37 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         }
     }
     
-    fileprivate func _moveView(_ view:UIView, toPoint destination:CGPoint, isShowing : Bool) {
+    fileprivate func _moveView(_ view:UIView, toPoint stop:CGPoint, thenPoint destination:CGPoint, isShowing : Bool) {
     //Always animate on main thread
         view.isHidden = false
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
             UIView.animate(
                 withDuration: 1.0,
                 delay: 0.0,
-                usingSpringWithDamping: 0.6,
+                usingSpringWithDamping: 1.0,
                 initialSpringVelocity: 0.3,
                 options: UIViewAnimationOptions.allowAnimatedContent,
                 animations: { () -> Void in
                     //do actual move
-                    view.center = destination },
-                completion: nil)
-        }
+                    view.center = stop },
+                completion: {bool in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750), execute: {
+                        UIView.animate(
+                            withDuration: 1.0,
+                            delay: 0.0,
+                            usingSpringWithDamping: 1.0,
+                            initialSpringVelocity: 0.3,
+                            options: UIViewAnimationOptions.allowAnimatedContent,
+                            animations: { () -> Void in
+                                //do actual move
+                                view.center = destination },
+                            completion: { bool in
+                                print("creating sperm")
+                                self.total = self.currentLevelController.numberOfSperm
+                                self.createSperm()
+                        })
+                    })
+            })
+        })
     }
 }

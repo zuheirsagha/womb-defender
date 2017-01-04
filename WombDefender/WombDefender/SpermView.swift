@@ -53,8 +53,8 @@ class SpermView : UIView {
         _sperm.justHitBarrier()
     }
     
-    public func killSperm(index : Int) {
-        _sperm.killSperm(index: index)
+    public func killSperm() {
+        _sperm.killSperm()
     }
     
     public func isDead() -> Bool {
