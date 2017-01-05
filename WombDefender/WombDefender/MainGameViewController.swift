@@ -523,7 +523,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             UIView.animate(
                 withDuration: 1.0,
                 delay: 0.0,
-                usingSpringWithDamping: 1.0,
+                usingSpringWithDamping: 0.6,
                 initialSpringVelocity: 0.3,
                 options: UIViewAnimationOptions.allowAnimatedContent,
                 animations: { () -> Void in
