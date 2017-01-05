@@ -26,7 +26,7 @@ class SpermBehaviour: UIDynamicBehavior {
     // Therefore avoid creating a bunch of new objects for no reason
     static let collider: UICollisionBehavior = {
         let collider = UICollisionBehavior()
-        let boundaryInsets = UIEdgeInsetsMake(-50, -50, -50, -50)
+        let boundaryInsets = UIEdgeInsetsMake(-200, -200, -200, -200)
         collider.setTranslatesReferenceBoundsIntoBoundary(with: boundaryInsets)
         
         return collider
