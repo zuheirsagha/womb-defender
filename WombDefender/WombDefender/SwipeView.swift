@@ -30,6 +30,12 @@ class SwipeView : UIView {
     var _direction : Bool = true
     var _isHit : Bool = false
     
+    var appDelegate : AppDelegate {
+        get {
+            return UIApplication.shared.delegate! as! AppDelegate
+        }
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Getters/Setters
@@ -91,6 +97,16 @@ class SwipeView : UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !isHit {
             SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
+            
+            if appDelegate.difficulty == .Easy {
+                swipeLength = 200
+            }
+            else if appDelegate.difficulty == .Medium {
+                swipeLength = 150
+            }
+            else {
+                swipeLength = 100
+            }
             
             if _firstTime || sqrt(pow(swipePath.currentPoint.x-firstPoint.x,2) + pow(swipePath.currentPoint.y-firstPoint.y,2)) < swipeLength {
                 _firstTime = false

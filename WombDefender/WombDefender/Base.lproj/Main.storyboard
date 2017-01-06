@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0UA-Bg-pJv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0UA-Bg-pJv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -110,6 +110,19 @@
                                             <constraint firstAttribute="height" constant="80" id="kcV-hT-0Wm"/>
                                         </constraints>
                                     </view>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PfT-Pj-57L">
+                                        <rect key="frame" x="70" y="551" width="235" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="Easy"/>
+                                            <segment title="Medium"/>
+                                            <segment title="Hard"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="onDifficultyValueChanged:forEvent:" destination="0UA-Bg-pJv" eventType="valueChanged" id="6kw-Zn-KRE"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" red="0.64586034751037347" green="0.14668559392886038" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -139,6 +152,7 @@
                     </view>
                     <connections>
                         <outlet property="_backgroundView" destination="bLD-PL-hGg" id="kl8-uy-A4f"/>
+                        <outlet property="_difficultySegmentedControl" destination="PfT-Pj-57L" id="7qj-h6-FS7"/>
                         <outlet property="_headerView" destination="qIz-a6-bWo" id="cPh-6c-92m"/>
                         <outlet property="_settingsButton" destination="2Ds-Qh-iIL" id="isU-9q-606"/>
                         <outlet property="_shoppingCartButton" destination="V5e-af-mF1" id="tlT-hr-6pG"/>
@@ -164,12 +178,24 @@
                     <view key="view" contentMode="scaleToFill" id="uNI-q5-jQ6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rfY-hI-9H4">
+                                <rect key="frame" x="70" y="102" width="235" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Easy"/>
+                                    <segment title="Medium"/>
+                                    <segment title="Hard"/>
+                                </segments>
+                                <color key="tintColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                        </subviews>
                         <color key="backgroundColor" red="0.57647058823529407" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jh1-vU-Ezs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1164" y="798"/>
+            <point key="canvasLocation" x="-1164" y="797.45127436281871"/>
         </scene>
         <!--Shop View Controller-->
         <scene sceneID="paT-k3-1Uz">

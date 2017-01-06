@@ -18,6 +18,7 @@ class StartScreenViewController: UIViewController {
     @IBOutlet weak var _standingsButton: UIButton!
     @IBOutlet weak var _tapToStartButton: UIButton!
     @IBOutlet weak var _backgroundView: UIView!
+    @IBOutlet weak var _difficultySegmentedControl: UISegmentedControl!
     
     /////////////////////////////////////////////////////////////////////////////////////
     //
@@ -45,6 +46,16 @@ class StartScreenViewController: UIViewController {
         view.insertSubview(gradient, at: 0)
        
         let views = UIHelper.drawWomb(view.frame.width, height: view.frame.height)
+        
+        if appDelegate.difficulty == .Easy {
+            _difficultySegmentedControl.setEnabled(true, forSegmentAt: 0)
+        }
+        else if appDelegate.difficulty == .Medium {
+            _difficultySegmentedControl.setEnabled(true, forSegmentAt: 1)
+        }
+        else {
+            _difficultySegmentedControl.setEnabled(true, forSegmentAt: 2)
+        }
         
         centerLayerView = views[0]
         secondLayerView = views[1]
@@ -83,6 +94,18 @@ class StartScreenViewController: UIViewController {
     
     @IBAction func onStandingsButtonClicked(_ sender: UIButton) {
         
+    }
+    
+    @IBAction func onDifficultyValueChanged(_ sender: Any, forEvent event: UIEvent) {
+        if _difficultySegmentedControl.selectedSegmentIndex == 0 {
+            appDelegate.difficulty = .Easy
+        }
+        else if _difficultySegmentedControl.selectedSegmentIndex == 1 {
+            appDelegate.difficulty = .Medium
+        }
+        else {
+            appDelegate.difficulty = .Hard
+        }
     }
     
 }
