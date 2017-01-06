@@ -19,6 +19,10 @@ class StartScreenViewController: UIViewController {
     @IBOutlet weak var _tapToStartButton: UIButton!
     @IBOutlet weak var _backgroundView: UIView!
     @IBOutlet weak var _difficultySegmentedControl: UISegmentedControl!
+    @IBOutlet weak var settingsView: UIView!
+    
+    @IBOutlet weak var musicCheckBoxButton: UIButton!
+    @IBOutlet weak var soundFXCheckBoxButton: UIButton!
     
     /////////////////////////////////////////////////////////////////////////////////////
     //
@@ -57,6 +61,8 @@ class StartScreenViewController: UIViewController {
             _difficultySegmentedControl.setEnabled(true, forSegmentAt: 2)
         }
         
+        settingsView.isHidden = true
+        
         centerLayerView = views[0]
         secondLayerView = views[1]
         thirdLayerView = views[2]
@@ -68,6 +74,7 @@ class StartScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        _reloadViews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,12 +87,38 @@ class StartScreenViewController: UIViewController {
     //
     /////////////////////////////////////////////////////////////////////////////////////
     
+    @IBAction func onCancelSettingsPressed(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.settingsView.alpha = 0
+        }, completion: { (Bool) in
+            self.settingsView.isHidden = true
+            self.settingsView.alpha = 0
+        })
+    }
+    
+    @IBAction func onSoundFXSettingPressed(_ sender: UIButton) {
+        appDelegate.appFXIsMute = !appDelegate.appFXIsMute
+        _reloadViews()
+    }
+    
+    @IBAction func onMusicSettingPressed(_ sender: UIButton) {
+        appDelegate.appIsMute = !appDelegate.appIsMute
+        _reloadViews()
+    }
+    
     @IBAction func onTapToStartButtonClicked(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueToMainGameViewController", sender: self)
     }
     
     @IBAction func onSettingsButtonClicked(_ sender: UIButton) {
         
+        settingsView.alpha = 0
+        settingsView.superview?.bringSubview(toFront: settingsView)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.settingsView.alpha = 1
+        })
+        settingsView.isHidden = false
     }
     
     @IBAction func onShoppingCartButtonClicked(_ sender: UIButton) {
@@ -105,6 +138,22 @@ class StartScreenViewController: UIViewController {
         }
         else {
             appDelegate.difficulty = .Hard
+        }
+    }
+    
+    open func _reloadViews() {
+        if appDelegate.appFXIsMute {
+            soundFXCheckBoxButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+        }
+        else {
+            soundFXCheckBoxButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+        }
+        
+        if appDelegate.appIsMute {
+            musicCheckBoxButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+        }
+        else {
+            musicCheckBoxButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
     }
     

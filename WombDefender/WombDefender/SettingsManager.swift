@@ -35,6 +35,7 @@ open class SettingsManager {
     
     fileprivate var _delegate : SettingsManagerDelegate?
     fileprivate var _appIsMute : Bool = false
+    fileprivate var _appFXIsMute : Bool = false
     fileprivate var _highestScore : Int = 0
     fileprivate var _difficulty : Difficulty = .Easy
     
@@ -95,6 +96,16 @@ open class SettingsManager {
         }
     }
     
+    open var appFXIsMute : Bool {
+        get {
+            return _appFXIsMute
+        }
+        set {
+            _appFXIsMute = newValue
+            _saveSettings()
+        }
+    }
+    
     open var highestScore : Int {
         get {
             return _highestScore
@@ -146,6 +157,7 @@ open class SettingsManager {
         let defaults = UserDefaults.standard
         
         _appIsMute = defaults.bool(forKey: "appIsMute")
+        _appFXIsMute = defaults.bool(forKey: "appFXIsMute")
         _highestScore = defaults.integer(forKey: "highestScore")
         
         let difficulty = defaults.integer(forKey: "difficulty")
@@ -162,6 +174,7 @@ open class SettingsManager {
         let defaults = UserDefaults.standard
         
         defaults.set(_appIsMute, forKey: "appIsMute")
+        defaults.set(_appFXIsMute, forKey: "appFXIsMute")
         defaults.set(_highestScore, forKey: "highestScore")
         
         let difficulty = _difficulty.rawValue

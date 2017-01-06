@@ -113,6 +113,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         }
     }
     
+    open var appFXIsMute : Bool {
+        get {
+            return SettingsManager.sharedInstance.appFXIsMute
+        }
+        set {
+            SettingsManager.sharedInstance.appFXIsMute = newValue
+        }
+    }
+    
     open var highestScore : Int {
         get {
             return SettingsManager.sharedInstance.highestScore

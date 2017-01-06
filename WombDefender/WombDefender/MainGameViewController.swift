@@ -179,7 +179,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     @IBAction func onSettingsMutePressed(_ sender: UIButton) {
-        appDelegate.appIsMute = !appDelegate.appIsMute
+        appDelegate.appFXIsMute = !appDelegate.appFXIsMute
         _reloadViews()
     }
     
@@ -270,7 +270,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             let idAsString = identifier as! String
             
             if (idAsString == KEY_OUTER_BARRIER || idAsString == KEY_CENTER_BARRIER || idAsString == KEY_INNER_BARRIER) {
-                if !appDelegate.appIsMute {
+                if !appDelegate.appFXIsMute {
                     AudioManager.sharedInstance.playSound(.spermDied)
                 }
                 if _condomWrapperImageView.isHidden == false {
@@ -285,7 +285,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                 }
             }
             else if (idAsString == KEY_SWIPE_IDENTIFIER) {
-                if !appDelegate.appIsMute {
+                if !appDelegate.appFXIsMute {
                     AudioManager.sharedInstance.playSound(.spermDied)
                 }
                 if let item = item as? SpermView {
@@ -341,7 +341,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             secondLayerView.isHidden = true
         }
         
-        if appDelegate.appIsMute {
+        if appDelegate.appFXIsMute {
             _settingsScreenMuteButton.setImage(#imageLiteral(resourceName: "appIsMute"), for: .normal)
         }
         else {
