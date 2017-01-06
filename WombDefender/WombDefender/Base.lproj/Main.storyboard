@@ -110,9 +110,11 @@
                                             <constraint firstAttribute="height" constant="80" id="kcV-hT-0Wm"/>
                                         </constraints>
                                     </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PfT-Pj-57L">
-                                        <rect key="frame" x="70" y="551" width="235" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PfT-Pj-57L">
+                                        <rect key="frame" x="62.5" y="551" width="250" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="Bh6-7B-rpw"/>
+                                        </constraints>
                                         <segments>
                                             <segment title="Easy"/>
                                             <segment title="Medium"/>
@@ -131,12 +133,14 @@
                                     <constraint firstItem="6Z5-CX-cJ9" firstAttribute="width" secondItem="bLD-PL-hGg" secondAttribute="width" id="DM4-Qx-Cub"/>
                                     <constraint firstItem="6Z5-CX-cJ9" firstAttribute="height" secondItem="bLD-PL-hGg" secondAttribute="height" id="DR0-Fq-USN"/>
                                     <constraint firstItem="6Z5-CX-cJ9" firstAttribute="centerX" secondItem="bLD-PL-hGg" secondAttribute="centerX" id="Lln-e4-rgt"/>
+                                    <constraint firstAttribute="bottom" secondItem="PfT-Pj-57L" secondAttribute="bottom" constant="88" id="TQa-1c-qlj"/>
                                     <constraint firstItem="dyw-kP-bb4" firstAttribute="centerX" secondItem="6Z5-CX-cJ9" secondAttribute="centerX" id="ctt-cs-6ob"/>
                                     <constraint firstItem="dyw-kP-bb4" firstAttribute="bottom" secondItem="6Z5-CX-cJ9" secondAttribute="bottom" id="dsY-rR-aFT"/>
                                     <constraint firstAttribute="trailing" secondItem="qIz-a6-bWo" secondAttribute="trailing" id="mMp-71-b8W"/>
                                     <constraint firstItem="qIz-a6-bWo" firstAttribute="leading" secondItem="bLD-PL-hGg" secondAttribute="leading" id="pth-Hq-Oo9"/>
                                     <constraint firstItem="dyw-kP-bb4" firstAttribute="width" secondItem="6Z5-CX-cJ9" secondAttribute="width" id="sAx-gS-gtr"/>
                                     <constraint firstItem="qIz-a6-bWo" firstAttribute="height" secondItem="6Z5-CX-cJ9" secondAttribute="height" multiplier="0.2" id="tDo-iE-c0a"/>
+                                    <constraint firstItem="PfT-Pj-57L" firstAttribute="centerX" secondItem="6Z5-CX-cJ9" secondAttribute="centerX" id="tdu-hV-5jp"/>
                                     <constraint firstItem="6Z5-CX-cJ9" firstAttribute="centerY" secondItem="bLD-PL-hGg" secondAttribute="centerY" id="v16-CN-LxI"/>
                                 </constraints>
                             </view>
