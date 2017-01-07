@@ -17,6 +17,9 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Lifecycle Methods
     //
     /////////////////////////////////////////////////////////////////////////////////////
+    @IBAction func onExitButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +42,19 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : PowerUpCell = tableView.dequeueReusableCell(withIdentifier: "powerUpCell") as! PowerUpCell
+        cell.selectionStyle = .none
+        cell._powerUpPriceButton.layer.cornerRadius = 8
+        cell._powerUpPriceButton.clipsToBounds = true
+        cell._powerUpPriceButton.layer.borderWidth = 1
+        cell._powerUpPriceButton.layer.borderColor = UIColor.white.cgColor
+        
         
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 cell._powerUpImage.image = #imageLiteral(resourceName: "condom")
                 cell._powerUpNameLabel.text = "Condom"
                 cell._powerUpDescriptionLabel.text = "Extra life!"
-                cell._powerUpPriceButton.titleLabel?.text = "$0.99"
+                cell._powerUpPriceButton.setTitle("$0.99", for: .normal)
             }
             else if indexPath.row == 1 {
                 

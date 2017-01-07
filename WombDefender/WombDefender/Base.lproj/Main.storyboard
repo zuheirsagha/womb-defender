@@ -307,12 +307,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-ga-28F">
+                                <rect key="frame" x="154" y="40" width="68.5" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kQK-D0-d0X">
-                                <rect key="frame" x="26" y="30" width="323" height="637"/>
+                                <rect key="frame" x="26" y="86" width="323" height="581"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.51976162195205688" green="0.067388705909252167" blue="0.0079774884507060051" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="powerUpCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="powerUpCell" rowHeight="110" id="Tfc-Sv-zeO" customClass="PowerUpCell" customModule="WombDefender">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="powerUpCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="powerUpCell" rowHeight="110" id="Tfc-Sv-zeO" customClass="PowerUpCell" customModule="WombDefender">
                                         <rect key="frame" x="0.0" y="28" width="323" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tfc-Sv-zeO" id="hk9-9C-FSa">
@@ -381,14 +387,29 @@
                                     <outlet property="delegate" destination="0sc-hZ-8nN" id="2bV-9t-Ixg"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1TH-cE-yPT">
+                                <rect key="frame" x="26" y="30" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="Jcg-Gr-5vo"/>
+                                    <constraint firstAttribute="height" constant="37" id="k3n-Ib-fco"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="restartGame"/>
+                                <connections>
+                                    <action selector="onExitButtonPressed:" destination="0sc-hZ-8nN" eventType="touchUpInside" id="7c7-Rq-Rne"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.57647058823529407" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.6505771279335022" green="0.084382526576519012" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="kQK-D0-d0X" secondAttribute="trailing" constant="10" id="Lzx-be-bHU"/>
+                            <constraint firstItem="1TH-cE-yPT" firstAttribute="leading" secondItem="okh-aR-STQ" secondAttribute="leadingMargin" constant="10" id="RZm-SX-m8W"/>
                             <constraint firstItem="tbR-Ef-VmC" firstAttribute="top" secondItem="kQK-D0-d0X" secondAttribute="bottom" id="TYH-jW-aHd"/>
                             <constraint firstItem="kQK-D0-d0X" firstAttribute="leading" secondItem="okh-aR-STQ" secondAttribute="leadingMargin" constant="10" id="enm-HV-ayG"/>
-                            <constraint firstItem="kQK-D0-d0X" firstAttribute="top" secondItem="9KI-fp-wdR" secondAttribute="bottom" constant="10" id="zKg-aU-pma"/>
+                            <constraint firstItem="kQK-D0-d0X" firstAttribute="top" secondItem="1Sh-ga-28F" secondAttribute="bottom" constant="10" id="geh-if-Bo6"/>
+                            <constraint firstItem="1Sh-ga-28F" firstAttribute="centerX" secondItem="okh-aR-STQ" secondAttribute="centerX" id="mse-Aw-sPu"/>
+                            <constraint firstItem="1Sh-ga-28F" firstAttribute="top" secondItem="9KI-fp-wdR" secondAttribute="bottom" constant="20" id="phb-xI-IcY"/>
+                            <constraint firstItem="1TH-cE-yPT" firstAttribute="top" secondItem="9KI-fp-wdR" secondAttribute="bottom" constant="10" id="v3M-4G-vNe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -683,7 +704,7 @@
                                                             <constraint firstAttribute="width" constant="60" id="CPX-JG-2ib"/>
                                                             <constraint firstAttribute="height" constant="60" id="JFI-oe-zrx"/>
                                                         </constraints>
-                                                        <state key="normal" image="06584EA8-BC5C-42AE-9347-D7C60E5DA80D"/>
+                                                        <state key="normal" image="333AAEDE-0140-4FC5-9547-CC46E910CA8F"/>
                                                         <connections>
                                                             <action selector="onSettingsMutePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKi-0Y-Y3i"/>
                                                         </connections>
@@ -812,7 +833,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="06584EA8-BC5C-42AE-9347-D7C60E5DA80D" width="64" height="64">
+        <image name="333AAEDE-0140-4FC5-9547-CC46E910CA8F" width="64" height="64">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

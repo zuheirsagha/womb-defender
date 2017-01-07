@@ -18,4 +18,5 @@ class PowerUpCell : UITableViewCell {
     @IBAction func onPowerUpPriceButtonPressed(_ sender: UIButton) {
         
     }
+    
 }
