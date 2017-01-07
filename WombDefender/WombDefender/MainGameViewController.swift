@@ -412,11 +412,13 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     fileprivate func createSperm() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(interval)) {
             print("\(self.total)")
-            if self.total > 0 {
+            if self._settingsMenuView.isHidden == true && self.total > 0 {
                 self._createSperm()
+                self.total = self.total - 1
+            }
+            if self.total > 0 {
                 self.createSperm()
             }
-            self.total = self.total - 1
         }
     }
     

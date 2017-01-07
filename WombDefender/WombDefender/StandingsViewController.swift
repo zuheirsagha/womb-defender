@@ -8,9 +8,8 @@
 
 import UIKit
 
-class ShopViewController: UIViewController {
-    
-    
+class StandingsViewController: UIViewController {
+        
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Lifecycle Methods
@@ -31,5 +30,4 @@ class ShopViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-
 }

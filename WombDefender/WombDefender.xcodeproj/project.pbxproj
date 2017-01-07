@@ -10,6 +10,7 @@
 		270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */; };
 		270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD7751DA7312E006A5CE3 /* SpermView.swift */; };
 		270AD77D1DA99443006A5CE3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AD77C1DA99443006A5CE3 /* GradientView.swift */; };
+		271B72651E203F000003E0CE /* PowerUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B72641E203F000003E0CE /* PowerUpCell.swift */; };
 		271D818A1DFCA76100E4311C /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D81891DFCA76100E4311C /* SettingsManager.swift */; };
 		271D818C1DFCADA300E4311C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */; };
 		271D818E1DFCB68600E4311C /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D818D1DFCB68600E4311C /* AudioManager.swift */; };
@@ -39,6 +40,7 @@
 		270AD7731DA72E88006A5CE3 /* SpermBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermBehaviour.swift; sourceTree = "<group>"; };
 		270AD7751DA7312E006A5CE3 /* SpermView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpermView.swift; sourceTree = "<group>"; };
 		270AD77C1DA99443006A5CE3 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		271B72641E203F000003E0CE /* PowerUpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpCell.swift; sourceTree = "<group>"; };
 		271D81891DFCA76100E4311C /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		271D818B1DFCADA300E4311C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		271D818D1DFCB68600E4311C /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				270AD77C1DA99443006A5CE3 /* GradientView.swift */,
 				270AD7751DA7312E006A5CE3 /* SpermView.swift */,
 				27D3063E1DEE7CF900F3F62C /* SwipeView.swift */,
+				271B72641E203F000003E0CE /* PowerUpCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				271D81A71DFD17A200E4311C /* NSLocalizedStringExtension.swift in Sources */,
 				270AD7761DA7312E006A5CE3 /* SpermView.swift in Sources */,
 				A24B62141DA4A0B10012407A /* EggModel.swift in Sources */,
+				271B72651E203F000003E0CE /* PowerUpCell.swift in Sources */,
 				275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */,
 				270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */,
 				277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */,

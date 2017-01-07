@@ -195,7 +195,7 @@
                                                 <state key="normal" image="Button_Shopping_Cart"/>
                                                 <connections>
                                                     <action selector="onShoppingCartButtonClicked:" destination="0UA-Bg-pJv" eventType="touchUpInside" id="8Sn-3H-eYo"/>
-                                                    <segue destination="0sc-hZ-8nN" kind="presentation" identifier="segueToShopViewController" modalTransitionStyle="crossDissolve" id="rZH-iA-ADM"/>
+                                                    <segue destination="0sc-hZ-8nN" kind="presentation" identifier="segueToShopViewController" modalTransitionStyle="crossDissolve" id="XbJ-4j-p4m"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zG2-K5-f46" userLabel="Standings">
@@ -203,7 +203,7 @@
                                                 <state key="normal" image="Button_Standings"/>
                                                 <connections>
                                                     <action selector="onStandingsButtonClicked:" destination="0UA-Bg-pJv" eventType="touchUpInside" id="Ciz-Zo-yMt"/>
-                                                    <segue destination="9p8-nU-0Zw" kind="presentation" modalTransitionStyle="crossDissolve" id="eLy-uM-dWu"/>
+                                                    <segue destination="9p8-nU-0Zw" kind="presentation" identifier="segueToStandingsGameViewController" modalTransitionStyle="crossDissolve" id="eLy-uM-dWu"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -288,18 +288,6 @@
                     <view key="view" contentMode="scaleToFill" id="uNI-q5-jQ6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rfY-hI-9H4">
-                                <rect key="frame" x="70" y="102" width="235" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Easy"/>
-                                    <segment title="Medium"/>
-                                    <segment title="Hard"/>
-                                </segments>
-                                <color key="tintColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </segmentedControl>
-                        </subviews>
                         <color key="backgroundColor" red="0.57647058823529407" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
@@ -318,12 +306,98 @@
                     <view key="view" contentMode="scaleToFill" id="okh-aR-STQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kQK-D0-d0X">
+                                <rect key="frame" x="26" y="30" width="323" height="637"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.51976162195205688" green="0.067388705909252167" blue="0.0079774884507060051" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="powerUpCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="powerUpCell" rowHeight="110" id="Tfc-Sv-zeO" customClass="PowerUpCell" customModule="WombDefender">
+                                        <rect key="frame" x="0.0" y="28" width="323" height="110"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tfc-Sv-zeO" id="hk9-9C-FSa">
+                                            <rect key="frame" x="0.0" y="0.0" width="323" height="109"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="condom" translatesAutoresizingMaskIntoConstraints="NO" id="sJ6-4V-d5q">
+                                                    <rect key="frame" x="0.0" y="31" width="64" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="QbW-dW-99n"/>
+                                                        <constraint firstAttribute="height" constant="64" id="SDr-68-FGB"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNw-Z2-eS9">
+                                                    <rect key="frame" x="72" y="31" width="168" height="64"/>
+                                                    <string key="text">Power Up Description. Lorem Ipsum Dolar Dot asdkfbaj akjsdfkjas dfa sdfkjasjkdf askjdf kjasd fkjasd fakjsdf kjasd fkjas dfkjas dfkj</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Power Up Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9W6-iq-kS9">
+                                                    <rect key="frame" x="0.0" y="5" width="124" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfc-8K-dfa">
+                                                    <rect key="frame" x="250" y="51" width="65" height="25"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="65" id="qDK-bd-NoU"/>
+                                                        <constraint firstAttribute="height" constant="25" id="qO4-zj-Sa4"/>
+                                                    </constraints>
+                                                    <state key="normal" title="$10.99">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="onPowerUpPriceButtonPressed:" destination="Tfc-Sv-zeO" eventType="touchUpInside" id="fgA-sb-OA5"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kNw-Z2-eS9" firstAttribute="leading" secondItem="sJ6-4V-d5q" secondAttribute="trailing" constant="8" id="11f-5H-P1Z"/>
+                                                <constraint firstItem="9W6-iq-kS9" firstAttribute="leading" secondItem="hk9-9C-FSa" secondAttribute="leading" id="Pbv-uM-XFa"/>
+                                                <constraint firstItem="kNw-Z2-eS9" firstAttribute="bottom" secondItem="sJ6-4V-d5q" secondAttribute="bottom" id="Tem-gj-chI"/>
+                                                <constraint firstItem="sJ6-4V-d5q" firstAttribute="leading" secondItem="hk9-9C-FSa" secondAttribute="leading" id="d4a-3p-kUC"/>
+                                                <constraint firstItem="kNw-Z2-eS9" firstAttribute="top" secondItem="sJ6-4V-d5q" secondAttribute="top" id="dkT-SF-KHT"/>
+                                                <constraint firstItem="9W6-iq-kS9" firstAttribute="top" secondItem="hk9-9C-FSa" secondAttribute="top" constant="5" id="k9D-Qu-EAk"/>
+                                                <constraint firstItem="jfc-8K-dfa" firstAttribute="leading" secondItem="kNw-Z2-eS9" secondAttribute="trailing" constant="10" id="lqL-0D-WpM"/>
+                                                <constraint firstItem="sJ6-4V-d5q" firstAttribute="top" secondItem="9W6-iq-kS9" secondAttribute="bottom" constant="5" id="maa-Fc-zAL"/>
+                                                <constraint firstItem="jfc-8K-dfa" firstAttribute="centerY" secondItem="sJ6-4V-d5q" secondAttribute="centerY" id="oTO-8f-ilP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jfc-8K-dfa" secondAttribute="trailing" id="v8N-LT-xsf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.6505771279" green="0.084382526580000006" blue="0.84302363119834711" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="_powerUpDescriptionLabel" destination="kNw-Z2-eS9" id="lAk-26-MQl"/>
+                                            <outlet property="_powerUpImage" destination="sJ6-4V-d5q" id="4PV-Ec-1om"/>
+                                            <outlet property="_powerUpNameLabel" destination="9W6-iq-kS9" id="CPR-wd-wgt"/>
+                                            <outlet property="_powerUpPriceButton" destination="jfc-8K-dfa" id="rsF-Ak-Uk9"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="0sc-hZ-8nN" id="UkB-cN-WpQ"/>
+                                    <outlet property="delegate" destination="0sc-hZ-8nN" id="2bV-9t-Ixg"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.57647058823529407" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.6505771279335022" green="0.084382526576519012" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="kQK-D0-d0X" secondAttribute="trailing" constant="10" id="Lzx-be-bHU"/>
+                            <constraint firstItem="tbR-Ef-VmC" firstAttribute="top" secondItem="kQK-D0-d0X" secondAttribute="bottom" id="TYH-jW-aHd"/>
+                            <constraint firstItem="kQK-D0-d0X" firstAttribute="leading" secondItem="okh-aR-STQ" secondAttribute="leadingMargin" constant="10" id="enm-HV-ayG"/>
+                            <constraint firstItem="kQK-D0-d0X" firstAttribute="top" secondItem="9KI-fp-wdR" secondAttribute="bottom" constant="10" id="zKg-aU-pma"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="_tableView" destination="kQK-D0-d0X" id="oTH-Y4-6I6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2av-LU-vML" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-497" y="797"/>
+            <point key="canvasLocation" x="-498.39999999999998" y="796.55172413793105"/>
         </scene>
         <!--Main Game View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -609,7 +683,7 @@
                                                             <constraint firstAttribute="width" constant="60" id="CPX-JG-2ib"/>
                                                             <constraint firstAttribute="height" constant="60" id="JFI-oe-zrx"/>
                                                         </constraints>
-                                                        <state key="normal" image="5937B513-5814-432C-9D8A-F2FADF8492F2"/>
+                                                        <state key="normal" image="06584EA8-BC5C-42AE-9347-D7C60E5DA80D"/>
                                                         <connections>
                                                             <action selector="onSettingsMutePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKi-0Y-Y3i"/>
                                                         </connections>
@@ -738,7 +812,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5937B513-5814-432C-9D8A-F2FADF8492F2" width="64" height="64">
+        <image name="06584EA8-BC5C-42AE-9347-D7C60E5DA80D" width="64" height="64">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
