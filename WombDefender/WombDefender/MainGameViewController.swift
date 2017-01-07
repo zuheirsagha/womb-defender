@@ -72,6 +72,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     var centerLayerView: UIView!
     var secondLayerView: UIView!
     var thirdLayerView: UIView!
+    
+    // Date timestamp to say this is current game. B/c will be unique.
+    var currentGame = Date()
 
     /////////////////////////////////////////////////////////////////////////////////////
     //
@@ -387,6 +390,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     fileprivate func _startGame() {
+        currentGame = NSDate()
         _endGameView.isHidden = true
         _settingsMenuView.isHidden = true
 
@@ -521,7 +525,13 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     fileprivate func _moveView(_ view:UIView, toPoint stop:CGPoint, thenPoint destination:CGPoint, isShowing : Bool) {
     //Always animate on main thread
         view.isHidden = false
+        let thisGame = currentGame
+
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+            // dont do it at all if they exited
+            if (!(thisGame == self.currentGame)) {
+                return;
+            }
             UIView.animate(
                 withDuration: 1.0,
                 delay: 0.0,
@@ -543,6 +553,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                                 //do actual move
                                 view.center = destination },
                             completion: { bool in
+                                // Dont set the total or create new ones if they exited.
+                                if (!(thisGame == self.currentGame)) {
+                                    return;
+                                }
                                 print("creating sperm")
                                 self.total = self.currentLevelController.numberOfSperm
                                 self.createSperm()
