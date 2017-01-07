@@ -390,7 +390,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     fileprivate func _startGame() {
-        currentGame = NSDate()
+        currentGame = NSDate() as Date
         _endGameView.isHidden = true
         _settingsMenuView.isHidden = true
 
