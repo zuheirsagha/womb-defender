@@ -104,6 +104,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         // Does nothing
     }
     
+    open var firstTimeOrTutorialPlayed : Bool {
+        get {
+            return SettingsManager.sharedInstance.firstTimeOrTutorialPlayed
+        }
+        set {
+            SettingsManager.sharedInstance.firstTimeOrTutorialPlayed = newValue
+        }
+    }
+    
     open var appIsMute : Bool {
         get {
             return SettingsManager.sharedInstance.appIsMute
@@ -128,6 +137,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         }
         set {
             SettingsManager.sharedInstance.highestScore = newValue
+        }
+    }
+    
+    open var coins : Int {
+        get {
+            return SettingsManager.sharedInstance.coins
+        }
+        set {
+            SettingsManager.sharedInstance.coins = newValue
         }
     }
     

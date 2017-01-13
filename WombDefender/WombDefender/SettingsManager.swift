@@ -43,6 +43,10 @@ open class SettingsManager {
     fileprivate var _numberOfSecondPowerUps : Int = 0
     fileprivate var _numberOfThirdPowerUps : Int = 0
     
+    fileprivate var _firstTimeOrTutorialPlayed : Bool = false
+    
+    fileprivate var _coins : Int = 0
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Constructor and Initializer
@@ -77,12 +81,23 @@ open class SettingsManager {
     //
     /////////////////////////////////////////////////////////////////////////////////////
     
+    open var firstTimeOrTutorialPlayed : Bool {
+        get {
+            return _firstTimeOrTutorialPlayed
+        }
+        set {
+            _firstTimeOrTutorialPlayed = newValue
+            _saveSettings()
+        }
+    }
+    
     open var difficulty : Difficulty {
         get {
             return _difficulty
         }
         set {
             _difficulty = newValue
+            _saveSettings()
         }
     }
     
@@ -112,6 +127,16 @@ open class SettingsManager {
         }
         set {
             _highestScore = newValue
+            _saveSettings()
+        }
+    }
+    
+    open var coins : Int {
+        get {
+            return _coins
+        }
+        set {
+            _coins = newValue
             _saveSettings()
         }
     }
@@ -163,9 +188,13 @@ open class SettingsManager {
         let difficulty = defaults.integer(forKey: "difficulty")
         _difficulty = Difficulty(rawValue: difficulty)!
         
+        _firstTimeOrTutorialPlayed = defaults.bool(forKey: "firstTimeOrTutorialPlayed")
+        
         _numberOfFirstPowerUps = defaults.integer(forKey: "numberOfFirstPowerUps")
         _numberOfSecondPowerUps = defaults.integer(forKey: "numberOfSecondPowerUps")
         _numberOfThirdPowerUps = defaults.integer(forKey: "numberOfThirdPowerUps")
+        
+        _coins = defaults.integer(forKey: "coins")
         
     }
     
@@ -180,9 +209,13 @@ open class SettingsManager {
         let difficulty = _difficulty.rawValue
         defaults.set(difficulty, forKey: "difficulty")
         
+        defaults.set(_firstTimeOrTutorialPlayed, forKey: "firstTimeOrTutorialPlayed")
+        
         defaults.set(_numberOfFirstPowerUps, forKey: "numberOfFirstPowerUps")
         defaults.set(_numberOfSecondPowerUps, forKey: "numberOfSecondPowerUps")
         defaults.set(_numberOfThirdPowerUps, forKey: "numberOfThirdPowerUps")
+        
+        defaults.set(_coins, forKey: "coins")
         
         _delegate?.onSettingsDidChange()
     }

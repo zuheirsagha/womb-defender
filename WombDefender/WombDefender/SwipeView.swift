@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol SwipeViewDelegate {
+    func firstSwipe()
+}
+
 class SwipeView : UIView {
     
     /////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +40,9 @@ class SwipeView : UIView {
         }
     }
     
+    var firstTouch = true
+    private var _delegate : SwipeViewDelegate!
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Getters/Setters
@@ -61,8 +68,12 @@ class SwipeView : UIView {
         super.init(coder: aDecoder)
         self.isMultipleTouchEnabled = false
         self.backgroundColor = UIColor.clear
-                
+        
         swipePath = UIBezierPath()
+    }
+    
+    func setDelegate(_ swipeViewDelegate:SwipeViewDelegate){
+        self._delegate = swipeViewDelegate
     }
     
     /////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +90,12 @@ class SwipeView : UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       
+        
+        //if (firstTouch) {
+        //    firstTouch = false
+        //    _delegate.firstSwipe()
+        //}
+        
         isHit = false
         SpermBehaviour.collider.removeBoundary(withIdentifier: "swipe" as NSCopying)
         swipePath.removeAllPoints()

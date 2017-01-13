@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate {
+class MainGameViewController: UIViewController, LevelControllerDelegate, UICollisionBehaviorDelegate, SwipeViewDelegate {
     
     @IBOutlet weak var _condomWrapperImageView: UIImageView!
     @IBOutlet weak var _powerUpView: UIView!
@@ -39,6 +39,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _endGameBestScoreLabel: UILabel!
     @IBOutlet weak var _endGameRestartButton: UIButton!
     @IBOutlet weak var _endGameHomeButton: UIButton!
+    @IBOutlet weak var _endGameCoinsLabel: UILabel!
 
     @IBOutlet var _swipeView: SwipeView!
     
@@ -75,7 +76,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     // Date timestamp to say this is current game. B/c will be unique.
     var currentGame = Date()
-
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Lifecycle Methods
@@ -97,7 +98,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         _settingsMenuView.isHidden = true
         
-        appDelegate.numberOfThirdPowerUps = 10
+        _swipeView.setDelegate(self)
         
         _startGame()
     }
@@ -220,6 +221,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         let endGameScore = currentLevelController.getScore()
         _scoreLabel.text = "\(endGameScore)"
+        
+        _endGameCoinsLabel.text = "\(endGameScore/1000)"
+        appDelegate.coins = appDelegate.coins + (endGameScore/1000)
         
         if endGameScore > appDelegate.highestScore {
             appDelegate.highestScore = endGameScore
@@ -393,24 +397,38 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         currentGame = Date()
         _endGameView.isHidden = true
         _settingsMenuView.isHidden = true
-
         animator = UIDynamicAnimator(referenceView: self.view)        
         currentLevelController = getNewLevelControllerWithCurrentDifficulty(gameController: self, difficulty: appDelegate.difficulty)
         currentLevelController.restart()
+        
         sperms = [SpermView]()
-        
         swim = SpermBehaviour(centreX: self.view.frame.midX, centreY: self.view.frame.midY)
-        
         SpermBehaviour.collider.collisionDelegate = self
+        
         total = currentLevelController.numberOfSperm
         interval = currentLevelController.interval()
+        
         swim.setFieldStrength(strength: currentLevelController.fieldStrength())
         
         _drawWomb()
         _reloadViews()
         animator.addBehavior(swim)
-        createSperm()
-
+        //print("\(!appDelegate.firstTimeOrTutorialPlayed)")
+        //if !appDelegate.firstTimeOrTutorialPlayed {
+        //    let sperm = SpermView.createSpermViewAt(x: -20, y: -20, size: .Regular, controller: currentLevelController, index: 0)
+        //    self.view.insertSubview(sperm, at: 1)
+        //    sperms.insert(sperm, at: 0)
+        //   swim.addItem(item: sperm)
+        //
+        //    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000)) {
+        //        self.animator.removeAllBehaviors()
+        //    }
+            
+        //    appDelegate.firstTimeOrTutorialPlayed = !appDelegate.firstTimeOrTutorialPlayed
+        //}
+        //else {
+            createSperm()
+        //}
     }
     
     fileprivate func createSperm() {
@@ -564,5 +582,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
                     })
             })
         })
+    }
+    
+    func firstSwipe() {
+        animator.addBehavior(swim)
     }
 }

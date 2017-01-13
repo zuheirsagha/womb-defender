@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ShopViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ShopViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PowerUpCellDelegate {
     
     @IBOutlet weak var _tableView: UITableView!
+    @IBOutlet weak var _coinsLabel: UILabel!
     
     /////////////////////////////////////////////////////////////////////////////////////
     //
@@ -30,6 +31,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        _reloadViews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,22 +55,36 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
             if indexPath.row == 0 {
                 cell._powerUpImage.image = #imageLiteral(resourceName: "condom")
                 cell._powerUpNameLabel.text = "Condom"
-                cell._powerUpDescriptionLabel.text = "Extra life!"
-                cell._powerUpPriceButton.setTitle("$0.99", for: .normal)
+                cell._powerUpDescriptionLabel.text = "Extra life! Wrap it up and keep yourself in the game longer"
+                cell._powerUpPriceButton.setTitle("100", for: .normal)
             }
             else if indexPath.row == 1 {
-                
+                cell._powerUpImage.image = #imageLiteral(resourceName: "pill")
+                cell._powerUpNameLabel.text = "The Pill"
+                cell._powerUpDescriptionLabel.text = "Longer barrier = more protection"
+                cell._powerUpPriceButton.setTitle("100", for: .normal)
             }
             else if indexPath.row == 2 {
-                
+                cell._powerUpImage.image = #imageLiteral(resourceName: "spermicide")
+                cell._powerUpNameLabel.text = "Spermicide"
+                cell._powerUpDescriptionLabel.text = "Kill all the sperm currently on the screen with one quick tap!"
+                cell._powerUpPriceButton.setTitle("100", for: .normal)
             }
         }
-        
+        cell.setDelegate(self)
         return cell
+    }
+    
+    func boughtSomething() {
+        _reloadViews()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
+    }
+    
+    open func _reloadViews() {
+        _coinsLabel.text = "\(appDelegate.coins)"
     }
 
 }
