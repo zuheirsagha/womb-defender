@@ -294,11 +294,12 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="37" id="6oP-vt-h7X"/>
                                     <constraint firstAttribute="height" constant="37" id="EtM-hh-FQv"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="37" id="ORB-4p-z8I"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="uPA-nD-EZG"/>
+                                    <constraint firstAttribute="width" constant="37" id="ORB-4p-z8I"/>
+                                    <constraint firstAttribute="height" constant="37" id="uPA-nD-EZG"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="restartGame"/>
                                 <connections>
+                                    <action selector="onBackButtonPressed:" destination="9p8-nU-0Zw" eventType="touchUpInside" id="7Br-WT-HUn"/>
                                     <action selector="onExitButtonPressed:" destination="0sc-hZ-8nN" eventType="touchUpInside" id="MD4-7F-ttz"/>
                                 </connections>
                             </button>
@@ -314,7 +315,7 @@
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderboardCell" rowHeight="50" id="Wfm-zE-stf">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderboardCell" rowHeight="50" id="Wfm-zE-stf" customClass="LeaderboardCell" customModule="WombDefender" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="323" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wfm-zE-stf" id="q9f-gh-r1H">
@@ -357,8 +358,17 @@
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
+                                        <connections>
+                                            <outlet property="_leaderboardCountryLabel" destination="R3i-DR-2Jd" id="GWF-vc-mf9"/>
+                                            <outlet property="_leaderboardNameLabel" destination="z2i-eR-eY9" id="A2b-nI-gdu"/>
+                                            <outlet property="_leaderboardPositionLabel" destination="rLR-QT-ZRm" id="k3n-JJ-9ua"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9p8-nU-0Zw" id="3Ps-JY-CWw"/>
+                                    <outlet property="delegate" destination="9p8-nU-0Zw" id="Lly-Ps-2vC"/>
+                                </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gqS-fq-9eo">
                                 <rect key="frame" x="92" y="86" width="191" height="29"/>
@@ -385,6 +395,11 @@
                             <constraint firstItem="i44-ia-hi0" firstAttribute="top" secondItem="gqS-fq-9eo" secondAttribute="bottom" constant="10" id="mX3-KS-wo4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="_regionSegmentedControl" destination="gqS-fq-9eo" id="EgV-Zb-2nL"/>
+                        <outlet property="_tableView" destination="i44-ia-hi0" id="DU8-FS-MKx"/>
+                        <outlet property="_titleLabel" destination="wKx-Lb-AVT" id="bEc-pB-6em"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jh1-vU-Ezs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -744,7 +759,7 @@
                                                             <constraint firstAttribute="width" constant="60" id="CPX-JG-2ib"/>
                                                             <constraint firstAttribute="height" constant="60" id="JFI-oe-zrx"/>
                                                         </constraints>
-                                                        <state key="normal" image="BAD9327C-5156-4F8F-9E2D-09C450BDCB24"/>
+                                                        <state key="normal" image="84C60A3B-69F9-49A2-883F-4FE178DDE653"/>
                                                         <connections>
                                                             <action selector="onSettingsMutePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKi-0Y-Y3i"/>
                                                         </connections>
@@ -976,7 +991,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BAD9327C-5156-4F8F-9E2D-09C450BDCB24" width="64" height="64">
+        <image name="84C60A3B-69F9-49A2-883F-4FE178DDE653" width="64" height="64">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

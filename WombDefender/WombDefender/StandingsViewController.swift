@@ -8,8 +8,15 @@
 
 import UIKit
 
-class StandingsViewController: UIViewController {
-        
+class StandingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBAction func onBackButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    @IBOutlet weak var _titleLabel: UILabel!
+    @IBOutlet weak var _regionSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var _tableView: UITableView!
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Lifecycle Methods
@@ -29,5 +36,18 @@ class StandingsViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : LeaderboardCell = tableView.dequeueReusableCell(withIdentifier: "leaderboardCell") as! LeaderboardCell
+        cell.selectionStyle = .none
+        cell._leaderboardPositionLabel.text = "1."
+        cell._leaderboardNameLabel.text = "Zuheir"
+        cell._leaderboardCountryLabel.text = "Canada"
+        return cell
     }
 }
