@@ -54,7 +54,7 @@ class LevelController : SpermDelegate, EggDelegate {
     init(delegate: MainGameViewController) {
         _delegate = delegate
         _level = 1
-        _score = 25000
+        _score = 0
         _interval = 500
         _number = Int(floor(2.5*sqrt(Double(_level))))
         _strength = 0.5
@@ -127,7 +127,7 @@ class LevelController : SpermDelegate, EggDelegate {
     
     func spermDeadAtIndex(index: Int) {
         print("number: \(_number) --- killed: \(_numberKilledInLevel)")
-        _score = _score + 1000
+        _score = _score + 100
         numberKilledInLevel = numberKilledInLevel + 1
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
