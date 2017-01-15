@@ -8,10 +8,10 @@
 
 import Foundation
 
-let BASE_URL = "wombdefender.herokuapp.com"
+let BASE_URL = "https://wombdefender.herokuapp.com"
 let SCORES_URL = BASE_URL + "/scores"
 
-enum Score {
+enum ScoreType {
     case World
     case Country
 }
@@ -24,13 +24,19 @@ func postScore(score: Int, forUser user: String, country: String?) {
     var request = URLRequest(url: requestURL)
     
     request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField:"Content-Type")
     
-    var postString = "userName=\(user)&score=\(score)"
+    var body: [String: Any] = ["username": user, "score": score]
+    
+//    var postString = "userName=\(user)&score=\(score)"
     if let country = country {
-        postString += "&country=\(country)"
+//        postString += "&country=\(country)"
+        body["country"] = country
     }
     
-    request.httpBody = postString.data(using: .utf8)
+//    request.httpBody = postString.data(using: .utf8)
+    request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+    print(request)
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         guard let data = data, error == nil else {
@@ -54,7 +60,7 @@ func postScore(score: Int, forUser user: String, country: String?) {
     
 }
 
-func getScores(type: Score, country: String?) {
+func getScores(type: ScoreType, country: String?, completion: @escaping (_ data: [[String: AnyObject]]?, _ error: Error?) -> ()) {
     
     var url = SCORES_URL
     if type == .World {
@@ -64,12 +70,12 @@ func getScores(type: Score, country: String?) {
     } else {
         // Do something, they wanted country but dont have country settings
         print("lol wut, there are no other options")
-        return
+        return completion(nil, nil)
     }
     
     guard let requestURL = URL(string: url) else {
         print("Cant create URL")
-        return
+        return completion(nil, nil)
     }
     var request = URLRequest(url: requestURL)
     
@@ -79,18 +85,28 @@ func getScores(type: Score, country: String?) {
         guard let data = data, error == nil else {
             // Some sort of network error -
             print("error=\(error)")
-            return // do something - tell user there was internet error
+            return completion(nil, error)// do something - tell user there was internet error
         }
         
         if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
             // check for if something went wrong then display it to user
             print("statusCode should be 200, but is \(httpStatus.statusCode)")
             print("response = \(response)")
-            return //do something
+            return completion(nil, error)//do something
         }
         
         let responseString = String(data: data, encoding: .utf8)
         print("responseString = \(responseString)")
+        
+        do {
+            if let scoresArray = try JSONSerialization.jsonObject(with: data, options: []) as? Dictionary<String, Any> {
+                return completion(scoresArray["scores"] as? [[String: AnyObject]], nil)
+            }
+        } catch let error {
+            print("error=\(error)")
+            return completion(nil, error)
+            
+        }
         // call a function to display the data, based on the type of Score passed in (country or world)
     }
     task.resume()

@@ -195,7 +195,6 @@ open class SettingsManager {
         _numberOfThirdPowerUps = defaults.integer(forKey: "numberOfThirdPowerUps")
         
         _coins = defaults.integer(forKey: "coins")
-        
     }
     
     fileprivate func _saveSettings() {
