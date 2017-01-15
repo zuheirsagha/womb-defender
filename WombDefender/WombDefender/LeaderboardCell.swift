@@ -13,5 +13,6 @@ class LeaderboardCell : UITableViewCell {
 
     @IBOutlet weak var _leaderboardPositionLabel: UILabel!
     @IBOutlet weak var _leaderboardNameLabel: UILabel!
+    @IBOutlet weak var _leaderboardScoreLabel: UILabel!
     @IBOutlet weak var _leaderboardCountryLabel: UILabel!
 }

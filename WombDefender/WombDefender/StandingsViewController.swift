@@ -46,6 +46,15 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         // TODO: Check if they allow location settings and set a variable allowing or disallowing them to get settings in their country
         
         // TODO: need to get actually country from userdefaults / location settings
+        if _regionSegmentedControl.selectedSegmentIndex == 0 {
+            
+        }
+        else if _regionSegmentedControl.selectedSegmentIndex == 1 {
+            
+        }
+        else {
+            
+        }
         getScores(type: .Country, country: "canada") { (scores, error) in
             if (error != nil) {
                 // present there was an error, based on what error there was
@@ -87,7 +96,7 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.selectionStyle = .none
         cell._leaderboardPositionLabel.text = "\(indexPath.row + 1)."
         cell._leaderboardNameLabel.text = score.name
-//        cell._leaderboardScoreLabel.text = "\(score.value)"
+        cell._leaderboardScoreLabel.text = "\(score.value)"
         cell._leaderboardCountryLabel.text = score.country
         return cell
     }

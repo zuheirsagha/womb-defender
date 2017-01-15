@@ -329,15 +329,21 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a very long test name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2i-eR-eY9">
-                                                    <rect key="frame" x="66" y="14.5" width="172" height="21"/>
+                                                    <rect key="frame" x="66" y="14.5" width="132.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Country" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3i-DR-2Jd">
-                                                    <rect key="frame" x="243" y="14.5" width="62" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Country" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3i-DR-2Jd">
+                                                    <rect key="frame" x="203.5" y="14.5" width="62" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3n-yB-5kc">
+                                                    <rect key="frame" x="270.5" y="14.5" width="44.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -347,8 +353,10 @@
                                                 <constraint firstItem="z2i-eR-eY9" firstAttribute="centerY" secondItem="q9f-gh-r1H" secondAttribute="centerY" id="46S-md-Fcp"/>
                                                 <constraint firstItem="rLR-QT-ZRm" firstAttribute="centerY" secondItem="q9f-gh-r1H" secondAttribute="centerY" id="N06-Tw-ZKg"/>
                                                 <constraint firstItem="R3i-DR-2Jd" firstAttribute="centerY" secondItem="q9f-gh-r1H" secondAttribute="centerY" id="NXV-qM-rXT"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="R3i-DR-2Jd" secondAttribute="trailing" constant="10" id="RWD-TS-K7W"/>
                                                 <constraint firstItem="rLR-QT-ZRm" firstAttribute="leading" secondItem="q9f-gh-r1H" secondAttribute="leadingMargin" constant="10" id="j5G-Nf-EWd"/>
+                                                <constraint firstItem="q3n-yB-5kc" firstAttribute="leading" secondItem="R3i-DR-2Jd" secondAttribute="trailing" constant="5" id="kQl-dy-6sl"/>
+                                                <constraint firstItem="q3n-yB-5kc" firstAttribute="centerY" secondItem="z2i-eR-eY9" secondAttribute="centerY" id="nNq-7c-Cgq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="q3n-yB-5kc" secondAttribute="trailing" id="pqy-Wx-cb2"/>
                                                 <constraint firstItem="z2i-eR-eY9" firstAttribute="leading" secondItem="rLR-QT-ZRm" secondAttribute="trailing" constant="15" id="yAC-Cw-g4e"/>
                                                 <constraint firstItem="R3i-DR-2Jd" firstAttribute="leading" secondItem="z2i-eR-eY9" secondAttribute="trailing" constant="5" id="zaF-P5-sMS"/>
                                             </constraints>
@@ -362,6 +370,7 @@
                                             <outlet property="_leaderboardCountryLabel" destination="R3i-DR-2Jd" id="GWF-vc-mf9"/>
                                             <outlet property="_leaderboardNameLabel" destination="z2i-eR-eY9" id="A2b-nI-gdu"/>
                                             <outlet property="_leaderboardPositionLabel" destination="rLR-QT-ZRm" id="k3n-JJ-9ua"/>
+                                            <outlet property="_leaderboardScoreLabel" destination="q3n-yB-5kc" id="eIO-tc-ZOQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -759,7 +768,7 @@
                                                             <constraint firstAttribute="width" constant="60" id="CPX-JG-2ib"/>
                                                             <constraint firstAttribute="height" constant="60" id="JFI-oe-zrx"/>
                                                         </constraints>
-                                                        <state key="normal" image="84C60A3B-69F9-49A2-883F-4FE178DDE653"/>
+                                                        <state key="normal" image="B182C528-6774-44AF-8838-4DB32EBEFA45"/>
                                                         <connections>
                                                             <action selector="onSettingsMutePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKi-0Y-Y3i"/>
                                                         </connections>
@@ -991,7 +1000,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="84C60A3B-69F9-49A2-883F-4FE178DDE653" width="64" height="64">
+        <image name="B182C528-6774-44AF-8838-4DB32EBEFA45" width="64" height="64">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
