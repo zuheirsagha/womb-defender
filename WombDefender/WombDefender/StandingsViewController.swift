@@ -22,6 +22,7 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var _titleLabel: UILabel!
     @IBOutlet weak var _regionSegmentedControl: UISegmentedControl!
     @IBOutlet weak var _tableView: UITableView!
+    @IBOutlet weak var _spinner: UIActivityIndicatorView!
     
     /////////////////////////////////////////////////////////////////////////////////////
     //
@@ -55,11 +56,11 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         else {
             
         }
+        _spinner.startAnimating()
         getScores(type: .Country, country: "canada") { (scores, error) in
             if (error != nil) {
                 // present there was an error, based on what error there was
                 print("There was an error - either network or responseStatus. Show the user")
-                return
             }
             else if (scores != nil) {
                 for score in scores! {
@@ -72,7 +73,9 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
                 
             } else {
                 print("it tripped out on one of those weird cases where url didnt work or wanted country but didnt allow location. Respond accordingly")
-                return
+            }
+            DispatchQueue.main.async {
+                self._spinner.stopAnimating()
             }
         }
     }

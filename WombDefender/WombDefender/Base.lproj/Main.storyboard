@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0UA-Bg-pJv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0UA-Bg-pJv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -388,6 +388,10 @@
                                 </segments>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="rET-rz-klE">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.57647058823529407" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -406,6 +410,7 @@
                     </view>
                     <connections>
                         <outlet property="_regionSegmentedControl" destination="gqS-fq-9eo" id="EgV-Zb-2nL"/>
+                        <outlet property="_spinner" destination="rET-rz-klE" id="2qm-3I-V3x"/>
                         <outlet property="_tableView" destination="i44-ia-hi0" id="DU8-FS-MKx"/>
                         <outlet property="_titleLabel" destination="wKx-Lb-AVT" id="bEc-pB-6em"/>
                     </connections>
@@ -441,7 +446,7 @@
                                         <rect key="frame" x="0.0" y="28" width="323" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tfc-Sv-zeO" id="hk9-9C-FSa">
-                                            <rect key="frame" x="0.0" y="0.0" width="323" height="109"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="323" height="109.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="condom" translatesAutoresizingMaskIntoConstraints="NO" id="sJ6-4V-d5q">
@@ -768,7 +773,7 @@
                                                             <constraint firstAttribute="width" constant="60" id="CPX-JG-2ib"/>
                                                             <constraint firstAttribute="height" constant="60" id="JFI-oe-zrx"/>
                                                         </constraints>
-                                                        <state key="normal" image="B182C528-6774-44AF-8838-4DB32EBEFA45"/>
+                                                        <state key="normal" image="D59E7FBD-2990-4FF3-80ED-E16CF710308F"/>
                                                         <connections>
                                                             <action selector="onSettingsMutePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKi-0Y-Y3i"/>
                                                         </connections>
@@ -1000,7 +1005,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="B182C528-6774-44AF-8838-4DB32EBEFA45" width="64" height="64">
+        <image name="Button_Settings" width="22" height="22"/>
+        <image name="Button_Shopping_Cart" width="26" height="26"/>
+        <image name="Button_Standings" width="26" height="26"/>
+        <image name="D59E7FBD-2990-4FF3-80ED-E16CF710308F" width="64" height="64">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1324,9 +1332,6 @@ ALsAvQDCANkA2wDdSX9JhEmPSZhJq0mvSbpJw0nISdBJ00nYSedJ60nySfpKB0oMSg5KEEoVSh1KIEol
 Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
 </mutableData>
         </image>
-        <image name="Button_Settings" width="22" height="22"/>
-        <image name="Button_Shopping_Cart" width="26" height="26"/>
-        <image name="Button_Standings" width="26" height="26"/>
         <image name="Logo" width="926" height="95"/>
         <image name="checked" width="72" height="72"/>
         <image name="coin" width="61" height="60"/>
