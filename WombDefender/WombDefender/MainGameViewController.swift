@@ -15,8 +15,8 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _powerUpView: UIView!
     @IBOutlet weak var _powerUpBackgroundImageView: UIImageView!
     
-    @IBOutlet weak var _firstPowerUpLabel: UILabel!
-    @IBOutlet weak var _firstPowerUpButton: UIButton!
+    //@IBOutlet weak var _firstPowerUpLabel: UILabel!
+    //@IBOutlet weak var _firstPowerUpButton: UIButton!
     
     @IBOutlet weak var _secondPowerUpLabel: UILabel!
     @IBOutlet weak var _secondPowerUpButton: UIButton!
@@ -114,17 +114,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     //
     /////////////////////////////////////////////////////////////////////////////////////
     
-    @IBAction func onFirstPowerUpPressed(_ sender: UIButton) {
-        if currentLevelController.getLives() != 0 {
-            if appDelegate.numberOfFirstPowerUps > 0 {
-                appDelegate.numberOfFirstPowerUps -= 1
-                _reloadViews()
-            }
-            else {
-                // do nothing
-            }
-        }
-    }
+    //@IBAction func onFirstPowerUpPressed(_ sender: UIButton) {
+    //    if currentLevelController.getLives() != 0 {
+    //        if appDelegate.numberOfFirstPowerUps > 0 {
+    //            appDelegate.numberOfFirstPowerUps -= 1
+    //            _reloadViews()
+    //        }
+    //        else {
+    //            // do nothing
+    //        }
+    //    }
+    //}
 
     @IBAction func onSecondPowerUpPressed(_ sender: UIButton) {
         if currentLevelController.getLives() != 0 {
@@ -359,16 +359,16 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     }
     
     fileprivate func _reloadPowerUps() {
-        _firstPowerUpLabel.text = "\(appDelegate.numberOfFirstPowerUps)"
+        //_firstPowerUpLabel.text = "\(appDelegate.numberOfFirstPowerUps)"
         _secondPowerUpLabel.text = "\(appDelegate.numberOfSecondPowerUps)"
         _thirdPowerUpLabel.text = "\(appDelegate.numberOfThirdPowerUps)"
         
-        if appDelegate.numberOfFirstPowerUps == 0 {
-            _firstPowerUpButton.tintColor = UIColor.gray
-        }
-        else {
-            _firstPowerUpButton.tintColor = UIColor.white
-        }
+        //if appDelegate.numberOfFirstPowerUps == 0 {
+        //    _firstPowerUpButton.tintColor = UIColor.gray
+        //}
+        //else {
+        //    _firstPowerUpButton.tintColor = UIColor.white
+        //}
         
         if appDelegate.numberOfSecondPowerUps == 0 {
             _secondPowerUpButton.tintColor = UIColor.gray

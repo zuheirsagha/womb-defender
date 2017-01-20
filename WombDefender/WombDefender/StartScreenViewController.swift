@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class StartScreenViewController: UIViewController {
+class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var _headerView: UIView!
     @IBOutlet weak var _titleImageView: UIImageView!
@@ -37,6 +38,8 @@ class StartScreenViewController: UIViewController {
     fileprivate var secondLayerView: UIView!
     fileprivate var thirdLayerView: UIView!
     
+    let _locationManager = CLLocationManager()
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Lifecycle Methods
@@ -62,6 +65,11 @@ class StartScreenViewController: UIViewController {
         else {
             _difficultySegmentedControl.setEnabled(true, forSegmentAt: 2)
         }
+        
+        _locationManager.delegate = self
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        _locationManager.requestWhenInUseAuthorization()
+        _locationManager.startUpdatingLocation()
         
         settingsView.isHidden = true
         
@@ -155,6 +163,26 @@ class StartScreenViewController: UIViewController {
         else {
             musicCheckBoxButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error) in
+            if (error != nil) {
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
+                return
+            }
+            
+            if placemarks?.count != 0 {
+                let pm = (placemarks?[0])! as CLPlacemark
+                print("\(pm.country)")
+            } else {
+                print("Problem with the data received from geocoder")
+            }
+        })
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error updating location: \(error.localizedDescription)")
     }
     
 }

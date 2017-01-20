@@ -39,7 +39,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,16 +59,16 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell._powerUpPriceButton.setTitle("100", for: .normal)
             }
             else if indexPath.row == 1 {
-                cell._powerUpImage.image = #imageLiteral(resourceName: "pill")
-                cell._powerUpNameLabel.text = "The Pill"
-                cell._powerUpDescriptionLabel.text = "Longer barrier = more protection"
-                cell._powerUpPriceButton.setTitle("100", for: .normal)
-            }
-            else if indexPath.row == 2 {
                 cell._powerUpImage.image = #imageLiteral(resourceName: "spermicide")
                 cell._powerUpNameLabel.text = "Spermicide"
                 cell._powerUpDescriptionLabel.text = "Kill all the sperm currently on the screen with one quick tap!"
                 cell._powerUpPriceButton.setTitle("100", for: .normal)
+            }
+            else if indexPath.row == 2 {
+                //cell._powerUpImage.image = #imageLiteral(resourceName: "pill")
+                //cell._powerUpNameLabel.text = "The Pill"
+                //cell._powerUpDescriptionLabel.text = "Longer barrier = more protection"
+                //cell._powerUpPriceButton.setTitle("100", for: .normal)
             }
         }
         cell.setDelegate(self)
