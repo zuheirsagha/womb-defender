@@ -45,6 +45,8 @@ open class SettingsManager {
     
     fileprivate var _firstTimeOrTutorialPlayed : Bool = false
     
+    fileprivate var _country : String = "Zoko"
+    
     fileprivate var _coins : Int = 0
     
     /////////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +163,16 @@ open class SettingsManager {
         }
     }
     
+    open var country : String {
+        get {
+            return _country
+        }
+        set {
+            _country = newValue
+            _saveSettings()
+        }
+    }
+    
     open var numberOfThirdPowerUps : Int {
         get {
             return _numberOfThirdPowerUps
@@ -188,6 +200,8 @@ open class SettingsManager {
         let difficulty = defaults.integer(forKey: "difficulty")
         _difficulty = Difficulty(rawValue: difficulty)!
         
+        _country = defaults.string(forKey: "country")!
+        
         _firstTimeOrTutorialPlayed = defaults.bool(forKey: "firstTimeOrTutorialPlayed")
         
         _numberOfFirstPowerUps = defaults.integer(forKey: "numberOfFirstPowerUps")
@@ -207,6 +221,8 @@ open class SettingsManager {
         
         let difficulty = _difficulty.rawValue
         defaults.set(difficulty, forKey: "difficulty")
+        
+        defaults.set(_country, forKey: "country")
         
         defaults.set(_firstTimeOrTutorialPlayed, forKey: "firstTimeOrTutorialPlayed")
         

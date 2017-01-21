@@ -174,7 +174,8 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
             
             if placemarks?.count != 0 {
                 let pm = (placemarks?[0])! as CLPlacemark
-                print("\(pm.country)")
+                appDelegate.country = pm.country
+                manager.stopUpdatingLocation()
             } else {
                 print("Problem with the data received from geocoder")
             }

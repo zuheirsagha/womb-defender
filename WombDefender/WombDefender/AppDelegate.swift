@@ -122,6 +122,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         }
     }
     
+    open var country : String {
+        get {
+            return SettingsManager.sharedInstance.country
+        }
+        set {
+            SettingsManager.sharedInstance.country = newValue
+        }
+    }
+    
     open var appFXIsMute : Bool {
         get {
             return SettingsManager.sharedInstance.appFXIsMute
