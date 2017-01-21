@@ -200,7 +200,9 @@ open class SettingsManager {
         let difficulty = defaults.integer(forKey: "difficulty")
         _difficulty = Difficulty(rawValue: difficulty)!
         
-        _country = defaults.string(forKey: "country")!
+        if defaults.string(forKey: "country") != nil {
+            _country = defaults.string(forKey: "country")!
+        }
         
         _firstTimeOrTutorialPlayed = defaults.bool(forKey: "firstTimeOrTutorialPlayed")
         
@@ -233,7 +235,9 @@ open class SettingsManager {
         defaults.set(_coins, forKey: "coins")
         
         _delegate?.onSettingsDidChange()
+        
     }
     
     
 }
+    
