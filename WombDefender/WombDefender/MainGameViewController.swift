@@ -227,8 +227,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         if endGameScore > appDelegate.highestScore {
             appDelegate.highestScore = endGameScore
-            // TODO: Make it present a view asking if they want to submit this score, allowing them to put a username maybe.
-            postScore(score: endGameScore, forUser: "Ehimare", country: "canada")
+            if (currentReachabilityStatus != .notReachable) {
+                // TODO: Get Username at beginning
+                postScore(score: endGameScore, forUser: "Ehimare", country: self.appDelegate.country)
+            }
         }
         
         centerLayerView.isHidden = true

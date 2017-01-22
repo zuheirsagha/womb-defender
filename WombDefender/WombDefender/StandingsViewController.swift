@@ -48,35 +48,10 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // TODO: need to get actually country from userdefaults / location settings
         if _regionSegmentedControl.selectedSegmentIndex == 0 {
-            
+            loadData(type: .Country)
         }
         else if _regionSegmentedControl.selectedSegmentIndex == 1 {
-            
-        }
-        else {
-            
-        }
-        _spinner.startAnimating()
-        getScores(type: .Country, country: "canada") { (scores, error) in
-            if (error != nil) {
-                // present there was an error, based on what error there was
-                print("There was an error - either network or responseStatus. Show the user")
-            }
-            else if (scores != nil) {
-                for score in scores! {
-                    let newScore = Score(name: score["user"] as! String, country: score["country"] as! String, value: score["score"] as! Int)
-                    self._scores.append(newScore)
-                }
-                DispatchQueue.main.async {
-                    self._tableView.reloadData()
-                }
-                
-            } else {
-                print("it tripped out on one of those weird cases where url didnt work or wanted country but didnt allow location. Respond accordingly")
-            }
-            DispatchQueue.main.async {
-                self._spinner.stopAnimating()
-            }
+            loadData(type: .World)
         }
     }
     
@@ -102,5 +77,56 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         cell._leaderboardScoreLabel.text = "\(score.value)"
         cell._leaderboardCountryLabel.text = score.country
         return cell
+    }
+    
+    @IBAction func typeSelected(_ sender: Any) {
+        if _regionSegmentedControl.selectedSegmentIndex == 0 {
+            loadData(type: .Country)
+        }
+        else if _regionSegmentedControl.selectedSegmentIndex == 1 {
+            loadData(type: .World)
+        }
+    }
+    
+    
+    private func loadData(type: ScoreType) {
+        _spinner.startAnimating()
+        if (currentReachabilityStatus == .notReachable) {
+            _spinner.stopAnimating()
+            let alertController = UIAlertController(title: "Error", message: "No internet connection", preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+                print("You've pressed OK button");
+            }
+            alertController.addAction(OKAction)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        getScores(type: type, country: self.appDelegate.country) { (scores, error) in
+            if (scores != nil) {
+                for score in scores! {
+                    let newScore = Score(name: score["user"] as! String, country: score["country"] as! String, value: score["score"] as! Int)
+                    self._scores.append(newScore)
+                }
+                DispatchQueue.main.async {
+                    self._tableView.reloadData()
+                }
+                
+            } else {
+                // present there was an error, based on what error there was
+                print("There was an error - either network or responseStatus. Show the user")
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Error", message: "Cannot load scores at this time, sorry.", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+                        print("You've pressed OK button");
+                    }
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self._spinner.stopAnimating()
+            }
+        }
     }
 }
