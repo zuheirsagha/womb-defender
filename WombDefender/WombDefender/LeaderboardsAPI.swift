@@ -73,9 +73,12 @@ func getScores(type: ScoreType, country: String?, completion: @escaping (_ data:
         return completion(nil, nil)
     }
     
-    url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    guard let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+        print("Cant encode URL")
+        return completion(nil, nil)
+    }
     
-    guard let requestURL = URL(string: url) else {
+    guard let requestURL = URL(string: encodedUrl) else {
         print("Cant create URL")
         return completion(nil, nil)
     }
