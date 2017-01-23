@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol LevelControllerDelegate {
     func gameIsOver()
@@ -50,15 +51,33 @@ class LevelController : SpermDelegate, EggDelegate {
     // Initializers
     //
     /////////////////////////////////////////////////////////////////////////////////////
+    var appDelegate : AppDelegate {
+        get {
+            return UIApplication.shared.delegate! as! AppDelegate
+        }
+    }
     
     init(delegate: MainGameViewController) {
         _delegate = delegate
         _level = 1
         _score = 0
         _interval = 500
-        _number = Int(floor(2.5*sqrt(Double(_level))))
-        _strength = 0.5
-        probabilityOfMega = 2*_level
+        
+        if appDelegate.difficulty == .Easy {
+            probabilityOfMega = 2*_level
+            _strength = 0.5
+            _number = Int(floor(2.5*sqrt(Double(_level))))
+        }
+        else if appDelegate.difficulty == .Medium {
+            probabilityOfMega = 4*_level
+            _strength = 1
+            _number = Int(floor(3.5*sqrt(Double(_level))))
+        }
+        else {
+            probabilityOfMega = 6*_level
+            _strength = 1.5
+            _number = Int(floor(5*sqrt(Double(_level))))
+        }
         
         restart()
     }

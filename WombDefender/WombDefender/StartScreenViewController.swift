@@ -49,8 +49,6 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        appDelegate.coins = 100
-        
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
        
@@ -64,10 +62,6 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
         }
         else {
             _difficultySegmentedControl.setEnabled(true, forSegmentAt: 2)
-        }
-        
-        if (!appDelegate.usernameSelected) {
-            pickUsername()
         }
         
         _locationManager.delegate = self
@@ -84,6 +78,13 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
         view.insertSubview(centerLayerView, at: 1)
         view.insertSubview(secondLayerView, at: 1)
         view.insertSubview(thirdLayerView, at: 1)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if (!appDelegate.usernameSelected) {
+            pickUsername()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
