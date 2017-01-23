@@ -44,6 +44,7 @@ open class SettingsManager {
     fileprivate var _numberOfThirdPowerUps : Int = 0
     
     fileprivate var _firstTimeOrTutorialPlayed : Bool = false
+    fileprivate var _username : String = "Zoko-anonymous"
     
     fileprivate var _country : String = "Zoko"
     
@@ -89,6 +90,16 @@ open class SettingsManager {
         }
         set {
             _firstTimeOrTutorialPlayed = newValue
+            _saveSettings()
+        }
+    }
+    
+    open var username : String {
+        get {
+            return _username
+        }
+        set {
+            _username = newValue
             _saveSettings()
         }
     }
@@ -205,6 +216,9 @@ open class SettingsManager {
         }
         
         _firstTimeOrTutorialPlayed = defaults.bool(forKey: "firstTimeOrTutorialPlayed")
+        if defaults.string(forKey: "username") != nil {
+            _username = defaults.string(forKey: "username")!
+        }
         
         _numberOfFirstPowerUps = defaults.integer(forKey: "numberOfFirstPowerUps")
         _numberOfSecondPowerUps = defaults.integer(forKey: "numberOfSecondPowerUps")
@@ -227,6 +241,7 @@ open class SettingsManager {
         defaults.set(_country, forKey: "country")
         
         defaults.set(_firstTimeOrTutorialPlayed, forKey: "firstTimeOrTutorialPlayed")
+        defaults.set(_username, forKey: "username")
         
         defaults.set(_numberOfFirstPowerUps, forKey: "numberOfFirstPowerUps")
         defaults.set(_numberOfSecondPowerUps, forKey: "numberOfSecondPowerUps")

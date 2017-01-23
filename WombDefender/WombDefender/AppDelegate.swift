@@ -113,6 +113,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         }
     }
     
+    open var username : String {
+        get {
+            return SettingsManager.sharedInstance.username
+        }
+        set {
+            SettingsManager.sharedInstance.username = newValue
+        }
+    }
+    
     open var appIsMute : Bool {
         get {
             return SettingsManager.sharedInstance.appIsMute

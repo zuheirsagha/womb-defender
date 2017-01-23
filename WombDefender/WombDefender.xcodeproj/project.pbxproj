@@ -27,7 +27,6 @@
 		2776034D1DCC22EF006C7B7C /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034C1DCC22EF006C7B7C /* ShopViewController.swift */; };
 		2776034F1DCC24EE006C7B7C /* StandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */; };
 		27D3063F1DEE7CF900F3F62C /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D3063E1DEE7CF900F3F62C /* SwipeView.swift */; };
-		A22DD7FE1E34B572000E5D42 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22DD7FD1E34B572000E5D42 /* Reachability.swift */; };
 		A24B61FD1DA48B900012407A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B61FC1DA48B900012407A /* AppDelegate.swift */; };
 		A24B62021DA48B900012407A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A24B62001DA48B900012407A /* Main.storyboard */; };
 		A24B62051DA48B900012407A /* WombDefender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */; };
@@ -37,6 +36,7 @@
 		A24B62141DA4A0B10012407A /* EggModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62131DA4A0B10012407A /* EggModel.swift */; };
 		A24B62171DA5C4F40012407A /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B62161DA5C4F40012407A /* MainGameViewController.swift */; };
 		A24B621B1DA5CEF90012407A /* LevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B621A1DA5CEF90012407A /* LevelController.swift */; };
+		A24D07331E359C0500F166E4 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24D07321E359C0500F166E4 /* Reachability.swift */; };
 		A2BCF6731E24A087007AD0CF /* LeaderboardsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BCF6721E24A087007AD0CF /* LeaderboardsAPI.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,7 +64,6 @@
 		2776034C1DCC22EF006C7B7C /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		2776034E1DCC24EE006C7B7C /* StandingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandingsViewController.swift; sourceTree = "<group>"; };
 		27D3063E1DEE7CF900F3F62C /* SwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
-		A22DD7FD1E34B572000E5D42 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A24B61F91DA48B900012407A /* WombDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WombDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24B61FC1DA48B900012407A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A24B62011DA48B900012407A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		A24B62131DA4A0B10012407A /* EggModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EggModel.swift; sourceTree = "<group>"; };
 		A24B62161DA5C4F40012407A /* MainGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
 		A24B621A1DA5CEF90012407A /* LevelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelController.swift; sourceTree = "<group>"; };
+		A24D07321E359C0500F166E4 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A2BCF6721E24A087007AD0CF /* LeaderboardsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -180,6 +180,7 @@
 				A24B620B1DA48B900012407A /* Info.plist */,
 				A24B62031DA48B900012407A /* WombDefender.xcdatamodeld */,
 				A2BCF6721E24A087007AD0CF /* LeaderboardsAPI.swift */,
+				A24D07321E359C0500F166E4 /* Reachability.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -187,7 +188,6 @@
 		A24B61F01DA48B8F0012407A = {
 			isa = PBXGroup;
 			children = (
-				A22DD7FD1E34B572000E5D42 /* Reachability.swift */,
 				A24B61FB1DA48B900012407A /* WombDefender */,
 				A24B61FA1DA48B900012407A /* Products */,
 				271B72681E2D04BE0003E0CE /* Frameworks */,
@@ -316,7 +316,7 @@
 				271B72651E203F000003E0CE /* PowerUpCell.swift in Sources */,
 				275087401DBB0A3700741CC7 /* UIConstants.swift in Sources */,
 				270AD7741DA72E88006A5CE3 /* SpermBehaviour.swift in Sources */,
-				A22DD7FE1E34B572000E5D42 /* Reachability.swift in Sources */,
+				A24D07331E359C0500F166E4 /* Reachability.swift in Sources */,
 				277228941DA5EF2D0045D1E3 /* StartScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -103,6 +103,7 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         getScores(type: type, country: self.appDelegate.country) { (scores, error) in
             if (scores != nil) {
+                self._scores.removeAll()
                 for score in scores! {
                     let newScore = Score(name: score["user"] as! String, country: score["country"] as! String, value: score["score"] as! Int)
                     self._scores.append(newScore)

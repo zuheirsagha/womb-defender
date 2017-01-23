@@ -86,6 +86,10 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (appDelegate.firstTimeOrTutorialPlayed) {
+            pickUsername()
+        }
+        
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
         
@@ -229,7 +233,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
             appDelegate.highestScore = endGameScore
             if (currentReachabilityStatus != .notReachable) {
                 // TODO: Get Username at beginning
-                postScore(score: endGameScore, forUser: "Ehimare", country: self.appDelegate.country)
+                postScore(score: endGameScore, forUser: self.appDelegate.username, country: self.appDelegate.country)
             }
         }
         
@@ -590,5 +594,28 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     
     func firstSwipe() {
         animator.addBehavior(swim)
+    }
+    
+    private func pickUsername() {
+        let alertController = UIAlertController(title: "Select Username", message: "You must choose a name between 4 and 12 characters for the leaderboards.", preferredStyle: .alert)
+        
+        let doneAction = UIAlertAction(title: "Done!", style: .default) { (action:UIAlertAction) in
+            if alertController.textFields![0].text == nil || alertController.textFields![0].text == "" {
+                return self.pickUsername()
+            }
+            let text = alertController.textFields![0].text!
+            if text.characters.count < 4 || text.characters.count > 12 {
+                return self.pickUsername()
+            }
+            
+            self.appDelegate.username = alertController.textFields![0].text!
+        }
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter username"
+        }
+        
+        alertController.addAction(doneAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
