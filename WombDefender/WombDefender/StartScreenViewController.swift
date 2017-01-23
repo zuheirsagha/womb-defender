@@ -11,6 +11,7 @@ import CoreLocation
 
 class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
 
+    @IBOutlet weak var instructionsView: UIView!
     @IBOutlet weak var _headerView: UIView!
     @IBOutlet weak var _titleImageView: UIImageView!
     @IBOutlet weak var _tapToStartLabel: UILabel!
@@ -22,7 +23,7 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var _difficultySegmentedControl: UISegmentedControl!
     @IBOutlet weak var settingsView: UIView!
     
-    @IBOutlet weak var musicCheckBoxButton: UIButton!
+//    @IBOutlet weak var musicCheckBoxButton: UIButton!
     @IBOutlet weak var soundFXCheckBoxButton: UIButton!
     
     /////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +71,7 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
         _locationManager.startUpdatingLocation()
         
         settingsView.isHidden = true
+        instructionsView.isHidden = true
         
         centerLayerView = views[0]
         secondLayerView = views[1]
@@ -101,6 +103,25 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
     // Actions/Selectors
     //
     /////////////////////////////////////////////////////////////////////////////////////
+    
+    @IBAction func onCloseInstructionsPressed(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.instructionsView.alpha = 0
+        }, completion: { (Bool) in
+            self.instructionsView.isHidden = true
+            self.instructionsView.alpha = 0
+        })
+    }
+    
+    @IBAction func onInstructionsButtonPressed(_ sender: UIButton) {
+        instructionsView.alpha = 0
+        instructionsView.superview?.bringSubview(toFront: instructionsView)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.instructionsView.alpha = 1
+        })
+        instructionsView.isHidden = false
+    }
     
     @IBAction func onCancelSettingsPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5, animations: {
@@ -162,12 +183,12 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
             soundFXCheckBoxButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
         
-        if appDelegate.appIsMute {
-            musicCheckBoxButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
-        }
-        else {
-            musicCheckBoxButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
-        }
+//        if appDelegate.appIsMute {
+//            musicCheckBoxButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+//        }
+//        else {
+//            musicCheckBoxButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+//        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
