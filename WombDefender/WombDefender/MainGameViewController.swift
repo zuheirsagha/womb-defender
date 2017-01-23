@@ -86,7 +86,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (appDelegate.firstTimeOrTutorialPlayed) {
+        if (!appDelegate.usernameSelected) {
             pickUsername()
         }
         
@@ -617,5 +617,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil)
+        
+        appDelegate.usernameSelected = true
     }
 }

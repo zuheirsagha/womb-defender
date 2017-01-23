@@ -43,7 +43,10 @@ open class SettingsManager {
     fileprivate var _numberOfSecondPowerUps : Int = 0
     fileprivate var _numberOfThirdPowerUps : Int = 0
     
-    fileprivate var _firstTimeOrTutorialPlayed : Bool = false
+    fileprivate var _firstTimeOrTutorialPlayed : Bool = true
+    
+    fileprivate var _usernameSelected: Bool = false
+    
     fileprivate var _username : String = "Zoko-anonymous"
     
     fileprivate var _country : String = "Zoko"
@@ -90,6 +93,16 @@ open class SettingsManager {
         }
         set {
             _firstTimeOrTutorialPlayed = newValue
+            _saveSettings()
+        }
+    }
+    
+    open var usernameSelected : Bool {
+        get {
+            return _usernameSelected
+        }
+        set {
+            _usernameSelected = newValue
             _saveSettings()
         }
     }
@@ -220,6 +233,8 @@ open class SettingsManager {
             _username = defaults.string(forKey: "username")!
         }
         
+        _usernameSelected = defaults.bool(forKey: "usernameSelected")
+        
         _numberOfFirstPowerUps = defaults.integer(forKey: "numberOfFirstPowerUps")
         _numberOfSecondPowerUps = defaults.integer(forKey: "numberOfSecondPowerUps")
         _numberOfThirdPowerUps = defaults.integer(forKey: "numberOfThirdPowerUps")
@@ -234,6 +249,8 @@ open class SettingsManager {
         defaults.set(_appIsMute, forKey: "appIsMute")
         defaults.set(_appFXIsMute, forKey: "appFXIsMute")
         defaults.set(_highestScore, forKey: "highestScore")
+        
+        defaults.set(_usernameSelected, forKey: "usernameSelected")
         
         let difficulty = _difficulty.rawValue
         defaults.set(difficulty, forKey: "difficulty")

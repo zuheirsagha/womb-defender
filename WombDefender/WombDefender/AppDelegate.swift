@@ -185,6 +185,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         }
     }
     
+    open var usernameSelected : Bool {
+        get {
+            return SettingsManager.sharedInstance.usernameSelected
+        }
+        set {
+            SettingsManager.sharedInstance.usernameSelected = newValue
+        }
+    }
+    
     open var numberOfSecondPowerUps : Int {
         get {
             return SettingsManager.sharedInstance.numberOfSecondPowerUps
