@@ -250,7 +250,7 @@
 				TargetAttributes = {
 					A24B61F81DA48B8F0012407A = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7FXR49AAUG;
+						DevelopmentTeam = GV9RPX6DK9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -457,10 +457,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7FXR49AAUG;
+				DEVELOPMENT_TEAM = GV9RPX6DK9;
 				INFOPLIST_FILE = WombDefender/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Zoko.WombDefender3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Zoko.WombDefender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,10 +472,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7FXR49AAUG;
+				DEVELOPMENT_TEAM = GV9RPX6DK9;
 				INFOPLIST_FILE = WombDefender/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Zoko.WombDefender3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Zoko.WombDefender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

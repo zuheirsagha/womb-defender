@@ -66,6 +66,10 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
             _difficultySegmentedControl.setEnabled(true, forSegmentAt: 2)
         }
         
+        if (!appDelegate.usernameSelected) {
+            pickUsername()
+        }
+        
         _locationManager.delegate = self
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest
         _locationManager.requestWhenInUseAuthorization()
@@ -186,4 +190,28 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
         print("Error updating location: \(error.localizedDescription)")
     }
     
+    private func pickUsername() {
+        let alertController = UIAlertController(title: "Select Username", message: "You must choose a name between 4 and 12 characters for the leaderboards.", preferredStyle: .alert)
+        
+        let doneAction = UIAlertAction(title: "Done!", style: .default) { (action:UIAlertAction) in
+            if alertController.textFields![0].text == nil || alertController.textFields![0].text == "" {
+                return self.pickUsername()
+            }
+            let text = alertController.textFields![0].text!
+            if text.characters.count < 4 || text.characters.count > 12 {
+                return self.pickUsername()
+            }
+            
+            self.appDelegate.username = alertController.textFields![0].text!
+        }
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter username"
+        }
+        
+        alertController.addAction(doneAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        appDelegate.usernameSelected = true
+    }
 }
