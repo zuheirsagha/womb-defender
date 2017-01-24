@@ -150,6 +150,16 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
         
         settingsView.alpha = 0
         settingsView.superview?.bringSubview(toFront: settingsView)
+        print("\(appDelegate.difficulty)")
+        if appDelegate.difficulty == .Easy {
+            _difficultySegmentedControl.selectedSegmentIndex = 0
+        }
+        else if appDelegate.difficulty == .Medium {
+            _difficultySegmentedControl.selectedSegmentIndex = 1
+        }
+        else {
+            _difficultySegmentedControl.selectedSegmentIndex = 2
+        }
         
         UIView.animate(withDuration: 0.5, animations: {
             self.settingsView.alpha = 1
@@ -173,6 +183,7 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
         else {
             appDelegate.difficulty = .Hard
         }
+        print("\(appDelegate.difficulty)")
     }
     
     open func _reloadViews() {
