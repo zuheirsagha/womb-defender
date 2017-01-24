@@ -24,6 +24,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _thirdPowerUpLabel: UILabel!
     @IBOutlet weak var _thirdPowerUpButton: UIButton!
     
+    @IBOutlet weak var _instructionsView: UIView!
     @IBOutlet weak var _settingsScreenMuteButton: UIButton!
     @IBOutlet weak var _settingsMenuView: UIView!
     @IBOutlet var _mainGameView: UIView!
@@ -46,6 +47,18 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     @IBOutlet weak var _levelBanner: UIView!
     @IBOutlet weak var _levelBannerLabel: UILabel!
     
+    @IBAction func onInstructionsCloseButtonPressed(_ sender: UIButton) {
+        
+        self.animator.addBehavior(self.swim)
+        UIView.animate(withDuration: 0.5, animations: {
+            self._instructionsView.alpha = 0
+        }, completion: { (Bool) in
+            self._instructionsView.isHidden = true
+            self._instructionsView.alpha = 0
+            self.appDelegate.viewedInstructions = true
+        })
+        
+    }
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Member Variables
@@ -97,6 +110,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _levelBanner.center = left
         
         _settingsMenuView.isHidden = true
+        _instructionsView.isHidden = true
         
         _swipeView.setDelegate(self)
         
@@ -415,6 +429,17 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         swim.setFieldStrength(strength: currentLevelController.fieldStrength())
         
         _drawWomb()
+        
+        if !appDelegate.viewedInstructions {
+            _instructionsView.alpha = 0
+            _instructionsView.superview?.bringSubview(toFront: _instructionsView)
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self._instructionsView.alpha = 1
+            })
+            _instructionsView.isHidden = false
+        }
+        
         _reloadViews()
         animator.addBehavior(swim)
         //print("\(!appDelegate.firstTimeOrTutorialPlayed)")
@@ -438,7 +463,7 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
     fileprivate func createSperm() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(interval)) {
             print("\(self.total)")
-            if self._settingsMenuView.isHidden == true && self.total > 0 {
+            if self._settingsMenuView.isHidden && self.total > 0 && self._instructionsView.isHidden {
                 self._createSperm()
                 self.total = self.total - 1
             }

@@ -46,6 +46,7 @@ open class SettingsManager {
     fileprivate var _firstTimeOrTutorialPlayed : Bool = true
     
     fileprivate var _usernameSelected: Bool = false
+    fileprivate var _viewedInstructions: Bool = false
     
     fileprivate var _username : String = "Zoko-anonymous"
     
@@ -103,6 +104,16 @@ open class SettingsManager {
         }
         set {
             _usernameSelected = newValue
+            _saveSettings()
+        }
+    }
+    
+    open var viewedInstructions : Bool {
+        get {
+            return _viewedInstructions
+        }
+        set {
+            _viewedInstructions = newValue
             _saveSettings()
         }
     }
@@ -234,6 +245,7 @@ open class SettingsManager {
         }
         
         _usernameSelected = defaults.bool(forKey: "usernameSelected")
+        _viewedInstructions = defaults.bool(forKey: "viewedInstructions")
         
         _numberOfFirstPowerUps = defaults.integer(forKey: "numberOfFirstPowerUps")
         _numberOfSecondPowerUps = defaults.integer(forKey: "numberOfSecondPowerUps")
@@ -251,6 +263,7 @@ open class SettingsManager {
         defaults.set(_highestScore, forKey: "highestScore")
         
         defaults.set(_usernameSelected, forKey: "usernameSelected")
+        defaults.set(_viewedInstructions, forKey: "viewedInstructions")
         
         let difficulty = _difficulty.rawValue
         defaults.set(difficulty, forKey: "difficulty")

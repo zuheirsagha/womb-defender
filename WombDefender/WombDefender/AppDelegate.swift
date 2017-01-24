@@ -194,6 +194,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SettingsManagerDelegate {
         }
     }
     
+    open var viewedInstructions : Bool {
+        get {
+            return SettingsManager.sharedInstance.viewedInstructions
+        }
+        set {
+            SettingsManager.sharedInstance.viewedInstructions = newValue
+        }
+    }
+    
     open var numberOfSecondPowerUps : Int {
         get {
             return SettingsManager.sharedInstance.numberOfSecondPowerUps
