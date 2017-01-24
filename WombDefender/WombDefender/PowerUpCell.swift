@@ -32,14 +32,14 @@ class PowerUpCell : UITableViewCell {
     }
     
     @IBAction func onPowerUpPriceButtonPressed(_ sender: UIButton) {
-        if _powerUpNameLabel.text == "Condom" && appDelegate.coins >= 100 {
-            appDelegate.coins = appDelegate.coins - 100
+        if _powerUpNameLabel.text == "Condom" && appDelegate.coins >= 50 {
+            appDelegate.coins = appDelegate.coins - 50
             appDelegate.numberOfSecondPowerUps += 1
             _delegate.boughtSomething()
             print("Condom")
         }
-        else if _powerUpNameLabel.text == "The Pill" && appDelegate.coins >= 100 {
-            appDelegate.coins = appDelegate.coins - 100
+        else if _powerUpNameLabel.text == "The Pill" && appDelegate.coins >= 50 {
+            appDelegate.coins = appDelegate.coins - 50
             appDelegate.numberOfFirstPowerUps += 1
             _delegate.boughtSomething()
             print("The Pill")

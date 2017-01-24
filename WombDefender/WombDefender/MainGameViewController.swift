@@ -59,6 +59,9 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         })
         
     }
+    
+    var babyView : UIImageView!
+    
     /////////////////////////////////////////////////////////////////////////////////////
     //
     // Member Variables
@@ -115,6 +118,11 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         _swipeView.setDelegate(self)
         
         _startGame()
+        let side = self.view.frame.width / 1.5
+        babyView = UIImageView(frame: CGRect(x: self.view.frame.midX - (side / 2), y: self.view.frame.midY - (side / 2), width: 0, height: 0))
+        babyView.isHidden = true
+        babyView.image = #imageLiteral(resourceName: "baby")
+        self.view.addSubview(babyView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -236,24 +244,32 @@ class MainGameViewController: UIViewController, LevelControllerDelegate, UIColli
         let endGameScore = currentLevelController.getScore()
         _scoreLabel.text = "\(endGameScore)"
         
-        _endGameCoinsLabel.text = "\(endGameScore/1000)"
-        appDelegate.coins = appDelegate.coins + (endGameScore/1000)
+        _endGameCoinsLabel.text = "\(Int(endGameScore/1000))"
+        appDelegate.coins = appDelegate.coins + Int(endGameScore/1000)
         
         if endGameScore > appDelegate.highestScore {
             appDelegate.highestScore = endGameScore
             if (currentReachabilityStatus != .notReachable) {
-                // TODO: Get Username at beginning
                 postScore(score: endGameScore, forUser: self.appDelegate.username, country: self.appDelegate.country)
             }
         }
         
         centerLayerView.isHidden = true
-        
+        babyView.isHidden = false
         _endGameView.alpha = 0.0
-        _endGameView.isHidden = false
         _endGameScoreLabel.text = "\(currentLevelController.getScore())"
         _endGameBestScoreLabel.text = NSLocalizedString("best_score", param1: appDelegate.highestScore)
-        UIView.transition(with: _endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
+        UIView.transition(with: babyView, duration: 2.0, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
+            let side = self.view.frame.width / 1.5
+            self.babyView.frame.size.width = side
+            self.babyView.frame.size.height = side
+            print("runs this")
+        }, completion: { bool in
+            self.babyView.frame.size.height = 0
+            self.babyView.frame.size.width = 0
+            self._endGameView.isHidden = false
+            UIView.transition(with: self._endGameView, duration: 0.5, options: UIViewAnimationOptions.allowAnimatedContent, animations: {self._endGameView.alpha=1.0}, completion: nil)
+        })
     }
     
     func nextLevel() {

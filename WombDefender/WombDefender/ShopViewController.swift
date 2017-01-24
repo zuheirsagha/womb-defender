@@ -56,13 +56,13 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell._powerUpImage.image = #imageLiteral(resourceName: "condom")
                 cell._powerUpNameLabel.text = "Condom"
                 cell._powerUpDescriptionLabel.text = "Extra life! Wrap it up and keep yourself in the game longer"
-                cell._powerUpPriceButton.setTitle("100", for: .normal)
+                cell._powerUpPriceButton.setTitle("50", for: .normal)
             }
             else if indexPath.row == 1 {
                 cell._powerUpImage.image = #imageLiteral(resourceName: "spermicide")
                 cell._powerUpNameLabel.text = "Spermicide"
                 cell._powerUpDescriptionLabel.text = "Kill all the sperm currently on the screen with one quick tap!"
-                cell._powerUpPriceButton.setTitle("100", for: .normal)
+                cell._powerUpPriceButton.setTitle("50", for: .normal)
             }
             else if indexPath.row == 2 {
                 //cell._powerUpImage.image = #imageLiteral(resourceName: "pill")
