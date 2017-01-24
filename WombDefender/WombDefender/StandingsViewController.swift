@@ -44,15 +44,6 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
         let gradient = GradientView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.insertSubview(gradient, at: 0)
         
-        // TODO: Check if they allow location settings and set a variable allowing or disallowing them to get settings in their country
-        
-        // TODO: need to get actually country from userdefaults / location settings
-        if _regionSegmentedControl.selectedSegmentIndex == 0 {
-            loadData(type: .Country)
-        }
-        else if _regionSegmentedControl.selectedSegmentIndex == 1 {
-            loadData(type: .World)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +52,15 @@ class StandingsViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if _regionSegmentedControl.selectedSegmentIndex == 0 {
+            loadData(type: .Country)
+        }
+        else if _regionSegmentedControl.selectedSegmentIndex == 1 {
+            loadData(type: .World)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
