@@ -24,6 +24,8 @@ class LevelController : SpermDelegate, EggDelegate {
     /////////////////////////////////////////////////////////////////////////////////////
     
     fileprivate var _score : Int!
+    fileprivate var _regularIncrement : Int!
+    fileprivate var _megaIncrement : Int!
     fileprivate var _delegate : MainGameViewController!
     fileprivate var _egg : Egg!
     
@@ -67,16 +69,22 @@ class LevelController : SpermDelegate, EggDelegate {
             probabilityOfMega = 2*_level
             _strength = 0.5
             _number = Int(floor(2.5*sqrt(Double(_level))))
+            _regularIncrement = 50
+            _megaIncrement = 20
         }
         else if appDelegate.difficulty == .Medium {
             probabilityOfMega = 4*_level
             _strength = 1
             _number = Int(floor(3.5*sqrt(Double(_level))))
+            _regularIncrement = 75
+            _megaIncrement = 35
         }
         else {
             probabilityOfMega = 6*_level
             _strength = 1.5
             _number = Int(floor(5*sqrt(Double(_level))))
+            _regularIncrement = 100
+            _megaIncrement = 50
         }
         
         restart()
@@ -146,7 +154,7 @@ class LevelController : SpermDelegate, EggDelegate {
     
     func spermDeadAtIndex(index: Int) {
         print("number: \(_number) --- killed: \(_numberKilledInLevel)")
-        _score = _score + 100
+        _score = _score + _regularIncrement
         numberKilledInLevel = numberKilledInLevel + 1
         _delegate.removeSwimBehaviorAtIndex(index: index)
         _delegate.removeSpermViewAtIndex(index: index)
@@ -161,7 +169,7 @@ class LevelController : SpermDelegate, EggDelegate {
     }
     
     func spermIsDemotedAtIndex(index: Int) {
-        _score = _score + 50
+        _score = _score + _megaIncrement
         _delegate.demoteSpermViewAtIndex(index: index)
     }
     
