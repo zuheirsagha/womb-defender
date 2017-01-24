@@ -48,7 +48,7 @@ open class SettingsManager {
     fileprivate var _usernameSelected: Bool = false
     fileprivate var _viewedInstructions: Bool = false
     
-    fileprivate var _username : String = "Zoko-anonymous"
+    fileprivate var _username : String = "Zoko-anon"
     
     fileprivate var _country : String = "Zoko"
     

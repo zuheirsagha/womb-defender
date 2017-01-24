@@ -224,14 +224,14 @@ class StartScreenViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func pickUsername() {
-        let alertController = UIAlertController(title: "Select Username", message: "You must choose a name between 4 and 15 characters for the leaderboards.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Select Username", message: "You must choose a name between 4 and 12 characters for the leaderboards.", preferredStyle: .alert)
         
         let doneAction = UIAlertAction(title: "Done!", style: .default) { (action:UIAlertAction) in
             if alertController.textFields![0].text == nil || alertController.textFields![0].text == "" {
                 return self.pickUsername()
             }
             let text = alertController.textFields![0].text!
-            if text.characters.count < 4 || text.characters.count > 15 {
+            if text.characters.count < 4 || text.characters.count > 12 {
                 return self.pickUsername()
             }
             
